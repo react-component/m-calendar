@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Component, { PropsType, StateType } from './DatePicker.base';
+import PropsType from './DatePickerProps';
+import Component from './DatePicker.base';
 import WeekPanel from './date/WeekPanel';
 import SingleMonth from './date/SingleMonth';
 import { Models } from './date/DataTypes';
@@ -32,39 +33,6 @@ export default class DatePicker extends Component {
             data.height = singleMonth.wrapperDivDOM.clientHeight;
             data.y = singleMonth.wrapperDivDOM.offsetTop;
         }
-    }
-
-    onCellClick = (single: SingleMonth, day: Models.CellData) => {
-        if (!day.tick) return;
-
-        this.props.onCellClick && this.props.onCellClick(new Date(day.tick));
-    }
-
-    createOnScroll = () => {
-        let timer: any;
-        let fullHeight = 0, clientHeight = 0, scrollTop = 0;
-
-        return (data: { full: number, client: number, top: number }) => {
-            const { full, client, top } = data;
-            fullHeight = full;
-            clientHeight = client;
-            scrollTop = top;
-
-            if (timer) {
-                return;
-            }
-
-            timer = setTimeout(() => {
-                timer = undefined;
-                const time1 = +new Date;
-                if (this.computeVisible(fullHeight, clientHeight, scrollTop)) {
-                    const time2 = +new Date;
-                    this.forceUpdate();
-                    // console.log('forceUpdate', +new Date - time2);
-                }
-                // console.log('all', +new Date - time1);
-            }, 64);
-        };
     }
 
     setLayout = (dom: HTMLDivElement) => {
@@ -125,10 +93,6 @@ export default class DatePicker extends Component {
                                         return <div key={m.title + '_shallow'} style={{ height: m.height }}></div>;
                                     }
                                     return m.component;
-
-                                    {/* return <div key={m.title} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
-                                    {m.component}
-                                </div>; */}
                                 })
                             }
                         </div>

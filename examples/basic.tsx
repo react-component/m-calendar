@@ -1,6 +1,7 @@
 /* tslint:disable:no-console */
 
 import 'rmc-picker/assets/index.css';
+import 'rmc-date-picker/assets/index.css';
 import 'rmc-calendar/assets/index.less';
 
 import React from 'react';
@@ -9,7 +10,6 @@ import Calendar, { ExtraData } from '../src/Calendar';
 
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
-    '2017/08/11': { info: '周报!' },
     '2017/08/14': { info: '百阿', disable: true },
     '2017/08/15': { info: '百阿', disable: true },
     '2017/08/16': { info: '百阿', disable: true },
@@ -48,12 +48,33 @@ class BasicDemo extends React.Component<any, any> {
                     }}>
                     选择日期时间
                 </div>
+                <div>
+                    {
+                        this.state.startTime &&
+                        <p>开始时间：{this.state.startTime.toLocaleString()}</p>
+                    }
+                    {
+                        this.state.endTime &&
+                        <p>结束时间：{this.state.endTime.toLocaleString()}</p>
+                    }
+                </div>
                 <Calendar
                     visible={this.state.show}
                     pickTime={true}
                     onCancel={() => {
                         document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
-                        this.setState({ show: false });
+                        this.setState({
+                            show: false,
+                            startTime: undefined,
+                            endTime: undefined,
+                        });
+                    }}
+                    onConfirm={(startTime, endTime) => {
+                        this.setState({
+                            show: false,
+                            startTime,
+                            endTime,
+                        });
                     }}
                     getDateExtra={(date) => {
                         return extra[+date];

@@ -4,7 +4,7 @@ import { Models } from './DataTypes';
 export interface PropsType {
     monthData: Models.MonthData;
     getDateExtra?: (date: Date) => Models.ExtraData;
-    onCellClick?: (singleMonth: SingleMonth, data: Models.CellData) => void;
+    onCellClick?: (data: Models.CellData) => void;
 }
 export default class SingleMonth extends React.PureComponent<PropsType, {
     weekComponents: React.ReactNode[]
@@ -124,7 +124,7 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
 
                         return (
                             <div key={dayOfWeek} className={`cell ${extra.cellCls || ''}`} onClick={() => {
-                                !disable && this.props.onCellClick && this.props.onCellClick(this, day);
+                                !disable && this.props.onCellClick && this.props.onCellClick(day);
                             }}>
                                 {
                                     extra.cellRender ?
@@ -153,10 +153,8 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
     }
 
     render() {
-        const { title, weeks, firstDate } = this.props.monthData;
+        const { title } = this.props.monthData;
         const { weekComponents } = this.state;
-        const todayDate = new Date();
-        const today = firstDate.getMonth() === todayDate.getMonth() && todayDate.getDate();
 
         return (
             <div className="single-month" ref={(dom) => this.wrapperDivDOM = dom}>

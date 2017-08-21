@@ -1,31 +1,7 @@
 import * as React from 'react';
 import { Models } from './date/DataTypes';
+import PropsType from './DatePickerProps';
 
-export interface PropsType {
-    /** (web only) 样式前缀 */
-    prefixCls?: string;
-    /** 无限滚动，default: true */
-    infinite?: boolean;
-    /** 无限滚动优化（大范围选择），default: false */
-    infiniteOpt?: boolean;
-    /** 初始化月个数，default: 6 */
-    initalMonths?: number;
-    /** 默认日期，default: today */
-    defaultDate?: Date;
-    /** 最小日期 */
-    minDate?: Date;
-    /** 最大日期 */
-    maxDate?: Date;
-    /** 选择值 */
-    value?: {
-        startDate?: Date;
-        endDate?: Date;
-    };
-    /** 日期扩展数据 */
-    getDateExtra?: (date: Date) => Models.ExtraData;
-    /** 日期点击回调 */
-    onCellClick?: (date: Date) => void;
-}
 export interface StateType {
     months: Models.MonthData[];
 }
@@ -88,9 +64,18 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         return !maxDate || this.state.months.length <= 0 || +this.getMonthDate(maxDate).firstDate > +this.state.months[this.state.months.length - 1].firstDate;
     }
 
+    getDateWithoutTime = (date?: Date) => {
+        if (!date) return 0;
+        return +new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+        );
+    }
+
     genWeekData = (firstDate: Date) => {
-        const minDateTime = +(this.props.minDate || 0);
-        const maxDateTime = +(this.props.maxDate || Number.POSITIVE_INFINITY);
+        const minDateTime = this.getDateWithoutTime(this.props.minDate);
+        const maxDateTime = this.getDateWithoutTime(this.props.maxDate) || Number.POSITIVE_INFINITY;
 
         const weeks: Models.CellData[][] = [];
         const nextMonth = this.getMonthDate(firstDate, 1).firstDate;
@@ -157,7 +142,7 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
 
     selectDateRange = (startDate: Date, endDate?: Date, clear = false) => {
         const { getDateExtra } = this.props;
-        const time1 = +startDate, time2 = endDate ? +endDate : 0;
+        const time1 = this.getDateWithoutTime(startDate), time2 = this.getDateWithoutTime(endDate);
         const startDateTick = !time2 || time1 < time2 ? time1 : time2;
         const endDateTick = time2 && time1 > time2 ? time1 : time2;
 
@@ -216,9 +201,6 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
     }
 
     computeVisible = (fullHeight: number, clientHeight: number, scrollTop: number) => {
-        const canScrollHeight = fullHeight - clientHeight;
-        const toBottom = canScrollHeight - scrollTop;
-
         let needUpdate = false;
         const MAX_VIEW_PORT = clientHeight * 2;
         const MIN_VIEW_PORT = clientHeight;
@@ -263,5 +245,33 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         }
 
         return needUpdate;
+    }
+
+    createOnScroll = () => {
+        let timer: any;
+        let fullHeight = 0, clientHeight = 0, scrollTop = 0;
+
+        return (data: { full: number, client: number, top: number }) => {
+            const { full, client, top } = data;
+            fullHeight = full;
+            clientHeight = client;
+            scrollTop = top;
+
+            if (timer) {
+                return;
+            }
+
+            timer = setTimeout(() => {
+                timer = undefined;
+                if (this.computeVisible(fullHeight, clientHeight, scrollTop)) {
+                    this.forceUpdate();
+                }
+            }, 64);
+        };
+    }
+
+    onCellClick = (day: Models.CellData) => {
+        if (!day.tick) return;
+        this.props.onCellClick && this.props.onCellClick(new Date(day.tick));
     }
 }

@@ -6,57 +6,18 @@ import DatePicker from './DatePicker';
 import ConfirmPanel from './calendar/ConfirmPanel';
 import AnimateWrapper from './calendar/AnimateWrapper';
 import zhCN from './locale/zh_CN';
-import WeekPanel from './date/WeekPanel';
 import Header from './calendar/Header';
 import { Models as DateModels } from './date/DataTypes';
+import PropsType from './CalendarProps';
 
 export type ExtraData = DateModels.ExtraData;
 
-export interface PropsType {
-    /** (web only) 样式前缀，default: rmc-calendar */
-    prefixCls?: string;
-    /** 是否展示头部，default: true */
-    showHeader?: boolean;
-    /** 选择类型，default: range，one: 单日，range: 日期区间 */
-    type?: 'one' | 'range';
-    /** 选择时间，default: false */
-    pickTime?: boolean;
-    /** 是否展示，default: false */
-    visible: boolean;
-    /** 本地化 */
-    locale?: Models.Locale;
-    /** 值变化时回调 */
-    onValueChange?: (startDateTime?: Date, endDateTime?: Date) => void;
-    /** 关闭时回调 */
-    onCancel?: () => void;
-    /** 确认时回调 */
-    onConfirm?: (startDateTime?: Date, endDateTime?: Date) => void;
-
-    // DatePicker
-    /** 无限滚动，default: true */
-    infinite?: boolean;
-    /** 无限滚动优化（大范围选择），default: false */
-    infiniteOpt?: boolean;
-    /** 初始化月个数，default: 6 */
-    initalMonths?: number;
-    /** 开始日期，default: today */
-    defaultDate?: Date;
-    /** 最小日期 */
-    minDate?: Date;
-    /** 最大日期 */
-    maxDate?: Date;
-    /** 日期扩展数据 */
-    getDateExtra?: (date: Date) => ExtraData;
-}
 export class StateType {
     showTimePicker: boolean = false;
     timePickerTitle?: string;
-    startDate?: Date;
-    endDate?: Date;
-    startTime?: number;
-    endTime?: number;
+    startDate?: Date = undefined;
+    endDate?: Date = undefined;
     disConfirm?: boolean = true;
-    defaultTime?: number;
 }
 export default class Calendar extends React.Component<PropsType, StateType> {
     static defaultProps = {
@@ -66,6 +27,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         pickTime: false,
         prefixCls: 'rmc-calendar',
         type: 'range',
+        defaultTimeValue: new Date(2000, 0, 1, 8),
     } as PropsType;
 
     constructor(props: PropsType) {
@@ -75,19 +37,20 @@ export default class Calendar extends React.Component<PropsType, StateType> {
     }
 
     onSelectedDate = (date: Date) => {
-        const { type, pickTime } = this.props;
+        const { type, pickTime, defaultTimeValue } = this.props;
         const { startDate, endDate } = this.state;
+
+        const newDate = this.mergeDateTime(date, defaultTimeValue);
 
         switch (type) {
             case 'one':
                 this.setState({
-                    startDate: date,
+                    startDate: newDate,
                 });
                 if (pickTime) {
                     this.setState({
                         showTimePicker: true,
                         timePickerTitle: '选择时间',
-                        defaultTime: 8 * 60,
                     });
                 }
                 return;
@@ -95,7 +58,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
             case 'range':
                 if (!startDate || endDate) {
                     this.setState({
-                        startDate: date,
+                        startDate: newDate,
                         endDate: undefined,
                         disConfirm: true,
                     });
@@ -106,19 +69,20 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                         });
                     }
                 } else {
-                    if (+date >= +startDate) {
+                    this.setState({
+                        timePickerTitle: '选择结束时间',
+                        disConfirm: false,
+                    });
+                    if (+newDate >= +startDate) {
                         this.setState({
-                            endDate: date,
+                            endDate: new Date(+(newDate || 0) + 3600000),
                         });
                     } else {
                         this.setState({
-                            startDate: date,
+                            startDate: newDate,
                             endDate: startDate,
                         });
                     }
-                    this.setState({
-                        disConfirm: false,
-                    });
                 }
                 return;
 
@@ -138,18 +102,20 @@ export default class Calendar extends React.Component<PropsType, StateType> {
 
     onConfirm = () => {
         this.onClose();
-        this.props.onConfirm && this.props.onConfirm();
+
+        const { startDate, endDate } = this.state;
+        this.props.onConfirm && this.props.onConfirm(startDate, endDate);
     }
 
-    onTimeChange = (time: any) => {
+    onTimeChange = (date: Date) => {
         const { startDate, endDate } = this.state;
         if (endDate) {
             this.setState({
-                endTime: time,
+                endDate: date,
             });
         } else if (startDate) {
             this.setState({
-                startTime: time,
+                startDate: date,
             });
         }
     }
@@ -162,16 +128,29 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         });
     }
 
+    mergeDateTime = (date?: Date, time?: Date) => {
+        date = date || new Date;
+        if (!time) return date;
+        return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            time.getHours(),
+            time.getMinutes()
+        );
+    }
+
     render() {
         const {
-            locale, prefixCls, visible, showHeader, onConfirm, pickTime,
+            locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
+            defaultTimeValue,
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
-            startDate, endDate, startTime, endTime,
-            disConfirm, defaultTime
-            } = this.state;
+            startDate, endDate,
+            disConfirm
+        } = this.state;
 
         return (
             <div className={`${prefixCls} calendar`}>
@@ -208,17 +187,24 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                         {
                             showTimePicker &&
                             <TimePicker
+                                locale={locale}
+                                title={timePickerTitle}
+                                defaultValue={defaultTimeValue}
+                                value={endDate ? endDate : startDate}
                                 onValueChange={this.onTimeChange}
+                                minDate={minDate}
+                                maxDate={maxDate}
                             />
                         }
                         {
                             startDate &&
                             <ConfirmPanel
-                                startDateTime={new Date(+startDate + (startTime || 0))}
-                                endDateTime={endDate && new Date(+endDate + (endTime || 0))}
+                                locale={locale}
+                                startDateTime={startDate}
+                                endDateTime={endDate}
                                 onConfirm={this.onConfirm}
                                 disableBtn={disConfirm}
-                                formatStr={pickTime ? 'yyyy年MM月dd日 星期 hh:mm' : 'yyyy年MM月dd日 星期'}
+                                formatStr={pickTime ? locale.dateTimeFormat : locale.dateFormat}
                             />
                         }
                     </AnimateWrapper>

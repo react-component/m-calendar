@@ -1,77 +1,70 @@
 import React from 'react';
-import Picker from 'rmc-picker';
-import MultiPicker from 'rmc-picker/lib/MultiPicker';
+import DateTimePicker from 'rmc-date-picker';
 
 export interface PropsType {
-    locale?: Object;
+    locale: Models.Locale;
     title?: string;
-    /** unit: minutes, default: 8am */
-    defaultValue?: number;
-    /** unit: minutes */
-    value?: number;
-    onValueChange?: (time: number) => void;
+    defaultValue?: Date;
+    value?: Date;
+    onValueChange?: (time: Date) => void;
+
+    minDate?: Date;
+    maxDate?: Date;
 }
 export interface StateType {
-    value: string[];
 }
 export default class TimePicker extends React.PureComponent<PropsType, StateType> {
     static defaultProps = {
-        // locale: zhCN,
-        defaultValue: 8 * 60,
-    };
+        minDate: new Date(0, 0, 0, 0, 0),
+        maxDate: new Date(9999, 11, 31, 23, 59, 59),
+        defaultValue: new Date(2000, 1, 1, 8),
+    } as PropsType;
 
-    constructor(props: PropsType) {
-        super(props);
-        this.state = {
-            value: [],
-        };
+    onDateChange = (date: Date) => {
+        const { onValueChange } = this.props;
+        onValueChange && onValueChange(date);
     }
 
-    onValueChange = (data: string[]) => {
-        this.setState({ value: data });
-        const isPM = data[0] === 'pm';
-        const hours = isPM ? +data[1] + 12 : +data[1];
-        const minutes = +data[2];
-        this.props.onValueChange && this.props.onValueChange((hours * 60 + minutes) * 60000);
+    getMinTime(date?: Date) {
+        const minDate = this.props.minDate as Date;
+        if (!date ||
+            date.getFullYear() > minDate.getFullYear() ||
+            date.getMonth() > minDate.getMonth() ||
+            date.getDate() > minDate.getDate()
+        ) {
+            return TimePicker.defaultProps.minDate;
+        }
+        return minDate;
+    }
+
+    getMaxTime(date?: Date) {
+        const maxDate = this.props.maxDate as Date;
+        if (!date ||
+            date.getFullYear() < maxDate.getFullYear() ||
+            date.getMonth() < maxDate.getMonth() ||
+            date.getDate() < maxDate.getDate()
+        ) {
+            return TimePicker.defaultProps.maxDate;
+        }
+        return maxDate;
     }
 
     render() {
-        const { title, defaultValue, value } = this.props;
-        let useValue = value || defaultValue || 0;
-        const showValue = [];
-        if (useValue >= 12 * 60) {
-            showValue.push('pm');
-            useValue - 12 * 60;
-        } else {
-            showValue.push('am');
-        }
-        showValue.push((useValue / 60).toFixed(0));
-
-        const hourPickers = [];
-        for (let i = 1; i <= 12; i++) {
-            hourPickers.push(<Picker.Item key={i} value={i + ''}>{i + ''}</Picker.Item>);
-        }
-        const minutePickers = [];
-        for (let i = 0; i <= 59; i++) {
-            const value = i < 10 ? '0' + i : i + '';
-            minutePickers.push(<Picker.Item key={i} value={value}>{value}</Picker.Item>);
-        }
+        const { locale, title, value, defaultValue } = this.props;
+        const date = value || defaultValue || undefined;
 
         return (
             <div className="time-picker">
                 <div className="title">{title}</div>
-                <MultiPicker onValueChange={this.onValueChange} selectedValue={this.state.value}>
-                    <Picker>
-                        <Picker.Item value="am">上午</Picker.Item>
-                        <Picker.Item value="pm">下午</Picker.Item>
-                    </Picker>
-                    <Picker>
-                        {hourPickers}
-                    </Picker>
-                    <Picker>
-                        {minutePickers}
-                    </Picker>
-                </MultiPicker>
+                <DateTimePicker
+                    mode="time"
+                    date={date}
+                    locale={locale}
+                    minDate={this.getMinTime(date)}
+                    maxDate={this.getMaxTime(date)}
+                    onDateChange={this.onDateChange}
+                    use12Hours
+                />
             </div>
         );
     }

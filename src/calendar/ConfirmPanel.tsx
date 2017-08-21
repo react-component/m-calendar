@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 export interface ConfirmPanelPropsType {
+    locale: Models.Locale;
+    onlyConfirm?: boolean;
     disableBtn?: boolean;
     startDateTime?: Date;
     endDateTime?: Date;
@@ -36,9 +38,9 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
     }
 
     render() {
-        const { startDateTime, endDateTime, formatStr = '', disableBtn } = this.props;
-        let startTimeStr = startDateTime ? this.formatDate(startDateTime, formatStr) : '未选择';
-        let endTimeStr = endDateTime ? this.formatDate(endDateTime, formatStr) : '未选择';
+        const { locale, startDateTime, endDateTime, formatStr = '', disableBtn } = this.props;
+        let startTimeStr = startDateTime ? this.formatDate(startDateTime, formatStr) : locale.noChoose;
+        let endTimeStr = endDateTime ? this.formatDate(endDateTime, formatStr) : locale.noChoose;
 
         return (
             <div className="confirm-panel">
