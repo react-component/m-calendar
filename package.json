@@ -1,0 +1,70 @@
+{
+  "name": "rmc-calendar",
+  "version": "0.0.1",
+  "description": "React Mobile Calendar Component(web and react-native)",
+  "keywords": [
+    "react",
+    "react-component",
+    "react-m-calendar",
+    "m-calendar"
+  ],
+  "homepage": "https://github.com/react-component/m-calendar",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-component/m-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/react-component/m-calendar/issues"
+  },
+  "files": [
+    "lib",
+    "es",
+    "assets/*.css"
+  ],
+  "licenses": "MIT",
+  "main": "./lib/index",
+  "module": "./es/index",
+  "config": {
+    "port": 8021
+  },
+  "scripts": {
+    "watch-tsc": "rc-tools run watch-tsc",
+    "compile": "rc-tools run compile --babel-runtime",
+    "build": "rc-tools run build",
+    "gh-pages": "rc-tools run gh-pages",
+    "start": "rc-tools run server",
+    "pub": "rc-tools run pub --babel-runtime",
+    "lint": "rc-tools run lint --no-js-lint",
+    "karma": "rc-test run karma",
+    "saucelabs": "rc-test run saucelabs",
+    "test": "rc-test run test",
+    "chrome-test": "rc-test run chrome-test",
+    "coverage": "rc-test run coverage",
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "babel-runtime": "6.x",
+    "rc-animate": "^2.4.1",
+    "zscroller": "^0.3.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "~2.2.32",
+    "@types/react": "^15.0.27",
+    "@types/react-dom": "^15.5.0",
+    "array-tree-filter": "1.x",
+    "expect.js": "0.3.x",
+    "fastclick": "^1.0.6",
+    "pre-commit": "1.x",
+    "rc-test": "6.x",
+    "rc-tools": "6.x",
+    "react": "15.5.x",
+    "react-dom": "15.5.x",
+    "react-native": "0.41.x",
+    "react-native-index-page": "~0.2.0",
+    "stylelint-config-standard": "^17.0.0"
+  },
+  "typings": "./lib/index.d.ts",
+  "pre-commit": [
+    "lint"
+  ]
+}
