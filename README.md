@@ -57,68 +57,29 @@ react-native run-ios
 [![rmc-calendar](https://nodei.co/npm/rmc-calendar.png)](https://npmjs.org/package/rmc-calendar)
 
 
-# 4.x beta docs
+# docs
 
 ## Usage
 ```jsx
-<MultiPicker
-  selectedValue={this.state.value}
-  onValueChange={this.onChange}
->
-  <Picker indicatorClassName="my-picker-indicator">
-    <Picker.Item className="my-picker-view-item" value="1">one</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="2">two</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="3">three</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="4">four</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="5">five</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="6">six</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="7">seven</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="8">eight</Picker.Item>
-  </Picker>
-  <Picker indicatorClassName="my-picker-indicator">
-    <Picker.Item className="my-picker-view-item" value="11">eleven</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="12">twelve</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="13">thirteen</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="14">fourteen</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="15">fifteen</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="16">sixteen</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="17">seventeen</Picker.Item>
-    <Picker.Item className="my-picker-view-item" value="18">eighteen</Picker.Item>
-  </Picker>
-</MultiPicker>
+<Calendar
+    visible={this.state.show}
+    pickTime={true}
+    onCancel={() => {
+        this.setState({ show: false });
+    }}
+    getDateExtra={(date) => {
+        return extra[+date];
+    }}
+    minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
+    maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
+/>
 ```
 
 ## API
 
-### MultiPicker props
+### Calendar props
 
-| name     | description    | type     | default      |
-|----------|----------------|----------|--------------|
-|className(web) | additional css class of root dom node | String |  |
-|prefixCls(web) | prefix class | String | '' |
-|defaultSelectedValue(web) | default selected values | string[]/number[] |  |
-|selectedValue | current selected values | string[]/number[] |  |
-|onValueChange | fire when picker change | Function(value) |  |
-
-
-### Picker props
-
-| name     | description    | type     | default      |
-|----------|----------------|----------|--------------|
-|className(web) | additional css class of root dom node | String |  |
-|prefixCls(web) | prefix class | String | '' |
-|defaultSelectedValue(web) | default selected values | string/number |  |
-|selectedValue | current selected values | string/number |  |
-|onValueChange | fire when picker change | Function(value) |  |
-|disabled     | whether picker is disabled | bool | false
-|indicatorClassName     | className of indicator | String | 
-|indicatorStyle     | style of indicator | object | 
-
-### Picker.Item props
-| name     | description    | type     | default      |
-|----------|----------------|----------|--------------|
-|className(web) | additional css class of root dom node | String |  |
-|value | value of item | String |  |
+### DatePicker props
 
 ## Test Case
 
