@@ -1,6 +1,8 @@
 import { Models } from './date/DataTypes';
 
 export default interface PropsType {
+    /** 选择类型，default: range，one: 单日，range: 日期区间 */
+    type?: 'one' | 'range';
     /** (web only) 样式前缀 */
     prefixCls?: string;
     /** 无限滚动，default: true */
@@ -24,4 +26,6 @@ export default interface PropsType {
     getDateExtra?: (date: Date) => Models.ExtraData;
     /** 日期点击回调 */
     onCellClick?: (date: Date) => void;
+    /** 选择区间包含不可用日期 */
+    onSelectHasDisableDate?: (date: Date[]) => void;
 }

@@ -33,6 +33,17 @@
         animation-name: fadeOut;
     }
 
+    @keyframes slideInUp {
+        0% {
+            transform: translate3d(0, 100%, 0);
+            visibility: visible;
+        }
+
+        to {
+            transform: translateZ(0);
+        }
+    }
+
     @keyframes slideInDown {
         0% {
             transform: translateZ(0);
@@ -44,14 +55,25 @@
         }
     }
 
-    @keyframes slideInUp {
+    @keyframes slideInLeft {
         0% {
-            transform: translate3d(0, 100%, 0);
+            transform: translate3d(100%, 0, 0);
             visibility: visible;
         }
 
         to {
             transform: translateZ(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        0% {
+            transform: translateZ(0);
+            visibility: visible;
+        }
+
+        to {
+            transform: translate3d(100%, 0, 0);
         }
     }
 

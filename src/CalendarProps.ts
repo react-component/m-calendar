@@ -5,14 +5,20 @@ export default interface PropsType {
     prefixCls?: string;
     /** 是否展示头部，default: true */
     showHeader?: boolean;
+    /** header title, defualt: {locale.title} */
+    title?: string;
     /** 选择类型，default: range，one: 单日，range: 日期区间 */
     type?: 'one' | 'range';
     /** 选择时间，default: false */
     pickTime?: boolean;
+    /** 快捷日期选择， default: false */
+    showShortcut?: boolean;
     /** 是否展示，default: false */
     visible?: boolean;
     /** 本地化 */
     locale?: Models.Locale;
+    /** 替换快捷选择栏，需要设置showShortcut: true */
+    renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
     /** 值变化时回调 */
     onValueChange?: (startDateTime?: Date, endDateTime?: Date) => void;
     /** 关闭时回调 */

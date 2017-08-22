@@ -133,6 +133,10 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         } else {
             this.state.months.unshift(data);
         }
+        const { value } = this.props;
+        if (value && value.startDate) {
+            this.selectDateRange(value.startDate, value.endDate);
+        }
         return data;
     }
 
@@ -141,7 +145,10 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
     }
 
     selectDateRange = (startDate: Date, endDate?: Date, clear = false) => {
-        const { getDateExtra } = this.props;
+        const { getDateExtra, type, onSelectHasDisableDate } = this.props;
+        if (type === 'one') {
+            endDate = undefined;
+        }
         const time1 = this.getDateWithoutTime(startDate), time2 = this.getDateWithoutTime(endDate);
         const startDateTick = !time2 || time1 < time2 ? time1 : time2;
         const endDateTick = time2 && time1 > time2 ? time1 : time2;
@@ -149,7 +156,7 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         const startMonthDate = this.getMonthDate(new Date(startDateTick)).firstDate;
         const endMonthDate = endDateTick ? new Date(endDateTick) : this.getMonthDate(new Date(startDateTick)).lastDate;
 
-        let goback = false, needUpdate = false;
+        let unuseable: number[] = [], needUpdate = false;
         this.state.months
             .filter(m => {
                 return m.firstDate >= startMonthDate && m.firstDate <= endMonthDate;
@@ -169,17 +176,18 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
                             d.selected = Models.SelectType.None;
                         } else {
                             const info = getDateExtra && getDateExtra(new Date(d.tick)) || {};
-                            if (goback || d.outOfDate || info.disable) {
-                                goback = true;
-                                return;
+                            if (d.outOfDate || info.disable) {
+                                unuseable.push(d.tick);
                             }
                             if (this.inDate(startDateTick, d.tick)) {
-                                if (!endDateTick) {
+                                if (type === 'one') {
+                                    d.selected = Models.SelectType.Single;
+                                } else if (!endDateTick) {
                                     d.selected = Models.SelectType.Only;
                                 } else if (startDateTick !== endDateTick) {
                                     d.selected = Models.SelectType.Start;
                                 } else {
-                                    d.selected = Models.SelectType.Single;
+                                    d.selected = Models.SelectType.All;
                                 }
                             } else if (this.inDate(endDateTick, d.tick)) {
                                 d.selected = Models.SelectType.End;
@@ -190,13 +198,17 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
                         needUpdate = needUpdate || d.selected !== oldValue;
                     })
                 );
-                if (!goback && needUpdate && m.componentRef) {
+                if (needUpdate && m.componentRef) {
                     m.componentRef.updateWeeks();
                     m.componentRef.forceUpdate();
                 };
             });
-        if (goback) {
-            this.selectDateRange(startDate, endDate, true);
+        if (unuseable.length > 0) {
+            if (onSelectHasDisableDate) {
+                onSelectHasDisableDate(unuseable.map(tick => new Date(tick)));
+            } else {
+                console.warn('Unusable date. You can handle by onSelectHasDisableDate.', unuseable);
+            }
         }
     }
 

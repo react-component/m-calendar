@@ -3,10 +3,17 @@ import SingleMonth from './SingleMonth';
 export namespace Models {
     export enum SelectType {
         None,
+        /** 单选 */
         Single,
+        /** 起/至 */
+        All,
+        /** 区间仅选择了 起 */
         Only,
+        /** 区间起 */
         Start,
+        /** 区间中 */
         Middle,
+        /** 区间止 */
         End,
     }
 

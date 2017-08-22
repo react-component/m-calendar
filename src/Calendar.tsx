@@ -4,11 +4,14 @@ import TimePicker from './TimePicker';
 
 import DatePicker from './DatePicker';
 import ConfirmPanel from './calendar/ConfirmPanel';
+import ShortcutPanel from './calendar/ShortcutPanel';
 import AnimateWrapper from './calendar/AnimateWrapper';
 import zhCN from './locale/zh_CN';
 import Header from './calendar/Header';
 import { Models as DateModels } from './date/DataTypes';
 import PropsType from './CalendarProps';
+
+import { mergeDateTime } from './util';
 
 export type ExtraData = DateModels.ExtraData;
 export { PropsType };
@@ -26,6 +29,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         showHeader: true,
         locale: zhCN,
         pickTime: false,
+        showShortcut: false,
         prefixCls: 'rmc-calendar',
         type: 'range',
         defaultTimeValue: new Date(2000, 0, 1, 8),
@@ -41,13 +45,13 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         const { type, pickTime, defaultTimeValue } = this.props;
         const { startDate, endDate } = this.state;
 
-        const newDate = pickTime ? this.mergeDateTime(date, defaultTimeValue) : date;
+        const newDate = pickTime ? mergeDateTime(date, defaultTimeValue) : date;
 
         switch (type) {
             case 'one':
                 this.setState({
                     startDate: newDate,
-                    disConfirmBtn: pickTime,
+                    disConfirmBtn: false,
                 });
                 if (pickTime) {
                     this.setState({
@@ -77,7 +81,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                     });
                     if (+newDate >= +startDate) {
                         this.setState({
-                            endDate: pickTime ? new Date(+this.mergeDateTime(newDate, startDate) + 3600000) : newDate,
+                            endDate: pickTime ? new Date(+mergeDateTime(newDate, startDate) + 3600000) : newDate,
                         });
                     } else {
                         this.setState({
@@ -91,6 +95,10 @@ export default class Calendar extends React.Component<PropsType, StateType> {
             default:
                 return;
         }
+    }
+
+    onSelectHasDisableDate = (date: Date[]) => {
+        this.onClear();
     }
 
     onClose = () => {
@@ -130,23 +138,19 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         });
     }
 
-    mergeDateTime = (date?: Date, time?: Date) => {
-        date = date || new Date;
-        if (!time) return date;
-        return new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
-            time.getHours(),
-            time.getMinutes()
-        );
+    shortcutSelect = (startDate: Date, endDate: Date) => {
+        this.setState({
+            startDate,
+            endDate,
+            showTimePicker: false,
+        });
     }
 
     render() {
         const {
-            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime,
+            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
-            defaultTimeValue,
+            defaultTimeValue, renderShortcut,
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
@@ -172,6 +176,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                             />
                         }
                         <DatePicker
+                            type={type}
                             prefixCls={prefixCls}
                             infinite={infinite}
                             infiniteOpt={infiniteOpt}
@@ -181,6 +186,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                             maxDate={maxDate}
                             getDateExtra={getDateExtra}
                             onCellClick={this.onSelectedDate}
+                            onSelectHasDisableDate={this.onSelectHasDisableDate}
                             value={{
                                 startDate: startDate,
                                 endDate: endDate,
@@ -197,6 +203,14 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                                 minDate={minDate}
                                 maxDate={maxDate}
                             />
+                        }
+                        {
+                            showShortcut && !showTimePicker &&
+                            (
+                                renderShortcut ?
+                                    renderShortcut(this.shortcutSelect) :
+                                    <ShortcutPanel onSelect={this.shortcutSelect} />
+                            )
                         }
                         {
                             startDate &&

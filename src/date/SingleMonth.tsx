@@ -57,7 +57,11 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
                             cls += ' date-selected';
                             let styleType = day.selected;
                             switch (styleType) {
-                                case Models.SelectType.Single:
+                                case Models.SelectType.Only:
+                                    info = '起';
+                                    infoCls += ' date-selected';
+                                    break;
+                                case Models.SelectType.All:
                                     info = '起/至';
                                     infoCls += ' date-selected';
                                     break;
@@ -66,13 +70,13 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
                                     info = '起';
                                     infoCls += ' date-selected';
                                     if (dayOfWeek === 6 || day.isLastOfMonth) {
-                                        styleType = Models.SelectType.Single;
+                                        styleType = Models.SelectType.All;
                                     }
                                     break;
                                 case Models.SelectType.Middle:
                                     if (dayOfWeek === 0 || day.isFirstOfMonth) {
                                         if (day.isLastOfMonth || dayOfWeek === 6) {
-                                            styleType = Models.SelectType.Single;
+                                            styleType = Models.SelectType.All;
                                         } else {
                                             styleType = Models.SelectType.Start;
                                         }
@@ -84,14 +88,15 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
                                     info = '至';
                                     infoCls += ' date-selected';
                                     if (dayOfWeek === 0 || day.isFirstOfMonth) {
-                                        styleType = Models.SelectType.Single;
+                                        styleType = Models.SelectType.All;
                                     }
                                     break;
                             }
 
                             switch (styleType) {
-                                case Models.SelectType.Only:
                                 case Models.SelectType.Single:
+                                case Models.SelectType.Only:
+                                case Models.SelectType.All:
                                     cls += ' selected-single';
                                     break;
                                 case Models.SelectType.Start:

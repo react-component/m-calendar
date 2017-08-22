@@ -10,11 +10,11 @@ import Calendar, { PropsType, ExtraData } from '../src/Calendar';
 
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
-    '2017/08/14': { info: '百阿', disable: true },
-    '2017/08/15': { info: '百阿', disable: true },
-    '2017/08/16': { info: '百阿', disable: true },
-    '2017/08/17': { info: '百阿', disable: true },
-    '2017/08/18': { info: '百阿', disable: true },
+    '2017/08/14': { info: '培训', disable: true },
+    '2017/08/15': { info: '培训', disable: true },
+    '2017/08/16': { info: '培训', disable: true },
+    '2017/08/17': { info: '培训', disable: true },
+    '2017/08/18': { info: '培训', disable: true },
 };
 for (let key in extra) {
     if (extra.hasOwnProperty(key)) {
@@ -60,7 +60,10 @@ class BasicDemo extends React.Component<{}, {
             <div style={{ marginTop: 10, marginBottom: 10 }}>
                 {this.renderBtn('选择日期时间区间', { pickTime: true })}
                 {this.renderBtn('选择日期区间')}
+                {this.renderBtn('选择日期时间', { type: 'one', pickTime: true })}
                 {this.renderBtn('选择日期', { type: 'one' })}
+                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
+                {this.renderBtn('选择日期区间(快捷)', { showShortcut: true })}
                 <div style={{ marginLeft: 10, fontSize: 14 }}>
                     {
                         this.state.startTime &&
