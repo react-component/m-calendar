@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 export interface ConfirmPanelPropsType {
+    type?: 'one' | 'range';
     locale: Models.Locale;
     onlyConfirm?: boolean;
     disableBtn?: boolean;
@@ -38,17 +39,24 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
     }
 
     render() {
-        const { locale, startDateTime, endDateTime, formatStr = '', disableBtn } = this.props;
-        let startTimeStr = startDateTime ? this.formatDate(startDateTime, formatStr) : locale.noChoose;
-        let endTimeStr = endDateTime ? this.formatDate(endDateTime, formatStr) : locale.noChoose;
+        const { type, locale, startDateTime, endDateTime, formatStr = '', disableBtn } = this.props;
+        const startTimeStr = startDateTime ? this.formatDate(startDateTime, formatStr) : locale.noChoose;
+        const endTimeStr = endDateTime ? this.formatDate(endDateTime, formatStr) : locale.noChoose;
+        let btnCls = disableBtn ? 'button button-disable' : 'button';
+        if (type === 'one') {
+            btnCls += ' button-full';
+        }
 
         return (
             <div className="confirm-panel">
-                <div className="info">
-                    <p>开始：<span className={!startDateTime ? 'grey' : ''}>{startTimeStr}</span></p>
-                    <p>结束：<span className={!endDateTime ? 'grey' : ''}>{endTimeStr}</span></p>
-                </div>
-                <div className={`button ${disableBtn ? 'button-disable' : ''}`} onClick={this.onConfirm}>
+                {
+                    type === 'range' &&
+                    <div className="info">
+                        <p>开始：<span className={!startDateTime ? 'grey' : ''}>{startTimeStr}</span></p>
+                        <p>结束：<span className={!endDateTime ? 'grey' : ''}>{endTimeStr}</span></p>
+                    </div>
+                }
+                <div className={btnCls} onClick={this.onConfirm}>
                     确定
                 </div>
             </div>

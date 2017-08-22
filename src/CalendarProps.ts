@@ -10,7 +10,7 @@ export default interface PropsType {
     /** 选择时间，default: false */
     pickTime?: boolean;
     /** 是否展示，default: false */
-    visible: boolean;
+    visible?: boolean;
     /** 本地化 */
     locale?: Models.Locale;
     /** 值变化时回调 */

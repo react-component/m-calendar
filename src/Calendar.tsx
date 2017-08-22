@@ -11,13 +11,14 @@ import { Models as DateModels } from './date/DataTypes';
 import PropsType from './CalendarProps';
 
 export type ExtraData = DateModels.ExtraData;
+export { PropsType };
 
 export class StateType {
     showTimePicker: boolean = false;
     timePickerTitle?: string;
     startDate?: Date = undefined;
     endDate?: Date = undefined;
-    disConfirm?: boolean = true;
+    disConfirmBtn?: boolean = true;
 }
 export default class Calendar extends React.Component<PropsType, StateType> {
     static defaultProps = {
@@ -40,12 +41,13 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         const { type, pickTime, defaultTimeValue } = this.props;
         const { startDate, endDate } = this.state;
 
-        const newDate = this.mergeDateTime(date, defaultTimeValue);
+        const newDate = pickTime ? this.mergeDateTime(date, defaultTimeValue) : date;
 
         switch (type) {
             case 'one':
                 this.setState({
                     startDate: newDate,
+                    disConfirmBtn: pickTime,
                 });
                 if (pickTime) {
                     this.setState({
@@ -60,7 +62,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                     this.setState({
                         startDate: newDate,
                         endDate: undefined,
-                        disConfirm: true,
+                        disConfirmBtn: true,
                     });
                     if (pickTime) {
                         this.setState({
@@ -71,11 +73,11 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                 } else {
                     this.setState({
                         timePickerTitle: '选择结束时间',
-                        disConfirm: false,
+                        disConfirmBtn: false,
                     });
                     if (+newDate >= +startDate) {
                         this.setState({
-                            endDate: new Date(+(newDate || 0) + 3600000),
+                            endDate: pickTime ? new Date(+this.mergeDateTime(newDate, startDate) + 3600000) : newDate,
                         });
                     } else {
                         this.setState({
@@ -142,24 +144,24 @@ export default class Calendar extends React.Component<PropsType, StateType> {
 
     render() {
         const {
-            locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime,
+            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
             defaultTimeValue,
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
             startDate, endDate,
-            disConfirm
+            disConfirmBtn
         } = this.state;
 
         return (
             <div className={`${prefixCls} calendar`}>
                 <Animate showProp="visible" transitionName="fade">
-                    <AnimateWrapper className="mask" visible={visible}>
+                    <AnimateWrapper className="mask" visible={!!visible}>
                     </AnimateWrapper>
                 </Animate>
                 <Animate showProp="visible" transitionName="slide">
-                    <AnimateWrapper className="content" visible={visible}>
+                    <AnimateWrapper className="content" visible={!!visible}>
                         {
                             showHeader &&
                             <Header
@@ -199,11 +201,12 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                         {
                             startDate &&
                             <ConfirmPanel
+                                type={type}
                                 locale={locale}
                                 startDateTime={startDate}
                                 endDateTime={endDate}
                                 onConfirm={this.onConfirm}
-                                disableBtn={disConfirm}
+                                disableBtn={disConfirmBtn}
                                 formatStr={pickTime ? locale.dateTimeFormat : locale.dateFormat}
                             />
                         }

@@ -6,7 +6,7 @@ import 'rmc-calendar/assets/index.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Calendar, { ExtraData } from '../src/Calendar';
+import Calendar, { PropsType, ExtraData } from '../src/Calendar';
 
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
@@ -26,29 +26,42 @@ for (let key in extra) {
     }
 }
 
-class BasicDemo extends React.Component<any, any> {
+class BasicDemo extends React.Component<{}, {
+    show: boolean;
+    config?: PropsType;
+    startTime?: Date;
+    endTime?: Date;
+}> {
     originbodyScrollY = document.getElementsByTagName('body')[0].style.overflowY;
 
     constructor(props: any) {
         super(props);
         this.state = {
             show: false,
+            config: {},
         };
+    }
+
+    renderBtn(text: string, config: PropsType = {}) {
+        return <div style={{ background: 'orange', padding: 10, margin: 10, textAlign: 'center' }}
+            onClick={() => {
+                document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+                this.setState({
+                    show: true,
+                    config,
+                });
+            }}>
+            {text}
+        </div>;
     }
 
     render() {
         return (
             <div style={{ marginTop: 10, marginBottom: 10 }}>
-                <div style={{ background: 'orange', padding: 10, textAlign: 'center' }}
-                    onClick={() => {
-                        document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
-                        this.setState({
-                            show: true,
-                        });
-                    }}>
-                    选择日期时间
-                </div>
-                <div>
+                {this.renderBtn('选择日期时间区间', { pickTime: true })}
+                {this.renderBtn('选择日期区间')}
+                {this.renderBtn('选择日期', { type: 'one' })}
+                <div style={{ marginLeft: 10, fontSize: 14 }}>
                     {
                         this.state.startTime &&
                         <p>开始时间：{this.state.startTime.toLocaleString()}</p>
@@ -59,8 +72,8 @@ class BasicDemo extends React.Component<any, any> {
                     }
                 </div>
                 <Calendar
+                    {...this.state.config}
                     visible={this.state.show}
-                    pickTime={true}
                     onCancel={() => {
                         document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
                         this.setState({

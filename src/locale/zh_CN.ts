@@ -6,7 +6,7 @@ const locale: Models.Locale = {
     am: '上午',
     pm: '下午',
     dateTimeFormat: 'yyyy年MM月dd日 星期 hh:mm',
-    dateFormat: 'yyyy年MM月dd日 星期',
+    dateFormat: 'yyyy年MM月dd日',
     noChoose: '未选择',
 };
 export default locale;
