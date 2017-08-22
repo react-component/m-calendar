@@ -285,12 +285,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
 <span class="hljs-keyword">const</span> extra: { [key: string]: ExtraData } = {
     <span class="hljs-number">1501516800000</span>: { info: <span class="hljs-string">'建军节'</span> },
-    <span class="hljs-string">'2017/08/14'</span>: { info: <span class="hljs-string">'培训'</span>, disable: <span class="hljs-literal">true</span> },
-    <span class="hljs-string">'2017/08/15'</span>: { info: <span class="hljs-string">'培训'</span>, disable: <span class="hljs-literal">true</span> },
-    <span class="hljs-string">'2017/08/16'</span>: { info: <span class="hljs-string">'培训'</span>, disable: <span class="hljs-literal">true</span> },
-    <span class="hljs-string">'2017/08/17'</span>: { info: <span class="hljs-string">'培训'</span>, disable: <span class="hljs-literal">true</span> },
-    <span class="hljs-string">'2017/08/18'</span>: { info: <span class="hljs-string">'培训'</span>, disable: <span class="hljs-literal">true</span> },
+    <span class="hljs-string">'2017/06/14'</span>: { info: <span class="hljs-string">'禁止选择'</span>, disable: <span class="hljs-literal">true</span> },
+    <span class="hljs-string">'2017/06/15'</span>: { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> },
 };
+
+<span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>;
+extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(now.getFullYear(), now.getMonth(), now.getDate() + <span class="hljs-number">5</span>)] = { info: <span class="hljs-string">'禁止选择'</span>, disable: <span class="hljs-literal">true</span> };
+extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(now.getFullYear(), now.getMonth(), now.getDate() + <span class="hljs-number">6</span>)] = { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> };
+extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(now.getFullYear(), now.getMonth(), now.getDate() + <span class="hljs-number">7</span>)] = { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> };
+extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(now.getFullYear(), now.getMonth(), now.getDate() + <span class="hljs-number">8</span>)] = { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> };
+
+
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> extra) {
     <span class="hljs-keyword">if</span> (extra.hasOwnProperty(key)) {
         <span class="hljs-keyword">let</span> info = extra[key];

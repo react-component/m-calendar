@@ -11263,12 +11263,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var en = location.search.indexOf('en') !== -1;
 var extra = {
     1501516800000: { info: '建军节' },
-    '2017/08/14': { info: '培训', disable: true },
-    '2017/08/15': { info: '培训', disable: true },
-    '2017/08/16': { info: '培训', disable: true },
-    '2017/08/17': { info: '培训', disable: true },
-    '2017/08/18': { info: '培训', disable: true }
+    '2017/06/14': { info: '禁止选择', disable: true },
+    '2017/06/15': { info: 'Disable', disable: true }
 };
+var now = new Date();
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5)] = { info: '禁止选择', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6)] = { info: 'Disable', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7)] = { info: 'Disable', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 8)] = { info: 'Disable', disable: true };
 for (var key in extra) {
     if (extra.hasOwnProperty(key)) {
         var info = extra[key];
@@ -11488,6 +11490,9 @@ var Calendar = function (_React$Component) {
         };
         _this.onSelectHasDisableDate = function (date) {
             _this.onClear();
+            if (_this.props.onSelectHasDisableDate) {
+                _this.props.onSelectHasDisableDate(date);
+            }
         };
         _this.onClose = function () {
             _this.setState(new StateType());
