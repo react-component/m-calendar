@@ -13,5 +13,6 @@ declare namespace Models {
         dateFormat: string,
         dateTimeFormat: string,
         noChoose: string,
+        week: string[],
     }
 }

@@ -19,8 +19,6 @@ export default interface PropsType {
     locale?: Models.Locale;
     /** 替换快捷选择栏，需要设置showShortcut: true */
     renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
-    /** 值变化时回调 */
-    onValueChange?: (startDateTime?: Date, endDateTime?: Date) => void;
     /** 关闭时回调 */
     onCancel?: () => void;
     /** 确认时回调 */

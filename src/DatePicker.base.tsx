@@ -282,7 +282,7 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         };
     }
 
-    onCellClick = (day: Models.CellData) => {
+    onCellClick = (day: Models.CellData, monthData: Models.MonthData) => {
         if (!day.tick) return;
         this.props.onCellClick && this.props.onCellClick(new Date(day.tick));
     }

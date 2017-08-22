@@ -16,6 +16,8 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
     } as ConfirmPanelPropsType;
 
     formatDate(date: Date, format: string) {
+        const week = this.props.locale.week;
+
         let o: { [key: string]: any } = {
             'M+': date.getMonth() + 1,
             'd+': date.getDate(),
@@ -23,7 +25,8 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
             'm+': date.getMinutes(),
             's+': date.getSeconds(),
             'q+': Math.floor((date.getMonth() + 3) / 3),
-            'S': date.getMilliseconds()
+            'w+': week[date.getDay()],
+            'S': date.getMilliseconds(),
         };
         if (/(y+)/.test(format)) format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
         for (let k in o) {
@@ -35,11 +38,19 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
     }
 
     onConfirm = () => {
-        this.props.onConfirm();
+        const { onConfirm, disableBtn } = this.props;
+        !disableBtn && onConfirm();
     }
 
     render() {
-        const { type, locale, startDateTime, endDateTime, formatStr = '', disableBtn } = this.props;
+        const { type, locale, formatStr = '', disableBtn } = this.props;
+        let { startDateTime, endDateTime } = this.props;
+        if (startDateTime && endDateTime && +startDateTime > +endDateTime) {
+            const tmp = startDateTime;
+            startDateTime = endDateTime;
+            endDateTime = tmp;
+        }
+
         const startTimeStr = startDateTime ? this.formatDate(startDateTime, formatStr) : locale.noChoose;
         const endTimeStr = endDateTime ? this.formatDate(endDateTime, formatStr) : locale.noChoose;
         let btnCls = disableBtn ? 'button button-disable' : 'button';

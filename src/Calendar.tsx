@@ -41,60 +41,61 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         this.state = new StateType;
     }
 
-    onSelectedDate = (date: Date) => {
+    selectDate = (date: Date, useDateTime = false, startDate?: Date, endDate?: Date) => {
+        if (!date) return {} as StateType;
+        let newState = {} as StateType;
         const { type, pickTime, defaultTimeValue } = this.props;
-        const { startDate, endDate } = this.state;
-
-        const newDate = pickTime ? mergeDateTime(date, defaultTimeValue) : date;
+        const newDate = pickTime && !useDateTime ? mergeDateTime(date, defaultTimeValue) : date;
 
         switch (type) {
             case 'one':
-                this.setState({
+                newState = {
+                    ...newState,
                     startDate: newDate,
                     disConfirmBtn: false,
-                });
+                };
                 if (pickTime) {
-                    this.setState({
-                        showTimePicker: true,
+                    newState = {
+                        ...newState,
                         timePickerTitle: '选择时间',
-                    });
+                        showTimePicker: true,
+                    };
                 }
-                return;
+                break;
 
             case 'range':
                 if (!startDate || endDate) {
-                    this.setState({
+                    newState = {
+                        ...newState,
                         startDate: newDate,
                         endDate: undefined,
                         disConfirmBtn: true,
-                    });
+                    };
                     if (pickTime) {
-                        this.setState({
-                            showTimePicker: true,
+                        newState = {
+                            ...newState,
                             timePickerTitle: '选择开始时间',
-                        });
+                            showTimePicker: true,
+                        };
                     }
                 } else {
-                    this.setState({
-                        timePickerTitle: '选择结束时间',
+                    newState = {
+                        ...newState,
+                        timePickerTitle: +newDate >= +startDate ? '选择结束时间' : '选择时间',
+                        showTimePicker: true,
                         disConfirmBtn: false,
-                    });
-                    if (+newDate >= +startDate) {
-                        this.setState({
-                            endDate: pickTime ? new Date(+mergeDateTime(newDate, startDate) + 3600000) : newDate,
-                        });
-                    } else {
-                        this.setState({
-                            startDate: newDate,
-                            endDate: startDate,
-                        });
-                    }
+                        endDate: (pickTime && !useDateTime && +newDate >= +startDate) ?
+                            new Date(+mergeDateTime(newDate, startDate) + 3600000) : newDate,
+                    };
                 }
-                return;
-
-            default:
-                return;
+                break;
         }
+        return newState;
+    }
+
+    onSelectedDate = (date: Date) => {
+        const { startDate, endDate } = this.state;
+        this.setState(this.selectDate(date, false, startDate, endDate));
     }
 
     onSelectHasDisableDate = (date: Date[]) => {
@@ -112,9 +113,12 @@ export default class Calendar extends React.Component<PropsType, StateType> {
 
     onConfirm = () => {
         this.onClose();
-
-        const { startDate, endDate } = this.state;
-        this.props.onConfirm && this.props.onConfirm(startDate, endDate);
+        const { onConfirm } = this.props;
+        let { startDate, endDate } = this.state;
+        if (startDate && endDate && +startDate > +endDate) {
+            return onConfirm && onConfirm(endDate, startDate);
+        }
+        onConfirm && onConfirm(startDate, endDate);
     }
 
     onTimeChange = (date: Date) => {
@@ -139,9 +143,10 @@ export default class Calendar extends React.Component<PropsType, StateType> {
     }
 
     shortcutSelect = (startDate: Date, endDate: Date) => {
+        const state = this.selectDate(startDate, true);
         this.setState({
-            startDate,
-            endDate,
+            ...state,
+            ...this.selectDate(endDate, true, state.startDate),
             showTimePicker: false,
         });
     }
