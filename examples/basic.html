@@ -364,6 +364,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
                         });
                     }}
                     onConfirm={(startTime, endTime) =&gt; {
+                        document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
                         this.setState({
                             show: false,
                             startTime,

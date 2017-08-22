@@ -11351,6 +11351,7 @@ var BasicDemo = function (_React$Component) {
                             endTime: undefined
                         });
                     }, onConfirm: function onConfirm(startTime, endTime) {
+                        document.getElementsByTagName('body')[0].style.overflowY = _this3.originbodyScrollY;
                         _this3.setState({
                             show: false,
                             startTime: startTime,
