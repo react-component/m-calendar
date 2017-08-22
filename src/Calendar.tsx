@@ -155,7 +155,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
         const {
             type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
-            defaultTimeValue, renderShortcut,
+            defaultTimeValue, renderShortcut, enterDirection,
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
@@ -169,7 +169,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                     <AnimateWrapper className="mask" visible={!!visible}>
                     </AnimateWrapper>
                 </Animate>
-                <Animate showProp="visible" transitionName="slide">
+                <Animate showProp="visible" transitionName={enterDirection === 'horizontal' ? 'slideH' : 'slideV'}>
                     <AnimateWrapper className="content" visible={!!visible}>
                         {
                             showHeader &&

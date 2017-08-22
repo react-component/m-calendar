@@ -63,9 +63,9 @@ react-native run-ios
 ```jsx
 <Calendar
     visible={this.state.show}
-    pickTime={true}
     onCancel={() => {
-        this.setState({ show: false });
+    }}
+    onConfirm={(startTime, endTime) => {
     }}
     getDateExtra={(date) => {
         return extra[+date];

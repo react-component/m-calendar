@@ -17,6 +17,8 @@ export default interface PropsType {
     visible?: boolean;
     /** 本地化 */
     locale?: Models.Locale;
+    /** 入场方向，default: vertical，vertical: 垂直，horizontal: 水平 */
+    enterDirection?: 'horizontal' | 'vertical';
     /** 替换快捷选择栏，需要设置showShortcut: true */
     renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
     /** 关闭时回调 */

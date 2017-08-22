@@ -58,13 +58,14 @@ class BasicDemo extends React.Component<{}, {
     render() {
         return (
             <div style={{ marginTop: 10, marginBottom: 10 }}>
-                {this.renderBtn('选择日期时间区间', { pickTime: true })}
                 {this.renderBtn('选择日期区间')}
+                {this.renderBtn('选择日期时间区间', { pickTime: true })}
                 {this.renderBtn('选择日期时间', { type: 'one', pickTime: true })}
                 {this.renderBtn('选择日期', { type: 'one' })}
-                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
                 {this.renderBtn('选择日期区间(快捷)', { showShortcut: true })}
+                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
                 {this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false })}
+                {this.renderBtn('水平进入', { enterDirection: 'horizontal' })}
                 <div style={{ marginLeft: 10, fontSize: 14 }}>
                     {
                         this.state.startTime &&
@@ -94,8 +95,7 @@ class BasicDemo extends React.Component<{}, {
                         });
                     }}
                     getDateExtra={(date) => {
-                        {/* return extra[+date]; */ }
-                        return {};
+                        return extra[+date];
                     }}
                     minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
                     maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
@@ -107,7 +107,7 @@ class BasicDemo extends React.Component<{}, {
 
 ReactDOM.render(<BasicDemo />, document.getElementById('__react-content'));
 
-const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
-const elm = document.createElement('script');
-elm.src = `http://${ip}:1337/vorlon.js`;
-document.body.appendChild(elm);
+// const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
+// const elm = document.createElement('script');
+// elm.src = `http://${ip}:1337/vorlon.js`;
+// document.body.appendChild(elm);
