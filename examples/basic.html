@@ -317,8 +317,8 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         };
     }
 
-    renderBtn(text: string, config: PropsType = {}) {
-        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">background:</span> '<span class="hljs-attribute">orange</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>' }}
+    renderBtn(text: string, text2: string, config: PropsType = {}) {
+        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">background:</span> '#<span class="hljs-attribute">1A7BE6</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">5</span>, <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>' }}
             <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> {
                 document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
                 this.setState({
@@ -326,21 +326,22 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
                     config,
                 });
             }}&gt;
-            {text}
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text2}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
     }
 
     render() {
         <span class="hljs-keyword">return</span> (
-            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">marginBottom:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
-                {this.renderBtn('选择日期区间')}
-                {this.renderBtn('选择日期时间区间', { pickTime: true })}
-                {this.renderBtn('选择日期时间', { type: 'one', pickTime: true })}
-                {this.renderBtn('选择日期', { type: 'one' })}
-                {this.renderBtn('选择日期区间(快捷)', { showShortcut: true })}
-                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
-                {this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false })}
-                {this.renderBtn('水平进入', { enterDirection: 'horizontal' })}
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">marginBottom:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
+                {this.renderBtn('选择日期区间', 'Select Date Range')}
+                {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
+                {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
+                {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
+                {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
+                {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
+                {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
+                {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
                 <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginLeft:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
                     {
                         this.state.startTime &amp;&amp;

@@ -4899,7 +4899,10 @@ var locale = {
     begin_over: '起/至',
     confirm: '确认',
     monthTitle: 'yyyy年MM月',
-    loadPrevMonth: '加载上一个月'
+    loadPrevMonth: '加载上一个月',
+    yesterday: '昨天',
+    lastWeek: '近一周',
+    lastMonth: '近一个月'
 };
 /* harmony default export */ __webpack_exports__["a"] = (locale);
 
@@ -11294,21 +11297,30 @@ var BasicDemo = function (_React$Component) {
 
     _createClass(BasicDemo, [{
         key: 'renderBtn',
-        value: function renderBtn(text) {
+        value: function renderBtn(text, text2) {
             var _this2 = this;
 
-            var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+            var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
             return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
                 'div',
-                { style: { background: 'orange', padding: 10, margin: 10, textAlign: 'center' }, onClick: function onClick() {
+                { style: { background: '#1A7BE6', padding: 5, margin: 10, textAlign: 'center' }, onClick: function onClick() {
                         document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
                         _this2.setState({
                             show: true,
                             config: config
                         });
                     } },
-                text
+                __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+                    'p',
+                    { style: { color: '#fff', margin: 0, padding: 0 } },
+                    text
+                ),
+                __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+                    'p',
+                    { style: { color: '#fff', margin: 0, padding: 0 } },
+                    text2
+                )
             );
         }
     }, {
@@ -11318,15 +11330,15 @@ var BasicDemo = function (_React$Component) {
 
             return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
                 'div',
-                { style: { marginTop: 10, marginBottom: 10 } },
-                this.renderBtn('选择日期区间'),
-                this.renderBtn('选择日期时间区间', { pickTime: true }),
-                this.renderBtn('选择日期时间', { type: 'one', pickTime: true }),
-                this.renderBtn('选择日期', { type: 'one' }),
-                this.renderBtn('选择日期区间(快捷)', { showShortcut: true }),
-                this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true }),
-                this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false }),
-                this.renderBtn('水平进入', { enterDirection: 'horizontal' }),
+                { style: { marginTop: 10, marginBottom: 10, fontSize: 14 } },
+                this.renderBtn('选择日期区间', 'Select Date Range'),
+                this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true }),
+                this.renderBtn('选择日期', 'Select Date', { type: 'one' }),
+                this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true }),
+                this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true }),
+                this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true }),
+                this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false }),
+                this.renderBtn('水平进入', '', { enterDirection: 'horizontal' }),
                 __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
                     'div',
                     { style: { marginLeft: 10, fontSize: 14 } },
@@ -11575,7 +11587,7 @@ var Calendar = function (_React$Component) {
                                 endDate: endDate
                             } }),
                         showTimePicker && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TimePicker__["a" /* default */], { locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate }),
-                        showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__calendar_ShortcutPanel__["a" /* default */], { onSelect: this.shortcutSelect })),
+                        showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__calendar_ShortcutPanel__["a" /* default */], { locale: locale, onSelect: this.shortcutSelect })),
                         startDate && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__calendar_ConfirmPanel__["a" /* default */], { type: type, locale: locale, startDateTime: startDate, endDateTime: endDate, onConfirm: this.onConfirm, disableBtn: disConfirmBtn, formatStr: pickTime ? locale.dateTimeFormat : locale.dateFormat })
                     )
                 )
@@ -12487,6 +12499,8 @@ var ShortcutPanel = function (_React$PureComponent) {
         value: function render() {
             var _this2 = this;
 
+            var locale = this.props.locale;
+
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                 'div',
                 { className: 'shortcut-panel' },
@@ -12495,28 +12509,28 @@ var ShortcutPanel = function (_React$PureComponent) {
                     { className: 'item', onClick: function onClick() {
                             return _this2.onClick('today');
                         } },
-                    '\u4ECA\u5929'
+                    locale.today
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     'div',
                     { className: 'item', onClick: function onClick() {
                             return _this2.onClick('yesterday');
                         } },
-                    '\u6628\u5929'
+                    locale.yesterday
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     'div',
                     { className: 'item', onClick: function onClick() {
                             return _this2.onClick('lastweek');
                         } },
-                    '\u8FD1\u4E00\u5468'
+                    locale.lastWeek
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     'div',
                     { className: 'item', onClick: function onClick() {
                             return _this2.onClick('lastmonth');
                         } },
-                    '\u8FD1\u4E00\u4E2A\u6708'
+                    locale.lastMonth
                 )
             );
         }
@@ -12828,7 +12842,10 @@ var locale = {
     begin_over: 'S/E',
     confirm: 'Confirm',
     monthTitle: 'yyyy/MM',
-    loadPrevMonth: 'Load Prev Month'
+    loadPrevMonth: 'Load Prev Month',
+    yesterday: 'Yesterday',
+    lastWeek: 'Last Week',
+    lastMonth: 'Last Month'
 };
 /* harmony default export */ __webpack_exports__["a"] = (locale);
 
