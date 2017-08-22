@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Models } from './DataTypes';
 
 export interface PropsType {
+    locale: GlobalModels.Locale;
     monthData: Models.MonthData;
     getDateExtra?: (date: Date) => Models.ExtraData;
     onCellClick?: (data: Models.CellData, monthData: Models.MonthData) => void;
@@ -29,7 +30,7 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
     }
 
     genWeek = (weeksData: Models.CellData[], index: number) => {
-        const { getDateExtra, monthData, onCellClick } = this.props;
+        const { getDateExtra, monthData, onCellClick, locale } = this.props;
         this.state.weekComponents[index] = (
             <div key={index} className="row">
                 {
@@ -58,16 +59,16 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
                             let styleType = day.selected;
                             switch (styleType) {
                                 case Models.SelectType.Only:
-                                    info = '起';
+                                    info = locale.begin;
                                     infoCls += ' date-selected';
                                     break;
                                 case Models.SelectType.All:
-                                    info = '起/至';
+                                    info = locale.begin_over;
                                     infoCls += ' date-selected';
                                     break;
 
                                 case Models.SelectType.Start:
-                                    info = '起';
+                                    info = locale.begin;
                                     infoCls += ' date-selected';
                                     if (dayOfWeek === 6 || day.isLastOfMonth) {
                                         styleType = Models.SelectType.All;
@@ -85,7 +86,7 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
                                     }
                                     break;
                                 case Models.SelectType.End:
-                                    info = '至';
+                                    info = locale.over;
                                     infoCls += ' date-selected';
                                     if (dayOfWeek === 0 || day.isFirstOfMonth) {
                                         styleType = Models.SelectType.All;

@@ -1,6 +1,8 @@
 import { Models } from './date/DataTypes';
 
 export default interface PropsType {
+    /** 本地化 */
+    locale?: GlobalModels.Locale;
     /** 选择类型，default: range，one: 单日，range: 日期区间 */
     type?: 'one' | 'range';
     /** (web only) 样式前缀 */

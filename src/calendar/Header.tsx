@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default class Header extends React.PureComponent<{
     title?: string;
-    locale?: Models.Locale;
+    locale?: GlobalModels.Locale;
     showClear?: boolean;
     onCancel?: () => void;
     onClear?: () => void;
@@ -33,7 +33,7 @@ export default class Header extends React.PureComponent<{
     render() {
         const {
             title,
-            locale = {} as Models.Locale,
+            locale = {} as GlobalModels.Locale,
             onCancel,
             onClear,
             showClear
@@ -47,7 +47,7 @@ export default class Header extends React.PureComponent<{
                     showClear &&
                     <span className="right"
                         onClick={() => onClear && onClear()}
-                    >清除</span>
+                    >{locale.clear}</span>
                 }
             </div>
         );

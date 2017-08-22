@@ -15,6 +15,7 @@ export default class DatePicker extends Component {
         if (!data) return;
 
         return <SingleMonth key={data.title}
+            locale={this.props.locale || {} as GlobalModels.Locale}
             monthData={data}
             onCellClick={this.onCellClick}
             getDateExtra={this.props.getDateExtra}
@@ -75,7 +76,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { infinite, prefixCls = '' } = this.props;
+        const { infinite, prefixCls = '', locale = {} as GlobalModels.Locale } = this.props;
 
         return (
             <div className={`${prefixCls} data-picker`}>
@@ -83,7 +84,7 @@ export default class DatePicker extends Component {
                 <div className="wrapper" style={{ overflow: infinite ? 'hidden' : 'scroll' }} ref={this.setLayout}>
                     <div>
                         {
-                            this.canLoadPrev() && <div className="load-tip">加载上一个月</div>
+                            this.canLoadPrev() && <div className="load-tip">{locale.loadPrevMonth}</div>
                         }
                         <div className="months">
                             {

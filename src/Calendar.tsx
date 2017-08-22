@@ -6,12 +6,13 @@ import DatePicker from './DatePicker';
 import ConfirmPanel from './calendar/ConfirmPanel';
 import ShortcutPanel from './calendar/ShortcutPanel';
 import AnimateWrapper from './calendar/AnimateWrapper';
-import zhCN from './locale/zh_CN';
 import Header from './calendar/Header';
 import { Models as DateModels } from './date/DataTypes';
 import PropsType from './CalendarProps';
 
 import { mergeDateTime } from './util';
+
+import defaultLocale from './locale/zh_CN';
 
 export type ExtraData = DateModels.ExtraData;
 export { PropsType };
@@ -27,7 +28,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
     static defaultProps = {
         visible: false,
         showHeader: true,
-        locale: zhCN,
+        locale: defaultLocale,
         pickTime: false,
         showShortcut: false,
         prefixCls: 'rmc-calendar',
@@ -44,7 +45,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
     selectDate = (date: Date, useDateTime = false, startDate?: Date, endDate?: Date) => {
         if (!date) return {} as StateType;
         let newState = {} as StateType;
-        const { type, pickTime, defaultTimeValue } = this.props;
+        const { type, pickTime, defaultTimeValue, locale = {} as GlobalModels.Locale } = this.props;
         const newDate = pickTime && !useDateTime ? mergeDateTime(date, defaultTimeValue) : date;
 
         switch (type) {
@@ -57,7 +58,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                 if (pickTime) {
                     newState = {
                         ...newState,
-                        timePickerTitle: '选择时间',
+                        timePickerTitle: locale.selectTime,
                         showTimePicker: true,
                     };
                 }
@@ -74,15 +75,14 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                     if (pickTime) {
                         newState = {
                             ...newState,
-                            timePickerTitle: '选择开始时间',
+                            timePickerTitle: locale.selectStartTime,
                             showTimePicker: true,
                         };
                     }
                 } else {
                     newState = {
                         ...newState,
-                        timePickerTitle: +newDate >= +startDate ? '选择结束时间' : '选择时间',
-                        showTimePicker: true,
+                        timePickerTitle: +newDate >= +startDate ? locale.selectEndTime : locale.selectStartTime,
                         disConfirmBtn: false,
                         endDate: (pickTime && !useDateTime && +newDate >= +startDate) ?
                             new Date(+mergeDateTime(newDate, startDate) + 3600000) : newDate,
@@ -153,7 +153,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
 
     render() {
         const {
-            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
+            type, locale = {} as GlobalModels.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
             defaultTimeValue, renderShortcut, enterDirection,
         } = this.props;
@@ -181,6 +181,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                             />
                         }
                         <DatePicker
+                            locale={locale}
                             type={type}
                             prefixCls={prefixCls}
                             infinite={infinite}

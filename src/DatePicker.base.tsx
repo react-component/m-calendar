@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Models } from './date/DataTypes';
 import PropsType from './DatePickerProps';
+import { formatDate } from './util';
+
+import defaultLocale from './locale/zh_CN';
 
 export interface StateType {
     months: Models.MonthData[];
@@ -12,6 +15,7 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         infiniteOpt: false,
         defaultDate: new Date,
         initalMonths: 6,
+        locale: defaultLocale,
     } as PropsType;
 
     visibleMonth: Models.MonthData[] = [];
@@ -117,10 +121,11 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         if (!date) {
             date = new Date;
         }
+        const { locale } = this.props;
         const { firstDate, lastDate } = this.getMonthDate(date, addMonth);
 
         const weeks = this.genWeekData(firstDate);
-        const title = `${firstDate.getFullYear()}年${firstDate.getMonth() + 1}月`;
+        const title = formatDate(firstDate, locale ? locale.monthTitle : 'yyyy/MM', this.props.locale);
         const data = {
             title,
             firstDate,

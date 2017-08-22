@@ -5,7 +5,7 @@ export default interface PropsType {
     prefixCls?: string;
     /** 是否展示头部，default: true */
     showHeader?: boolean;
-    /** header title, defualt: {locale.title} */
+    /** header title, default: {locale.title} */
     title?: string;
     /** 选择类型，default: range，one: 单日，range: 日期区间 */
     type?: 'one' | 'range';
@@ -16,7 +16,7 @@ export default interface PropsType {
     /** 是否展示，default: false */
     visible?: boolean;
     /** 本地化 */
-    locale?: Models.Locale;
+    locale?: GlobalModels.Locale;
     /** 入场方向，default: vertical，vertical: 垂直，horizontal: 水平 */
     enterDirection?: 'horizontal' | 'vertical';
     /** 替换快捷选择栏，需要设置showShortcut: true */

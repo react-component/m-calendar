@@ -8,6 +8,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Calendar, { PropsType, ExtraData } from '../src/Calendar';
 
+import zhCN from '../src/locale/zh_CN';
+import enUS from '../src/locale/en_US';
+const cn = location.search.indexOf('cn') !== -1;
+
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
     '2017/08/14': { info: '培训', disable: true },
@@ -77,6 +81,7 @@ class BasicDemo extends React.Component<{}, {
                     }
                 </div>
                 <Calendar
+                    locale={cn ? zhCN : enUS}
                     {...this.state.config}
                     visible={this.state.show}
                     onCancel={() => {
