@@ -10,7 +10,7 @@ import Calendar, { PropsType, ExtraData } from '../src/Calendar';
 
 import zhCN from '../src/locale/zh_CN';
 import enUS from '../src/locale/en_US';
-const cn = location.search.indexOf('cn') !== -1;
+const en = location.search.indexOf('en') !== -1;
 
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
@@ -46,8 +46,8 @@ class BasicDemo extends React.Component<{}, {
         };
     }
 
-    renderBtn(text: string, config: PropsType = {}) {
-        return <div style={{ background: 'orange', padding: 10, margin: 10, textAlign: 'center' }}
+    renderBtn(text: string, text2: string, config: PropsType = {}) {
+        return <div style={{ background: '#1A7BE6', padding: 5, margin: 10, textAlign: 'center' }}
             onClick={() => {
                 document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
                 this.setState({
@@ -55,21 +55,22 @@ class BasicDemo extends React.Component<{}, {
                     config,
                 });
             }}>
-            {text}
+            <p style={{ color: '#fff', margin: 0, padding: 0 }}>{text}</p>
+            <p style={{ color: '#fff', margin: 0, padding: 0 }}>{text2}</p>
         </div>;
     }
 
     render() {
         return (
-            <div style={{ marginTop: 10, marginBottom: 10 }}>
-                {this.renderBtn('选择日期区间')}
-                {this.renderBtn('选择日期时间区间', { pickTime: true })}
-                {this.renderBtn('选择日期时间', { type: 'one', pickTime: true })}
-                {this.renderBtn('选择日期', { type: 'one' })}
-                {this.renderBtn('选择日期区间(快捷)', { showShortcut: true })}
-                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
-                {this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false })}
-                {this.renderBtn('水平进入', { enterDirection: 'horizontal' })}
+            <div style={{ marginTop: 10, marginBottom: 10, fontSize: 14 }}>
+                {this.renderBtn('选择日期区间', 'Select Date Range')}
+                {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
+                {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
+                {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
+                {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
+                {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
+                {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
+                {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
                 <div style={{ marginLeft: 10, fontSize: 14 }}>
                     {
                         this.state.startTime &&
@@ -81,7 +82,7 @@ class BasicDemo extends React.Component<{}, {
                     }
                 </div>
                 <Calendar
-                    locale={cn ? zhCN : enUS}
+                    locale={en ? enUS : zhCN}
                     {...this.state.config}
                     visible={this.state.show}
                     onCancel={() => {
@@ -93,6 +94,7 @@ class BasicDemo extends React.Component<{}, {
                         });
                     }}
                     onConfirm={(startTime, endTime) => {
+                        document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
                         this.setState({
                             show: false,
                             startTime,

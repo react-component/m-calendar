@@ -215,7 +215,7 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                             (
                                 renderShortcut ?
                                     renderShortcut(this.shortcutSelect) :
-                                    <ShortcutPanel onSelect={this.shortcutSelect} />
+                                    <ShortcutPanel locale={locale} onSelect={this.shortcutSelect} />
                             )
                         }
                         {

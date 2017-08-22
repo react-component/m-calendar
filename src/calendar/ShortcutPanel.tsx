@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 interface PropsType {
+    locale: GlobalModels.Locale;
     onSelect: (startDate?: Date, endDate?: Date) => void;
 }
 export default class ShortcutPanel extends React.PureComponent<PropsType, {}> {
@@ -41,12 +42,14 @@ export default class ShortcutPanel extends React.PureComponent<PropsType, {}> {
     }
 
     render() {
+        const { locale } = this.props;
+
         return (
             <div className="shortcut-panel">
-                <div className="item" onClick={() => this.onClick('today')}>今天</div>
-                <div className="item" onClick={() => this.onClick('yesterday')}>昨天</div>
-                <div className="item" onClick={() => this.onClick('lastweek')}>近一周</div>
-                <div className="item" onClick={() => this.onClick('lastmonth')}>近一个月</div>
+                <div className="item" onClick={() => this.onClick('today')}>{locale.today}</div>
+                <div className="item" onClick={() => this.onClick('yesterday')}>{locale.yesterday}</div>
+                <div className="item" onClick={() => this.onClick('lastweek')}>{locale.lastWeek}</div>
+                <div className="item" onClick={() => this.onClick('lastmonth')}>{locale.lastMonth}</div>
             </div>
         );
     }

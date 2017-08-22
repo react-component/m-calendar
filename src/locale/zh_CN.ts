@@ -21,5 +21,8 @@ const locale: GlobalModels.Locale = {
     confirm: '确认',
     monthTitle: 'yyyy年MM月',
     loadPrevMonth: '加载上一个月',
+    yesterday: '昨天',
+    lastWeek: '近一周',
+    lastMonth: '近一个月',
 };
 export default locale;

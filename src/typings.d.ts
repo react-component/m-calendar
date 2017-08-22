@@ -26,5 +26,8 @@ declare namespace GlobalModels {
         confirm: string,
         monthTitle: string,
         loadPrevMonth: string,
+        yesterday: string,
+        lastWeek: string,
+        lastMonth: string,
     }
 }

@@ -21,5 +21,8 @@ const locale: GlobalModels.Locale = {
     confirm: 'Confirm',
     monthTitle: 'yyyy/MM',
     loadPrevMonth: 'Load Prev Month',
+    yesterday: 'Yesterday',
+    lastWeek: 'Last Week',
+    lastMonth: 'Last Month',
 };
 export default locale;
