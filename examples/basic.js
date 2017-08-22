@@ -11257,7 +11257,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var cn = location.search.indexOf('cn') !== -1;
+var en = location.search.indexOf('en') !== -1;
 var extra = {
     1501516800000: { info: '建军节' },
     '2017/08/14': { info: '培训', disable: true },
@@ -11343,7 +11343,7 @@ var BasicDemo = function (_React$Component) {
                         this.state.endTime.toLocaleString()
                     )
                 ),
-                __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__src_Calendar__["a" /* default */], _extends({ locale: cn ? __WEBPACK_IMPORTED_MODULE_6__src_locale_zh_CN__["a" /* default */] : __WEBPACK_IMPORTED_MODULE_7__src_locale_en_US__["a" /* default */] }, this.state.config, { visible: this.state.show, onCancel: function onCancel() {
+                __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__src_Calendar__["a" /* default */], _extends({ locale: en ? __WEBPACK_IMPORTED_MODULE_7__src_locale_en_US__["a" /* default */] : __WEBPACK_IMPORTED_MODULE_6__src_locale_zh_CN__["a" /* default */] }, this.state.config, { visible: this.state.show, onCancel: function onCancel() {
                         document.getElementsByTagName('body')[0].style.overflowY = _this3.originbodyScrollY;
                         _this3.setState({
                             show: false,
