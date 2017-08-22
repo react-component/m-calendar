@@ -224,13 +224,21 @@
             transform: translate3d(100%, 0, 0);
   }
 }
-.rmc-calendar .slide-enter {
+.rmc-calendar .slideV-enter {
   -webkit-animation-name: slideInUp;
           animation-name: slideInUp;
 }
-.rmc-calendar .slide-leave {
+.rmc-calendar .slideV-leave {
   -webkit-animation-name: slideInDown;
           animation-name: slideInDown;
+}
+.rmc-calendar .slideH-enter {
+  -webkit-animation-name: slideInLeft;
+          animation-name: slideInLeft;
+}
+.rmc-calendar .slideH-leave {
+  -webkit-animation-name: slideInRight;
+          animation-name: slideInRight;
 }
 .rmc-calendar.calendar .mask {
   position: fixed;

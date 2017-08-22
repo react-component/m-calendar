@@ -11250,13 +11250,14 @@ var BasicDemo = function (_React$Component) {
             return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
                 'div',
                 { style: { marginTop: 10, marginBottom: 10 } },
-                this.renderBtn('选择日期时间区间', { pickTime: true }),
                 this.renderBtn('选择日期区间'),
+                this.renderBtn('选择日期时间区间', { pickTime: true }),
                 this.renderBtn('选择日期时间', { type: 'one', pickTime: true }),
                 this.renderBtn('选择日期', { type: 'one' }),
-                this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true }),
                 this.renderBtn('选择日期区间(快捷)', { showShortcut: true }),
+                this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true }),
                 this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false }),
+                this.renderBtn('水平进入', { enterDirection: 'horizontal' }),
                 __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
                     'div',
                     { style: { marginLeft: 10, fontSize: 14 } },
@@ -11287,8 +11288,7 @@ var BasicDemo = function (_React$Component) {
                             endTime: endTime
                         });
                     }, getDateExtra: function getDateExtra(date) {
-                        {}
-                        return {};
+                        return extra[+date];
                     }, minDate: new Date(+new Date() - 60 * 24 * 3600 * 1000), maxDate: new Date(+new Date() + 365 * 24 * 3600 * 1000) }))
             );
         }
@@ -11298,10 +11298,10 @@ var BasicDemo = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_3_react___default.a.Component);
 
 __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(BasicDemo, null), document.getElementById('__react-content'));
-var ip = document.body.children[3].innerText.split('/')[2].split(':')[0];
-var elm = document.createElement('script');
-elm.src = 'http://' + ip + ':1337/vorlon.js';
-document.body.appendChild(elm);
+// const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
+// const elm = document.createElement('script');
+// elm.src = `http://${ip}:1337/vorlon.js`;
+// document.body.appendChild(elm);
 
 /***/ }),
 /* 142 */
@@ -11474,7 +11474,8 @@ var Calendar = function (_React$Component) {
                 maxDate = _props.maxDate,
                 getDateExtra = _props.getDateExtra,
                 defaultTimeValue = _props.defaultTimeValue,
-                renderShortcut = _props.renderShortcut;
+                renderShortcut = _props.renderShortcut,
+                enterDirection = _props.enterDirection;
             var _state = this.state,
                 showTimePicker = _state.showTimePicker,
                 timePickerTitle = _state.timePickerTitle,
@@ -11492,7 +11493,7 @@ var Calendar = function (_React$Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_1_rc_animate__["a" /* default */],
-                    { showProp: 'visible', transitionName: 'slide' },
+                    { showProp: 'visible', transitionName: enterDirection === 'horizontal' ? 'slideH' : 'slideV' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_6__calendar_AnimateWrapper__["a" /* default */],
                         { className: 'content', visible: !!visible },

@@ -329,13 +329,14 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     render() {
         <span class="hljs-keyword">return</span> (
             <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">marginBottom:</span> <span class="hljs-attribute">10</span> }}&gt;</span>
-                {this.renderBtn('选择日期时间区间', { pickTime: true })}
                 {this.renderBtn('选择日期区间')}
+                {this.renderBtn('选择日期时间区间', { pickTime: true })}
                 {this.renderBtn('选择日期时间', { type: 'one', pickTime: true })}
                 {this.renderBtn('选择日期', { type: 'one' })}
-                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
                 {this.renderBtn('选择日期区间(快捷)', { showShortcut: true })}
+                {this.renderBtn('选择日期时间区间(快捷)', { pickTime: true, showShortcut: true })}
                 {this.renderBtn('不使用无限滚动(无法向前滚动)', { infinite: false })}
+                {this.renderBtn('水平进入', { enterDirection: 'horizontal' })}
                 <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginLeft:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
                     {
                         this.state.startTime &amp;&amp;
@@ -365,8 +366,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
                         });
                     }}
                     getDateExtra={(date) =&gt; {
-                        {/* return extra[+date]; */ }
-                        return {};
+                        return extra[+date];
                     }}
                     minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
                     maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
@@ -378,10 +378,10 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">BasicDemo</span> /&gt;</span>, document.getElementById('__react-content'));
 
-const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
-const elm = document.createElement('script');
-elm.src = `http://${ip}:1337/vorlon.js`;
-document.body.appendChild(elm);</span></code></pre></div>
+// const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
+// const elm = document.createElement('script');
+// elm.src = `http://${ip}:1337/vorlon.js`;
+// document.body.appendChild(elm);</span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/m-calendar">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
