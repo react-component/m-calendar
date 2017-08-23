@@ -11371,6 +11371,8 @@ var BasicDemo = function (_React$Component) {
                             startTime: startTime,
                             endTime: endTime
                         });
+                    }, onSelectHasDisableDate: function onSelectHasDisableDate(dates) {
+                        console.warn('onSelectHasDisableDate', dates);
                     }, getDateExtra: function getDateExtra(date) {
                         return extra[+date];
                     }, minDate: new Date(+new Date() - 60 * 24 * 3600 * 1000), maxDate: new Date(+new Date() + 365 * 24 * 3600 * 1000) }))
@@ -12334,7 +12336,7 @@ var ConfirmPanel = function (_React$PureComponent) {
                         'p',
                         null,
                         locale.end,
-                        '  : ',
+                        ': ',
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                             'span',
                             { className: !endDateTime ? 'grey' : '' },

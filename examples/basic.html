@@ -377,6 +377,9 @@ extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</s
                             endTime,
                         });
                     }}
+                    onSelectHasDisableDate={(dates: Date[]) =&gt; {
+                        console.warn('onSelectHasDisableDate', dates);
+                    }}
                     getDateExtra={(date) =&gt; {
                         return extra[+date];
                     }}
