@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface PropsType {
+export interface PropsType {
     visible: boolean;
     className?: string;
     displayType?: string;

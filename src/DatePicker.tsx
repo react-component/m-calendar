@@ -56,7 +56,7 @@ export default class DatePicker extends Component {
 
                     this.visibleMonth = this.visibleMonth.slice(0, this.props.initalMonths);
 
-                    this.state.months.forEach((m, index) => {
+                    this.state.months.forEach((m) => {
                         m.updateLayout && m.updateLayout();
                     });
 
@@ -88,7 +88,7 @@ export default class DatePicker extends Component {
                         }
                         <div className="months">
                             {
-                                this.state.months.map((m, index) => {
+                                this.state.months.map((m) => {
                                     const hidden = m.height && this.visibleMonth.indexOf(m) < 0;
                                     if (hidden) {
                                         return <div key={m.title + '_shallow'} style={{ height: m.height }}></div>;

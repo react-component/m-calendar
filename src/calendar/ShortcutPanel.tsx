@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface PropsType {
+export interface PropsType {
     locale: GlobalModels.Locale;
     onSelect: (startDate?: Date, endDate?: Date) => void;
 }

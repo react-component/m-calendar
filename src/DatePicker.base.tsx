@@ -224,7 +224,7 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         }
     }
 
-    computeVisible = (fullHeight: number, clientHeight: number, scrollTop: number) => {
+    computeVisible = (clientHeight: number, scrollTop: number) => {
         let needUpdate = false;
         const MAX_VIEW_PORT = clientHeight * 2;
         const MIN_VIEW_PORT = clientHeight;
@@ -273,11 +273,10 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
 
     createOnScroll = () => {
         let timer: any;
-        let fullHeight = 0, clientHeight = 0, scrollTop = 0;
+        let clientHeight = 0, scrollTop = 0;
 
         return (data: { full: number, client: number, top: number }) => {
-            const { full, client, top } = data;
-            fullHeight = full;
+            const { client, top } = data;
             clientHeight = client;
             scrollTop = top;
 
@@ -287,14 +286,14 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
 
             timer = setTimeout(() => {
                 timer = undefined;
-                if (this.computeVisible(fullHeight, clientHeight, scrollTop)) {
+                if (this.computeVisible(clientHeight, scrollTop)) {
                     this.forceUpdate();
                 }
             }, 64);
         };
     }
 
-    onCellClick = (day: Models.CellData, monthData: Models.MonthData) => {
+    onCellClick = (day: Models.CellData) => {
         if (!day.tick) return;
         this.props.onCellClick && this.props.onCellClick(new Date(day.tick));
     }
