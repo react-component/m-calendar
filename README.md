@@ -33,7 +33,7 @@ React Mobile Calendar Component (web and react-native)
 ## Development
 
 ```
-npm i
+npm i 
 npm start
 ```
 

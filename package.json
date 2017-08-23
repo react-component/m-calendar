@@ -39,7 +39,7 @@
     "test": "jest",
     "update-snap": "jest --updateSnapshot",
     "coverage": "jest --coverage",
-    "coverage:upload": "cat ./coverage/lcov.info | coveralls"
+    "coverage:upload": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

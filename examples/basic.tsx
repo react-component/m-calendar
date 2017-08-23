@@ -6,7 +6,7 @@ import 'rmc-calendar/assets/index.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Calendar, { PropsType, ExtraData } from '../src/Calendar';
+import { Calendar, ExtraData, CalendarPropsType } from '../src';
 
 import zhCN from '../src/locale/zh_CN';
 import enUS from '../src/locale/en_US';
@@ -37,7 +37,7 @@ for (let key in extra) {
 
 class BasicDemo extends React.Component<{}, {
     show: boolean;
-    config?: PropsType;
+    config?: CalendarPropsType;
     startTime?: Date;
     endTime?: Date;
 }> {
@@ -51,7 +51,7 @@ class BasicDemo extends React.Component<{}, {
         };
     }
 
-    renderBtn(text: string, text2: string, config: PropsType = {}) {
+    renderBtn(text: string, text2: string, config: CalendarPropsType = {}) {
         return <div style={{ background: '#1A7BE6', padding: 5, margin: 10, textAlign: 'center' }}
             onClick={() => {
                 document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
