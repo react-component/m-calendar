@@ -80,7 +80,7 @@ export default class DatePicker extends Component {
 
         return (
             <div className={`${prefixCls} data-picker`}>
-                <WeekPanel></WeekPanel>
+                <WeekPanel />
                 <div className="wrapper" style={{ overflow: infinite ? 'hidden' : 'scroll' }} ref={this.setLayout}>
                     <div>
                         {

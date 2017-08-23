@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Models } from './date/DataTypes';
 import PropsType from './DatePickerProps';
-import { formatDate } from './util';
+import { formatDate, shallowEqual } from './util';
 
 import defaultLocale from './locale/zh_CN';
 
@@ -29,14 +29,22 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         };
     }
 
+    shouldComponentUpdate(nextProps: PropsType, nextState: StateType, nextContext: any) {
+        return !shallowEqual(this.props, nextProps, ['startDate', 'endDate']) ||
+            !shallowEqual(this.state, nextState) ||
+            !shallowEqual(this.context, nextContext);
+    }
+
     componentWillReceiveProps(nextProps: PropsType) {
-        if (this.props.value !== nextProps.value) {
-            const oldValue = this.props.value;
-            if (oldValue && oldValue.startDate) {
+        const oldValue = this.props;
+        const newValue = nextProps;
+
+        if (oldValue.startDate !== newValue.startDate || oldValue.endDate !== newValue.endDate) {
+            if (oldValue.startDate) {
                 this.selectDateRange(oldValue.startDate, oldValue.endDate, true);
             }
-            if (nextProps.value && nextProps.value.startDate) {
-                this.selectDateRange(nextProps.value.startDate, nextProps.value.endDate);
+            if (newValue.startDate) {
+                this.selectDateRange(newValue.startDate, newValue.endDate);
             }
         }
     }
@@ -47,7 +55,6 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
             this.canLoadNext() && this.genMonthData(defaultDate, i);
         }
         this.visibleMonth = [...this.state.months];
-        this.forceUpdate();
     }
 
     getMonthDate(date = new Date, addMonth = 0) {
@@ -138,9 +145,9 @@ export default abstract class DatePicker extends React.PureComponent<PropsType, 
         } else {
             this.state.months.unshift(data);
         }
-        const { value } = this.props;
-        if (value && value.startDate) {
-            this.selectDateRange(value.startDate, value.endDate);
+        const { startDate, endDate } = this.props;
+        if (startDate) {
+            this.selectDateRange(startDate, endDate);
         }
         return data;
     }

@@ -13,29 +13,29 @@ export default class ShortcutPanel extends React.PureComponent<PropsType, {}> {
         switch (type) {
             case 'today':
                 onSelect(
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0),
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0)
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0),
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12)
                 );
                 break;
 
             case 'yesterday':
                 onSelect(
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 0, 0, 0),
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 12, 0, 0)
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 0),
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 12)
                 );
                 break;
 
             case 'lastweek':
                 onSelect(
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6, 0, 0, 0),
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0)
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6, 0),
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12)
                 );
                 break;
 
             case 'lastmonth':
                 onSelect(
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30, 0, 0, 0),
-                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0)
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate() - 29, 0),
+                    new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12)
                 );
                 break;
         }

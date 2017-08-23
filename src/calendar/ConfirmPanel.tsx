@@ -49,7 +49,7 @@ export default class ConfirmPanel extends React.PureComponent<ConfirmPanelPropsT
                     type === 'range' &&
                     <div className="info">
                         <p>{locale.start}: <span className={!startDateTime ? 'grey' : ''}>{startTimeStr}</span></p>
-                        <p>{locale.end}  : <span className={!endDateTime ? 'grey' : ''}>{endTimeStr}</span></p>
+                        <p>{locale.end}: <span className={!endDateTime ? 'grey' : ''}>{endTimeStr}</span></p>
                     </div>
                 }
                 <div className={btnCls} onClick={this.onConfirm}>

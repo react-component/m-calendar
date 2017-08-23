@@ -20,10 +20,9 @@ export default interface PropsType {
     /** 最大日期 */
     maxDate?: Date;
     /** 选择值 */
-    value?: {
-        startDate?: Date;
-        endDate?: Date;
-    };
+    startDate?: Date;
+    /** 选择值 */
+    endDate?: Date;
     /** 日期扩展数据 */
     getDateExtra?: (date: Date) => Models.ExtraData;
     /** 日期点击回调 */

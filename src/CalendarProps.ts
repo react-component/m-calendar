@@ -41,6 +41,8 @@ export default interface PropsType {
     maxDate?: Date;
     /** 日期扩展数据 */
     getDateExtra?: (date: Date) => DateModels.ExtraData;
+    /** 选择区间包含不可用日期 */
+    onSelectHasDisableDate?: (date: Date[]) => void;
 
     // TimePicker
     /** 默认时间选择值 */

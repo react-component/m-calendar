@@ -24,7 +24,7 @@ export class StateType {
     endDate?: Date = undefined;
     disConfirmBtn?: boolean = true;
 }
-export default class Calendar extends React.Component<PropsType, StateType> {
+export default class Calendar extends React.PureComponent<PropsType, StateType> {
     static defaultProps = {
         visible: false,
         showHeader: true,
@@ -100,6 +100,9 @@ export default class Calendar extends React.Component<PropsType, StateType> {
 
     onSelectHasDisableDate = (date: Date[]) => {
         this.onClear();
+        if (this.props.onSelectHasDisableDate) {
+            this.props.onSelectHasDisableDate(date);
+        }
     }
 
     onClose = () => {
@@ -193,10 +196,8 @@ export default class Calendar extends React.Component<PropsType, StateType> {
                             getDateExtra={getDateExtra}
                             onCellClick={this.onSelectedDate}
                             onSelectHasDisableDate={this.onSelectHasDisableDate}
-                            value={{
-                                startDate: startDate,
-                                endDate: endDate,
-                            }}
+                            startDate={startDate}
+                            endDate={endDate}
                         />
                         {
                             showTimePicker &&

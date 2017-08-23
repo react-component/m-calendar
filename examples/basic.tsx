@@ -14,12 +14,17 @@ const en = location.search.indexOf('en') !== -1;
 
 const extra: { [key: string]: ExtraData } = {
     1501516800000: { info: '建军节' },
-    '2017/08/14': { info: '培训', disable: true },
-    '2017/08/15': { info: '培训', disable: true },
-    '2017/08/16': { info: '培训', disable: true },
-    '2017/08/17': { info: '培训', disable: true },
-    '2017/08/18': { info: '培训', disable: true },
+    '2017/06/14': { info: '禁止选择', disable: true },
+    '2017/06/15': { info: 'Disable', disable: true },
 };
+
+const now = new Date;
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5)] = { info: '禁止选择', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6)] = { info: 'Disable', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7)] = { info: 'Disable', disable: true };
+extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 8)] = { info: 'Disable', disable: true };
+
+
 for (let key in extra) {
     if (extra.hasOwnProperty(key)) {
         let info = extra[key];
@@ -101,6 +106,9 @@ class BasicDemo extends React.Component<{}, {
                             endTime,
                         });
                     }}
+                    onSelectHasDisableDate={(dates: Date[]) => {
+                        console.warn('onSelectHasDisableDate', dates);
+                    }}
                     getDateExtra={(date) => {
                         return extra[+date];
                     }}
@@ -113,8 +121,3 @@ class BasicDemo extends React.Component<{}, {
 }
 
 ReactDOM.render(<BasicDemo />, document.getElementById('__react-content'));
-
-// const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
-// const elm = document.createElement('script');
-// elm.src = `http://${ip}:1337/vorlon.js`;
-// document.body.appendChild(elm);
