@@ -60,18 +60,39 @@ react-native run-ios
 
 ## Usage
 ```jsx
-<Calendar
-    visible={this.state.show}
-    onCancel={() => {
-    }}
-    onConfirm={(startTime, endTime) => {
-    }}
-    getDateExtra={(date) => {
-        return extra[+date];
-    }}
-    minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
-    maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
-/>
+import React, { Component } from 'react';
+
+import { Calendar } from 'rmc-calendar';
+import 'rmc-calendar/assets/index.css';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+  }
+
+  setVisiable = () => {
+    this.setState({
+      visible: !this.state.visible,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Calendar
+          visible={this.state.visible}
+          onCancel={this.setVisiable}
+          onConfirm={this.setVisiable}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
 ```
 
 ## API
