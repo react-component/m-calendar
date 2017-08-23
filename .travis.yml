@@ -16,7 +16,7 @@ before_install:
       echo "Only docs were updated, stopping build process."
       exit
     fi
-    phantomjs --version
+
 script:
 - |
     if [ "$TEST_TYPE" = test ]; then
@@ -29,8 +29,4 @@ env:
   - TEST_TYPE=lint
   - TEST_TYPE=test
   - TEST_TYPE=coverage
-
-
-matrix:
-  allow_failures:
-  - env: "TEST_TYPE=saucelabs"
+  - TEST_TYPE=coverage:upload
