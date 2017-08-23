@@ -42,6 +42,10 @@
     "coverage:upload": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)(spec|test).ts?(x)"
+    ],
     "coverageDirectory": "./coverage/",
     "moduleFileExtensions": [
       "ts",
