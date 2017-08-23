@@ -35,12 +35,24 @@
     "start": "rc-tools run server",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
-    "karma": "rc-test run karma",
-    "saucelabs": "rc-test run saucelabs",
-    "test": "rc-test run test",
-    "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage",
-    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "update-snap": "jest --updateSnapshot",
+    "coverage": "jest --coverage"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*"
+    ],
+    "transform": {
+      "\\.tsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js",
+      "\\.jsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js"
+    }
   },
   "dependencies": {
     "babel-runtime": "6.x",
@@ -49,19 +61,18 @@
     "zscroller": "^0.3.1"
   },
   "devDependencies": {
-    "@types/mocha": "~2.2.32",
+    "@types/jest": "^20.0.7",
+    "jest": "^20.0.4",
+    "enzyme": "^2.9.1",
+    "enzyme-to-json": "^1.5.1",
     "@types/react": "^15.0.27",
     "@types/react-dom": "^15.5.0",
-    "array-tree-filter": "1.x",
-    "expect.js": "0.3.x",
-    "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
-    "react-native": "0.41.x",
-    "react-native-index-page": "~0.2.0",
+    "react-test-renderer": "^15.5.0",
     "stylelint-config-standard": "^17.0.0"
   },
   "typings": "./lib/index.d.ts",

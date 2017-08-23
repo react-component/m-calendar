@@ -11,6 +11,7 @@
     "outDir": "lib"
   },
   "include": [
-    "src"
+    "src",
+    "typings"
   ]
 }
