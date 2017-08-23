@@ -4913,6 +4913,9 @@ var locale = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return mergeDateTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return formatDate; });
+/* harmony export (immutable) */ __webpack_exports__["c"] = shallowEqual;
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var mergeDateTime = function mergeDateTime(date, time) {
     date = date || new Date();
     if (!time) return date;
@@ -4938,6 +4941,36 @@ var formatDate = function formatDate(date, format, locale) {
     }
     return format;
 };
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function is(x, y) {
+    if (x === y) {
+        return x !== 0 || y !== 0 || 1 / x === 1 / y;
+    } else {
+        return x !== x && y !== y;
+    }
+}
+function shallowEqual(objA, objB) {
+    var exclude = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+    if (is(objA, objB)) {
+        return true;
+    }
+    if ((typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object' || objB === null) {
+        return false;
+    }
+    var keysA = Object.keys(objA);
+    var keysB = Object.keys(objB);
+    if (keysA.length !== keysB.length) {
+        return false;
+    }
+    for (var i = 0; i < keysA.length; i++) {
+        if (exclude.indexOf(keysA[i]) >= 0) continue;
+        if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+            return false;
+        }
+    }
+    return true;
+}
 
 /***/ }),
 /* 54 */
@@ -11384,10 +11417,6 @@ var BasicDemo = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_3_react___default.a.Component);
 
 __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(BasicDemo, null), document.getElementById('__react-content'));
-// const ip = (document.body.children[3] as HTMLScriptElement).innerText.split('/')[2].split(':')[0];
-// const elm = document.createElement('script');
-// elm.src = `http://${ip}:1337/vorlon.js`;
-// document.body.appendChild(elm);
 
 /***/ }),
 /* 144 */
@@ -11440,8 +11469,8 @@ var StateType = function StateType() {
     this.disConfirmBtn = true;
 };
 
-var Calendar = function (_React$Component) {
-    _inherits(Calendar, _React$Component);
+var Calendar = function (_React$PureComponent) {
+    _inherits(Calendar, _React$PureComponent);
 
     function Calendar(props) {
         _classCallCheck(this, Calendar);
@@ -11589,10 +11618,7 @@ var Calendar = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_6__calendar_AnimateWrapper__["a" /* default */],
                         { className: 'content', visible: !!visible },
                         showHeader && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__calendar_Header__["a" /* default */], { locale: locale, showClear: !!startDate, onCancel: this.onCancel, onClear: this.onClear }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, value: {
-                                startDate: startDate,
-                                endDate: endDate
-                            } }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, startDate: startDate, endDate: endDate }),
                         showTimePicker && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TimePicker__["a" /* default */], { locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate }),
                         showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__calendar_ShortcutPanel__["a" /* default */], { locale: locale, onSelect: this.shortcutSelect })),
                         startDate && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__calendar_ConfirmPanel__["a" /* default */], { type: type, locale: locale, startDateTime: startDate, endDateTime: endDate, onConfirm: this.onConfirm, disableBtn: disConfirmBtn, formatStr: pickTime ? locale.dateTimeFormat : locale.dateFormat })
@@ -11603,7 +11629,7 @@ var Calendar = function (_React$Component) {
     }]);
 
     return Calendar;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.PureComponent);
 
 /* harmony default export */ __webpack_exports__["a"] = (Calendar);
 
@@ -11848,15 +11874,21 @@ var DatePicker = function (_React$PureComponent) {
     }
 
     _createClass(DatePicker, [{
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+            return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util__["c" /* shallowEqual */])(this.props, nextProps, ['startDate', 'endDate']) || !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util__["c" /* shallowEqual */])(this.state, nextState) || !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util__["c" /* shallowEqual */])(this.context, nextContext);
+        }
+    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.value !== nextProps.value) {
-                var oldValue = this.props.value;
-                if (oldValue && oldValue.startDate) {
+            var oldValue = this.props;
+            var newValue = nextProps;
+            if (oldValue.startDate !== newValue.startDate || oldValue.endDate !== newValue.endDate) {
+                if (oldValue.startDate) {
                     this.selectDateRange(oldValue.startDate, oldValue.endDate, true);
                 }
-                if (nextProps.value && nextProps.value.startDate) {
-                    this.selectDateRange(nextProps.value.startDate, nextProps.value.endDate);
+                if (newValue.startDate) {
+                    this.selectDateRange(newValue.startDate, newValue.endDate);
                 }
             }
         }
@@ -11872,7 +11904,6 @@ var DatePicker = function (_React$PureComponent) {
                 this.canLoadNext() && this.genMonthData(defaultDate, i);
             }
             this.visibleMonth = [].concat(_toConsumableArray(this.state.months));
-            this.forceUpdate();
         }
     }, {
         key: 'getMonthDate',
@@ -11932,10 +11963,12 @@ var DatePicker = function (_React$PureComponent) {
             } else {
                 this.state.months.unshift(data);
             }
-            var value = this.props.value;
+            var _props2 = this.props,
+                startDate = _props2.startDate,
+                endDate = _props2.endDate;
 
-            if (value && value.startDate) {
-                this.selectDateRange(value.startDate, value.endDate);
+            if (startDate) {
+                this.selectDateRange(startDate, endDate);
             }
             return data;
         }
@@ -12485,16 +12518,16 @@ var ShortcutPanel = function (_React$PureComponent) {
             var today = new Date();
             switch (type) {
                 case 'today':
-                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0));
+                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12));
                     break;
                 case 'yesterday':
-                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 0, 0, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 12, 0, 0));
+                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1, 12));
                     break;
                 case 'lastweek':
-                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6, 0, 0, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0));
+                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12));
                     break;
                 case 'lastmonth':
-                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30, 0, 0, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0));
+                    onSelect(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 29, 0), new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12));
                     break;
             }
         };
