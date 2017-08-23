@@ -1,11 +1,10 @@
 # rmc-calendar
 ---
 
-React Mobile Calendar Component (web and react-native)
+React Mobile Calendar Component (web)
 
 
 [![NPM version][npm-image]][npm-url]
-![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.30.0-green.svg)
 ![react](https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg)
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
@@ -43,7 +42,7 @@ http://localhost:8000/examples/
 
 online example: http://react-component.github.io/m-calendar/
 
-## react-native
+## react-native (TBC)
 
 ```
 ./node_modules/rc-tools run react-native-init
@@ -78,8 +77,88 @@ react-native run-ios
 ## API
 
 ### Calendar props
+```ts
+interface PropsType {
+    /** enter direction，default: vertical */
+    enterDirection?: 'horizontal' | 'vertical';
+    /** locale */
+    locale?: GlobalModels.Locale;
+    onCancel?: () => void;
+    onConfirm?: (startDateTime?: Date, endDateTime?: Date) => void;
+    /** choose time，default: false */
+    pickTime?: boolean;
+    /** (web only) prefix class，default: rmc-calendar */
+    prefixCls?: string;
+    /** shortcut render, need showShortcut: true */
+    renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
+    /** show header, default: true */
+    showHeader?: boolean;
+    /** show shortcut, default: false */
+    showShortcut?: boolean;
+    /** header title, default: {locale.title} */
+    title?: string;
+    /** select type, default: range，one: one-day, range: range */
+    type?: 'one' | 'range';
+    /** visible, default: false */
+    visible?: boolean;
+
+    // DatePicker Component
+    /** default date for show, default: today */
+    defaultDate?: Date;
+    /** extra info of date */
+    getDateExtra?: (date: Date) => DateModels.ExtraData;
+    /** infinite scroll, default: true */
+    infinite?: boolean;
+    /** infinite scroll optimization, default: false */
+    infiniteOpt?: boolean;
+    /** inital generate months, default: 6 */
+    initalMonths?: number;
+    /** max date */
+    maxDate?: Date;
+    /** min date */
+    minDate?: Date;
+    /** select range has disable date */
+    onSelectHasDisableDate?: (date: Date[]) => void;
+
+    // TimePicker Component
+    /** inital time of TimePicker */
+    defaultTimeValue?: Date;
+}
+```
 
 ### DatePicker props
+```ts
+export default interface PropsType {
+    /** default date for show, default: today */
+    defaultDate?: Date;
+    /** select value of start date */
+    startDate?: Date;
+    /** select value of end date */
+    endDate?: Date;
+    /** extra info of date */
+    getDateExtra?: (date: Date) => Models.ExtraData;
+    /** infinite scroll, default: true */
+    infinite?: boolean;
+    /** infinite scroll optimization, default: false */
+    infiniteOpt?: boolean;
+    /** inital generate months, default: 6 */
+    initalMonths?: number;
+    /** locale */
+    locale?: GlobalModels.Locale;
+    /** max date */
+    maxDate?: Date;
+    /** min date */
+    minDate?: Date;
+    /** callback when click the cell of date */
+    onCellClick?: (date: Date) => void;
+    /** select range has disable date */
+    onSelectHasDisableDate?: (date: Date[]) => void;
+    /** (web only) prefix class */
+    prefixCls?: string;
+    /** select type, default: range，one: one-day, range: range */
+    type?: 'one' | 'range';
+}
+```
 
 ## Test Case
 
