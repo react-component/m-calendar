@@ -13,6 +13,7 @@ export interface PropsType {
 
     minDate?: Date;
     maxDate?: Date;
+    clientHeight?: number;
 }
 export interface StateType {
 }
@@ -53,8 +54,9 @@ export default class TimePicker extends React.PureComponent<PropsType, StateType
     }
 
     render() {
-        const { locale, title, value, defaultValue, prefixCls, pickerPrefixCls } = this.props;
+        const { locale, title, value, defaultValue, prefixCls, pickerPrefixCls, clientHeight } = this.props;
         const date = value || defaultValue || undefined;
+        const height = (clientHeight && clientHeight * 3 / 8 - 52) || Number.POSITIVE_INFINITY;
 
         return (
             <div className="time-picker">
@@ -62,6 +64,10 @@ export default class TimePicker extends React.PureComponent<PropsType, StateType
                 <DateTimePicker
                     prefixCls={prefixCls}
                     pickerPrefixCls={pickerPrefixCls}
+                    style={{
+                        height: height > 164 || height < 0 ? 164 : height,
+                        overflow: 'hidden'
+                    } as React.CSSProperties}
                     mode="time"
                     date={date}
                     locale={locale}

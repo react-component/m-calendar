@@ -23,6 +23,7 @@ export class StateType {
     startDate?: Date = undefined;
     endDate?: Date = undefined;
     disConfirmBtn?: boolean = true;
+    clientHight?: number = 0;
 }
 export default class Calendar extends React.PureComponent<PropsType, StateType> {
     static defaultProps = {
@@ -154,6 +155,12 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         });
     }
 
+    setClientHight = (height: number) => {
+        this.setState({
+            clientHight: height,
+        });
+    }
+
     render() {
         const {
             type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
@@ -163,7 +170,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         const {
             showTimePicker, timePickerTitle,
             startDate, endDate,
-            disConfirmBtn
+            disConfirmBtn, clientHight
         } = this.state;
 
         return (
@@ -196,6 +203,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
                             getDateExtra={getDateExtra}
                             onCellClick={this.onSelectedDate}
                             onSelectHasDisableDate={this.onSelectHasDisableDate}
+                            onLayout={this.setClientHight}
                             startDate={startDate}
                             endDate={endDate}
                             rowSize={rowSize}
@@ -212,6 +220,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
                                 onValueChange={this.onTimeChange}
                                 minDate={minDate}
                                 maxDate={maxDate}
+                                clientHeight={clientHight}
                             />
                         }
                         {

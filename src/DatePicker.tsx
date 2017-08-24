@@ -39,8 +39,11 @@ export default class DatePicker extends Component {
 
     setLayout = (dom: HTMLDivElement) => {
         if (!this.scroller) {
+            const { infinite, initalMonths, onLayout } = this.props;
+            onLayout && onLayout(dom.clientHeight);
+
             const scrollHandler = this.createOnScroll();
-            if (this.props.infinite) {
+            if (infinite) {
                 this.scroller = new DOMScroller(dom.children[0], {
                     scrollingX: false,
                     onScroll: () => scrollHandler({
@@ -55,7 +58,7 @@ export default class DatePicker extends Component {
                 }, () => {
                     this.canLoadPrev() && this.genMonthData(this.state.months[0].firstDate, -1);
 
-                    this.visibleMonth = this.visibleMonth.slice(0, this.props.initalMonths);
+                    this.visibleMonth = this.visibleMonth.slice(0, initalMonths);
 
                     this.state.months.forEach((m) => {
                         m.updateLayout && m.updateLayout();
@@ -80,7 +83,7 @@ export default class DatePicker extends Component {
         const { infinite, prefixCls = '', locale = {} as Models.Locale } = this.props;
 
         return (
-            <div className={`${prefixCls} data-picker`}>
+            <div className={`${prefixCls} date-picker`}>
                 <WeekPanel />
                 <div className="wrapper" style={{ overflow: infinite ? 'hidden' : 'scroll' }} ref={this.setLayout}>
                     <div>

@@ -8,28 +8,6 @@ export default class Header extends React.PureComponent<{
     onCancel?: () => void;
     onClear?: () => void;
 }, {}> {
-    fps: HTMLDivElement;
-
-    setFPS = (dom: HTMLDivElement) => {
-        if (!this.fps) {
-            this.fps = dom;
-            let time = +new Date;
-            let count = 0;
-            const raf = () => requestAnimationFrame(() => {
-                const now = +new Date;
-                if (now - time > 1 * 1000) {
-                    dom.innerText = `JS FPS: ${count}`;
-                    count = 0;
-                    time = now;
-                    console.log(dom.innerText);
-                } else {
-                    count++;
-                }
-                raf();
-            });
-            raf();
-        }
-    }
 
     render() {
         const {

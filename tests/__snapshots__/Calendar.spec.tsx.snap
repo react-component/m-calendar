@@ -49,7 +49,7 @@ exports[`Calendar english. renders correctly 1`] = `
         </span>
       </div>
       <div
-        class="rmc-calendar data-picker"
+        class="rmc-calendar date-picker"
       >
         <div
           class="week-panel"
@@ -4712,7 +4712,7 @@ exports[`Calendar show shortcut. 1`] = `
         </span>
       </div>
       <div
-        class="rmc-calendar data-picker"
+        class="rmc-calendar date-picker"
       >
         <div
           class="week-panel"

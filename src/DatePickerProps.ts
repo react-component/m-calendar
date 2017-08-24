@@ -23,12 +23,13 @@ export default interface PropsType {
     minDate?: Date;
     /** 日期点击回调 */
     onCellClick?: (date: Date) => void;
+    onLayout?: (clientHight: number) => void;
     /** 选择区间包含不可用日期 */
     onSelectHasDisableDate?: (date: Date[]) => void;
     /** (web only) 样式前缀 */
     prefixCls?: string;
-    /** 选择类型，default: range，one: 单日，range: 日期区间 */
-    type?: 'one' | 'range';
     /** 行大小 */
     rowSize?: 'normal' | 'xl';
+    /** 选择类型，default: range，one: 单日，range: 日期区间 */
+    type?: 'one' | 'range';
 }

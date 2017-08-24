@@ -2,7 +2,7 @@
 
 exports[`DatePicker renders correctly 1`] = `
 <div
-  class="rmc-calendar data-picker"
+  class="rmc-calendar date-picker"
 >
   <div
     class="week-panel"
