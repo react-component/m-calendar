@@ -1,4 +1,6 @@
-const locale: GlobalModels.Locale = {
+import { Models } from '../date/DataTypes';
+
+const locale: Models.Locale = {
     title: '日期选择',
     today: '今天',
     month: '月',

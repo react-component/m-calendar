@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { Models } from '../date/DataTypes';
 
 export default class Header extends React.PureComponent<{
     title?: string;
-    locale?: GlobalModels.Locale;
+    locale?: Models.Locale;
     showClear?: boolean;
     onCancel?: () => void;
     onClear?: () => void;
@@ -33,7 +34,7 @@ export default class Header extends React.PureComponent<{
     render() {
         const {
             title,
-            locale = {} as GlobalModels.Locale,
+            locale = {} as Models.Locale,
             onCancel,
             onClear,
             showClear

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { Models } from '../date/DataTypes';
 
 export interface PropsType {
-    locale: GlobalModels.Locale;
+    locale: Models.Locale;
     onSelect: (startDate?: Date, endDate?: Date) => void;
 }
 export default class ShortcutPanel extends React.PureComponent<PropsType, {}> {

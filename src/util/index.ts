@@ -1,3 +1,5 @@
+import { Models } from '../date/DataTypes';
+
 export const mergeDateTime = (date?: Date, time?: Date) => {
     date = date || new Date;
     if (!time) return date;
@@ -11,7 +13,7 @@ export const mergeDateTime = (date?: Date, time?: Date) => {
     );
 };
 
-export const formatDate = (date: Date, format: string, locale?: GlobalModels.Locale) => {
+export const formatDate = (date: Date, format: string, locale?: Models.Locale) => {
     const week = locale && locale.week;
 
     let o: { [key: string]: any } = {

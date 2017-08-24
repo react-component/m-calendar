@@ -7,14 +7,14 @@ import ConfirmPanel from './calendar/ConfirmPanel';
 import ShortcutPanel from './calendar/ShortcutPanel';
 import AnimateWrapper from './calendar/AnimateWrapper';
 import Header from './calendar/Header';
-import { Models as DateModels } from './date/DataTypes';
+import { Models } from './date/DataTypes';
 import PropsType from './CalendarProps';
 
 import { mergeDateTime } from './util';
 
 import defaultLocale from './locale/zh_CN';
 
-export type ExtraData = DateModels.ExtraData;
+export type ExtraData = Models.ExtraData;
 export { PropsType };
 
 export class StateType {
@@ -45,7 +45,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
     selectDate = (date: Date, useDateTime = false, startDate?: Date, endDate?: Date) => {
         if (!date) return {} as StateType;
         let newState = {} as StateType;
-        const { type, pickTime, defaultTimeValue, locale = {} as GlobalModels.Locale } = this.props;
+        const { type, pickTime, defaultTimeValue, locale = {} as Models.Locale } = this.props;
         const newDate = pickTime && !useDateTime ? mergeDateTime(date, defaultTimeValue) : date;
 
         switch (type) {
@@ -156,7 +156,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
 
     render() {
         const {
-            type, locale = {} as GlobalModels.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
+            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
             defaultTimeValue, renderShortcut, enterDirection,
         } = this.props;

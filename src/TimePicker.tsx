@@ -1,8 +1,9 @@
 import React from 'react';
 import DateTimePicker from 'rmc-date-picker';
+import { Models } from './date/DataTypes';
 
 export interface PropsType {
-    locale: GlobalModels.Locale;
+    locale: Models.Locale;
     title?: string;
     defaultValue?: Date;
     value?: Date;

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { formatDate } from '../util';
+import { Models } from '../date/DataTypes';
 
 export interface ConfirmPanelPropsType {
     type?: 'one' | 'range';
-    locale: GlobalModels.Locale;
+    locale: Models.Locale;
     onlyConfirm?: boolean;
     disableBtn?: boolean;
     startDateTime?: Date;

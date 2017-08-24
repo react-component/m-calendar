@@ -16,7 +16,7 @@ export default interface PropsType {
     /** 初始化月个数，default: 6 */
     initalMonths?: number;
     /** 本地化 */
-    locale?: GlobalModels.Locale;
+    locale?: Models.Locale;
     /** 最大日期 */
     maxDate?: Date;
     /** 最小日期 */

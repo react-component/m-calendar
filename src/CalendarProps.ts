@@ -1,10 +1,10 @@
-import { Models as DateModels } from './date/DataTypes';
+import { Models } from './date/DataTypes';
 
 export default interface PropsType {
     /** 入场方向，default: vertical，vertical: 垂直，horizontal: 水平 */
     enterDirection?: 'horizontal' | 'vertical';
     /** 本地化 */
-    locale?: GlobalModels.Locale;
+    locale?: Models.Locale;
     /** 关闭时回调 */
     onCancel?: () => void;
     /** 确认时回调 */
@@ -30,7 +30,7 @@ export default interface PropsType {
     /** 显示开始日期，default: today */
     defaultDate?: Date;
     /** 日期扩展数据 */
-    getDateExtra?: (date: Date) => DateModels.ExtraData;
+    getDateExtra?: (date: Date) => Models.ExtraData;
     /** 无限滚动，default: true */
     infinite?: boolean;
     /** 无限滚动优化（大范围选择），default: false */

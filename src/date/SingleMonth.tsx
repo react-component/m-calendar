@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Models } from './DataTypes';
 
 export interface PropsType {
-    locale: GlobalModels.Locale;
+    locale: Models.Locale;
     monthData: Models.MonthData;
     getDateExtra?: (date: Date) => Models.ExtraData;
     onCellClick?: (data: Models.CellData, monthData: Models.MonthData) => void;
