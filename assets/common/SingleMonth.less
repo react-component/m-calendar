@@ -1,25 +1,25 @@
 .@{prefixClass} .single-month {
     padding: 10px 2px 0;
 
-    .header {
+    .month-title {
         margin-left: 15px;
     }
 
     .row {
         display: flex;
         padding: 3px 0;
+        @cell-size: 35px;
 
         .cell {
             display: flex;
             flex-direction: column;
-            height: 50px;
             width: 100/7%;
             justify-content: center;
             align-items: center;
 
             .date-wrapper {
                 display: flex;
-                height: 30px;
+                height: @cell-size;
                 width: 100%;
                 justify-content: center;
                 align-items: center;
@@ -36,8 +36,8 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 30px;
-                    height: 30px;
+                    width: @cell-size;
+                    height: @cell-size;
                     flex-shrink: 0;
                 }
 
@@ -96,5 +96,13 @@
                 color: rgb(26, 123, 230);
             }
         }
+    }
+
+    .row + .row {
+        margin-top: 6px;
+    }
+
+    .row-xl + .row-xl {
+        margin-top: 21px;
     }
 }

@@ -47,4 +47,6 @@ export default interface PropsType {
     // TimePicker
     /** 默认时间选择值 */
     defaultTimeValue?: Date;
+    TimePickerPrefixCls?: string;
+    TimePickerPickerPrefixCls?: string;
 }

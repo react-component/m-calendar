@@ -24,7 +24,6 @@ extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6)] = { info:
 extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7)] = { info: 'Disable', disable: true };
 extra[+new Date(now.getFullYear(), now.getMonth(), now.getDate() + 8)] = { info: 'Disable', disable: true };
 
-
 for (let key in extra) {
     if (extra.hasOwnProperty(key)) {
         let info = extra[key];

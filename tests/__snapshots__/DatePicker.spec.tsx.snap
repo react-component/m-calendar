@@ -60,7 +60,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2017年08月
           </div>
@@ -815,7 +815,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2017年09月
           </div>
@@ -1608,7 +1608,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2017年10月
           </div>
@@ -2323,7 +2323,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2017年11月
           </div>
@@ -3076,7 +3076,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2017年12月
           </div>
@@ -3895,7 +3895,7 @@ exports[`DatePicker renders correctly 1`] = `
           class="single-month"
         >
           <div
-            class="header"
+            class="month-title"
           >
             2018年01月
           </div>

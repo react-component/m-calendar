@@ -4,6 +4,8 @@ import { Models } from './date/DataTypes';
 
 export interface PropsType {
     locale: Models.Locale;
+    prefixCls?: string;
+    pickerPrefixCls?: string;
     title?: string;
     defaultValue?: Date;
     value?: Date;
@@ -51,13 +53,15 @@ export default class TimePicker extends React.PureComponent<PropsType, StateType
     }
 
     render() {
-        const { locale, title, value, defaultValue } = this.props;
+        const { locale, title, value, defaultValue, prefixCls, pickerPrefixCls } = this.props;
         const date = value || defaultValue || undefined;
 
         return (
             <div className="time-picker">
                 <div className="title">{title}</div>
                 <DateTimePicker
+                    prefixCls={prefixCls}
+                    pickerPrefixCls={pickerPrefixCls}
                     mode="time"
                     date={date}
                     locale={locale}

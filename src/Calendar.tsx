@@ -158,7 +158,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         const {
             type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra,
-            defaultTimeValue, renderShortcut, enterDirection,
+            defaultTimeValue, renderShortcut, enterDirection, TimePickerPrefixCls, TimePickerPickerPrefixCls
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
@@ -167,7 +167,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         } = this.state;
 
         return (
-            <div className={`${prefixCls} calendar`}>
+            <div className={`${prefixCls}`}>
                 <Animate showProp="visible" transitionName="fade">
                     <AnimateWrapper className="mask" visible={!!visible}>
                     </AnimateWrapper>
@@ -202,6 +202,8 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
                         {
                             showTimePicker &&
                             <TimePicker
+                                prefixCls={TimePickerPrefixCls}
+                                pickerPrefixCls={TimePickerPickerPrefixCls}
                                 locale={locale}
                                 title={timePickerTitle}
                                 defaultValue={defaultTimeValue}

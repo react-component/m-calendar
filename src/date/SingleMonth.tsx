@@ -4,6 +4,7 @@ import { Models } from './DataTypes';
 export interface PropsType {
     locale: Models.Locale;
     monthData: Models.MonthData;
+    rowSize?: 'normal' | 'xl';
     getDateExtra?: (date: Date) => Models.ExtraData;
     onCellClick?: (data: Models.CellData, monthData: Models.MonthData) => void;
 }
@@ -11,7 +12,8 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
     weekComponents: React.ReactNode[]
 }> {
     static defaultProps = {
-    };
+        rowSize: 'normal',
+    } as PropsType;
 
     public wrapperDivDOM: HTMLDivElement | null;
 
@@ -30,9 +32,13 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
     }
 
     genWeek = (weeksData: Models.CellData[], index: number) => {
-        const { getDateExtra, monthData, onCellClick, locale } = this.props;
+        const { getDateExtra, monthData, onCellClick, locale, rowSize } = this.props;
+        let rowCls = 'row';
+        if (rowSize === 'xl') {
+            rowCls += ' row-xl';
+        }
         this.state.weekComponents[index] = (
-            <div key={index} className="row">
+            <div key={index} className={rowCls}>
                 {
                     weeksData.map((day, dayOfWeek) => {
                         const extra = (getDateExtra && getDateExtra(new Date(day.tick))) || {};
@@ -164,7 +170,7 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
 
         return (
             <div className="single-month" ref={(dom) => this.wrapperDivDOM = dom}>
-                <div className="header">
+                <div className="month-title">
                     {title}
                 </div>
                 <div className="date">
