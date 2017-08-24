@@ -82,10 +82,6 @@
 }
 .rmc-calendar {
   font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif;
-  box-sizing: border-box;
-}
-.rmc-calendar * {
-  box-sizing: border-box;
 }
 .rmc-calendar-hidden {
   display: none;
@@ -373,7 +369,6 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  height: 40px;
   left: 0;
   right: 0;
   padding: 10px 0;
@@ -392,7 +387,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
   background: #eee;
   padding: 2px 10px;
   border-top: #E5E4E4 1px solid;

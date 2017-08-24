@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-calendar@0.0.1 - React Mobile Calendar Component(web and react-native)</title>
+  <title>rmc-calendar@0.0.2 - React Mobile Calendar Component(web and react-native)</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-calendar@0.0.1</h1>
+  <h1>rmc-calendar@0.0.2</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -768,18 +768,39 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 npm run watch-tsc
 react-native start
 react-native run-ios</code></pre></div><h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rmc-calendar" title="null"><img src="https://nodei.co/npm/rmc-calendar.png" alt="rmc-calendar"></a></p>
-<h1>docs<a id="user-content-docs" name="docs" class="anchor" aria-hidden="true" href="#docs"><span class="octicon octicon-link"></span></a></h1><h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js">&lt;Calendar
-    visible={<span class="hljs-keyword">this</span>.state.show}
-    onCancel={() =&gt; {
-    }}
-    onConfirm={(startTime, endTime) =&gt; {
-    }}
-    getDateExtra={(date) =&gt; {
-        <span class="hljs-keyword">return</span> extra[+date];
-    }}
-    minDate={<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span> - <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">3600</span> * <span class="hljs-number">1000</span>)}
-    maxDate={<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span> + <span class="hljs-number">365</span> * <span class="hljs-number">24</span> * <span class="hljs-number">3600</span> * <span class="hljs-number">1000</span>)}
-/&gt;</code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>Calendar props<a id="user-content-calendar-props" name="calendar-props" class="anchor" aria-hidden="true" href="#calendar-props"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="ts"><span class="hljs-interface"><span class="hljs-keyword">interface</span> PropsType </span>{
+<h1>docs<a id="user-content-docs" name="docs" class="anchor" aria-hidden="true" href="#docs"><span class="octicon octicon-link"></span></a></h1><h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">import</span> { Calendar } <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-calendar'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-calendar/assets/index.css'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  constructor(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.state = {
+      visible: <span class="hljs-literal">false</span>,
+    };
+  }
+
+  setVisiable = () =&gt; {
+    <span class="hljs-keyword">this</span>.setState({
+      visible: !<span class="hljs-keyword">this</span>.state.visible,
+    });
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"App"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Calendar</span>
+          <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
+          <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{this.setVisiable}</span>
+          <span class="hljs-attribute">onConfirm</span>=<span class="hljs-value">{this.setVisiable}</span>
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;</code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>Calendar props<a id="user-content-calendar-props" name="calendar-props" class="anchor" aria-hidden="true" href="#calendar-props"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="ts"><span class="hljs-interface"><span class="hljs-keyword">interface</span> PropsType </span>{
     <span class="hljs-comment">/** enter direction，default: vertical */</span>
     enterDirection?: <span class="hljs-string">'horizontal'</span> | <span class="hljs-string">'vertical'</span>;
     <span class="hljs-comment">/** locale */</span>
