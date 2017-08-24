@@ -7456,8 +7456,14 @@ var DatePicker = function (_Component) {
         };
         _this.setLayout = function (dom) {
             if (!_this.scroller) {
+                var _this$props = _this.props,
+                    infinite = _this$props.infinite,
+                    initalMonths = _this$props.initalMonths,
+                    onLayout = _this$props.onLayout;
+
+                onLayout && onLayout(dom.clientHeight);
                 var scrollHandler = _this.createOnScroll();
-                if (_this.props.infinite) {
+                if (infinite) {
                     _this.scroller = new __WEBPACK_IMPORTED_MODULE_9_zscroller_lib_DOMScroller___default.a(dom.children[0], {
                         scrollingX: false,
                         onScroll: function onScroll() {
@@ -7470,7 +7476,7 @@ var DatePicker = function (_Component) {
                     }).scroller;
                     _this.scroller.activatePullToRefresh(40, function () {}, function () {}, function () {
                         _this.canLoadPrev() && _this.genMonthData(_this.state.months[0].firstDate, -1);
-                        _this.visibleMonth = _this.visibleMonth.slice(0, _this.props.initalMonths);
+                        _this.visibleMonth = _this.visibleMonth.slice(0, initalMonths);
                         _this.state.months.forEach(function (m) {
                             m.updateLayout && m.updateLayout();
                         });
@@ -7505,7 +7511,7 @@ var DatePicker = function (_Component) {
 
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 'div',
-                { className: prefixCls + ' data-picker' },
+                { className: prefixCls + ' date-picker' },
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7__date_WeekPanel__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     'div',
@@ -11684,6 +11690,7 @@ var StateType = function StateType() {
     this.startDate = undefined;
     this.endDate = undefined;
     this.disConfirmBtn = true;
+    this.clientHight = 0;
 };
 
 var Calendar = function (_React$PureComponent) {
@@ -11787,6 +11794,11 @@ var Calendar = function (_React$PureComponent) {
             var state = _this.selectDate(startDate, true);
             _this.setState(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, state, _this.selectDate(endDate, true, state.startDate), { showTimePicker: false }));
         };
+        _this.setClientHight = function (height) {
+            _this.setState({
+                clientHight: height
+            });
+        };
         _this.state = new StateType();
         return _this;
     }
@@ -11821,7 +11833,8 @@ var Calendar = function (_React$PureComponent) {
                 timePickerTitle = _state.timePickerTitle,
                 startDate = _state.startDate,
                 endDate = _state.endDate,
-                disConfirmBtn = _state.disConfirmBtn;
+                disConfirmBtn = _state.disConfirmBtn,
+                clientHight = _state.clientHight;
 
             return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'div',
@@ -11838,8 +11851,8 @@ var Calendar = function (_React$PureComponent) {
                         __WEBPACK_IMPORTED_MODULE_11__calendar_AnimateWrapper__["a" /* default */],
                         { className: 'content', visible: !!visible },
                         showHeader && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */], { locale: locale, showClear: !!startDate, onCancel: this.onCancel, onClear: this.onClear }),
-                        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, startDate: startDate, endDate: endDate, rowSize: rowSize }),
-                        showTimePicker && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TimePicker__["a" /* default */], { prefixCls: timePickerPrefixCls, pickerPrefixCls: timePickerPickerPrefixCls, locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate }),
+                        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, onLayout: this.setClientHight, startDate: startDate, endDate: endDate, rowSize: rowSize }),
+                        showTimePicker && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TimePicker__["a" /* default */], { prefixCls: timePickerPrefixCls, pickerPrefixCls: timePickerPickerPrefixCls, locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate, clientHeight: clientHight }),
                         showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__calendar_ShortcutPanel__["a" /* default */], { locale: locale, onSelect: this.shortcutSelect })),
                         startDate && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__calendar_ConfirmPanel__["a" /* default */], { type: type, locale: locale, startDateTime: startDate, endDateTime: endDate, onConfirm: this.onConfirm, disableBtn: disConfirmBtn, formatStr: pickTime ? locale.dateTimeFormat : locale.dateFormat })
                     )
@@ -12287,9 +12300,11 @@ var TimePicker = function (_React$PureComponent) {
                 value = _props.value,
                 defaultValue = _props.defaultValue,
                 prefixCls = _props.prefixCls,
-                pickerPrefixCls = _props.pickerPrefixCls;
+                pickerPrefixCls = _props.pickerPrefixCls,
+                clientHeight = _props.clientHeight;
 
             var date = value || defaultValue || undefined;
+            var height = clientHeight && clientHeight * 3 / 8 - 52 || Number.POSITIVE_INFINITY;
             return __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(
                 'div',
                 { className: 'time-picker' },
@@ -12298,7 +12313,10 @@ var TimePicker = function (_React$PureComponent) {
                     { className: 'title' },
                     title
                 ),
-                __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_rmc_date_picker__["a" /* default */], { prefixCls: prefixCls, pickerPrefixCls: pickerPrefixCls, mode: 'time', date: date, locale: locale, minDate: this.getMinTime(date), maxDate: this.getMaxTime(date), onDateChange: this.onDateChange, use12Hours: true })
+                __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_rmc_date_picker__["a" /* default */], { prefixCls: prefixCls, pickerPrefixCls: pickerPrefixCls, style: {
+                        height: height > 164 || height < 0 ? 164 : height,
+                        overflow: 'hidden'
+                    }, mode: 'time', date: date, locale: locale, minDate: this.getMinTime(date), maxDate: this.getMaxTime(date), onDateChange: this.onDateChange, use12Hours: true })
             );
         }
     }]);
@@ -12517,31 +12535,7 @@ var Header = function (_React$PureComponent) {
     function Header() {
         __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, Header);
 
-        var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-
-        _this.setFPS = function (dom) {
-            if (!_this.fps) {
-                _this.fps = dom;
-                var time = +new Date();
-                var count = 0;
-                var raf = function raf() {
-                    return requestAnimationFrame(function () {
-                        var now = +new Date();
-                        if (now - time > 1 * 1000) {
-                            dom.innerText = "JS FPS: " + count;
-                            count = 0;
-                            time = now;
-                            console.log(dom.innerText);
-                        } else {
-                            count++;
-                        }
-                        raf();
-                    });
-                };
-                raf();
-            }
-        };
-        return _this;
+        return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
     }
 
     __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(Header, [{

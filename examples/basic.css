@@ -341,7 +341,7 @@
 .rmc-calendar .week-panel .cell-grey {
   color: #999;
 }
-.rmc-calendar.data-picker {
+.rmc-calendar .date-picker {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -351,14 +351,14 @@
           flex-direction: column;
   background: #eee;
 }
-.rmc-calendar.data-picker .wrapper {
+.rmc-calendar .date-picker .wrapper {
   height: auto;
   position: relative;
 }
-.rmc-calendar.data-picker .months {
+.rmc-calendar .date-picker .months {
   background: #fff;
 }
-.rmc-calendar.data-picker .load-tip {
+.rmc-calendar .date-picker .load-tip {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
