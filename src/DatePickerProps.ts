@@ -29,4 +29,6 @@ export default interface PropsType {
     prefixCls?: string;
     /** 选择类型，default: range，one: 单日，range: 日期区间 */
     type?: 'one' | 'range';
+    /** 行大小 */
+    rowSize?: 'normal' | 'xl';
 }

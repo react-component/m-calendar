@@ -43,10 +43,12 @@ export default interface PropsType {
     minDate?: Date;
     /** 选择区间包含不可用日期 */
     onSelectHasDisableDate?: (date: Date[]) => void;
+    /** 行大小 */
+    rowSize?: 'normal' | 'xl';
 
     // TimePicker
     /** 默认时间选择值 */
     defaultTimeValue?: Date;
-    TimePickerPrefixCls?: string;
-    TimePickerPickerPrefixCls?: string;
+    timePickerPrefixCls?: string;
+    timePickerPickerPrefixCls?: string;
 }

@@ -17,6 +17,7 @@ export default class DatePicker extends Component {
         return <SingleMonth key={data.title}
             locale={this.props.locale || {} as Models.Locale}
             monthData={data}
+            rowSize={this.props.rowSize}
             onCellClick={this.onCellClick}
             getDateExtra={this.props.getDateExtra}
             ref={(dom) => {
