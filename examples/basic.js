@@ -11812,9 +11812,9 @@ var Calendar = function (_React$PureComponent) {
                 locale = _props$locale === undefined ? {} : _props$locale,
                 prefixCls = _props.prefixCls,
                 visible = _props.visible,
-                showHeader = _props.showHeader,
                 pickTime = _props.pickTime,
                 showShortcut = _props.showShortcut,
+                renderHeader = _props.renderHeader,
                 infinite = _props.infinite,
                 infiniteOpt = _props.infiniteOpt,
                 initalMonths = _props.initalMonths,
@@ -11827,7 +11827,8 @@ var Calendar = function (_React$PureComponent) {
                 renderShortcut = _props.renderShortcut,
                 enterDirection = _props.enterDirection,
                 timePickerPrefixCls = _props.timePickerPrefixCls,
-                timePickerPickerPrefixCls = _props.timePickerPickerPrefixCls;
+                timePickerPickerPrefixCls = _props.timePickerPickerPrefixCls,
+                style = _props.style;
             var _state = this.state,
                 showTimePicker = _state.showTimePicker,
                 timePickerTitle = _state.timePickerTitle,
@@ -11838,7 +11839,7 @@ var Calendar = function (_React$PureComponent) {
 
             return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'div',
-                { className: '' + prefixCls },
+                { className: '' + prefixCls, style: style },
                 __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_6_rc_animate__["a" /* default */],
                     { showProp: 'visible', transitionName: 'fade' },
@@ -11850,7 +11851,7 @@ var Calendar = function (_React$PureComponent) {
                     __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_11__calendar_AnimateWrapper__["a" /* default */],
                         { className: 'content', visible: !!visible },
-                        showHeader && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */], { locale: locale, showClear: !!startDate, onCancel: this.onCancel, onClear: this.onClear }),
+                        renderHeader ? renderHeader() : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */], { locale: locale, showClear: !!startDate, onCancel: this.onCancel, onClear: this.onClear }),
                         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, onLayout: this.setClientHight, startDate: startDate, endDate: endDate, rowSize: rowSize }),
                         showTimePicker && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TimePicker__["a" /* default */], { prefixCls: timePickerPrefixCls, pickerPrefixCls: timePickerPickerPrefixCls, locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate, clientHeight: clientHight }),
                         showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__calendar_ShortcutPanel__["a" /* default */], { locale: locale, onSelect: this.shortcutSelect })),
