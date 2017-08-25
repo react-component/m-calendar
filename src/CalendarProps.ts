@@ -15,10 +15,11 @@ export default interface PropsType {
     prefixCls?: string;
     /** 替换快捷选择栏，需要设置showShortcut: true */
     renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
-    /** 是否展示头部，default: true */
-    showHeader?: boolean;
+    /** 替换标题栏 */
+    renderHeader?: () => React.ReactNode;
     /** 快捷日期选择， default: false */
     showShortcut?: boolean;
+    style?: React.CSSProperties;
     /** header title, default: {locale.title} */
     title?: string;
     /** 选择类型，default: range，one: 单日，range: 日期区间 */
@@ -43,7 +44,7 @@ export default interface PropsType {
     minDate?: Date;
     /** 选择区间包含不可用日期 */
     onSelectHasDisableDate?: (date: Date[]) => void;
-    /** 行大小 */
+    /** 行大小，default: normal */
     rowSize?: 'normal' | 'xl';
 
     // TimePicker

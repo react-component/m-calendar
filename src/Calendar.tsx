@@ -163,9 +163,10 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
 
     render() {
         const {
-            type, locale = {} as Models.Locale, prefixCls, visible, showHeader, pickTime, showShortcut,
+            type, locale = {} as Models.Locale, prefixCls, visible, pickTime, showShortcut, renderHeader,
             infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra, rowSize,
-            defaultTimeValue, renderShortcut, enterDirection, timePickerPrefixCls, timePickerPickerPrefixCls
+            defaultTimeValue, renderShortcut, enterDirection, timePickerPrefixCls, timePickerPickerPrefixCls,
+            style,
         } = this.props;
         const {
             showTimePicker, timePickerTitle,
@@ -174,7 +175,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         } = this.state;
 
         return (
-            <div className={`${prefixCls}`}>
+            <div className={`${prefixCls}`} style={style}>
                 <Animate showProp="visible" transitionName="fade">
                     <AnimateWrapper className="mask" visible={!!visible}>
                     </AnimateWrapper>
@@ -182,13 +183,13 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
                 <Animate showProp="visible" transitionName={enterDirection === 'horizontal' ? 'slideH' : 'slideV'}>
                     <AnimateWrapper className="content" visible={!!visible}>
                         {
-                            showHeader &&
-                            <Header
-                                locale={locale}
-                                showClear={!!startDate}
-                                onCancel={this.onCancel}
-                                onClear={this.onClear}
-                            />
+                            renderHeader ? renderHeader() :
+                                <Header
+                                    locale={locale}
+                                    showClear={!!startDate}
+                                    onCancel={this.onCancel}
+                                    onClear={this.onClear}
+                                />
                         }
                         <DatePicker
                             locale={locale}
