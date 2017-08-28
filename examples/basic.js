@@ -7515,7 +7515,10 @@ var DatePicker = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7__date_WeekPanel__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     'div',
-                    { className: 'wrapper', style: { overflow: infinite ? 'hidden' : 'scroll' }, ref: this.setLayout },
+                    { className: 'wrapper', style: {
+                            overflowX: 'hidden',
+                            overflowY: infinite ? 'hidden' : 'scroll'
+                        }, ref: this.setLayout },
                     __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                         'div',
                         null,
