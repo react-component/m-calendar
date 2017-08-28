@@ -85,7 +85,10 @@ export default class DatePicker extends Component {
         return (
             <div className={`${prefixCls} date-picker`}>
                 <WeekPanel />
-                <div className="wrapper" style={{ overflow: infinite ? 'hidden' : 'scroll' }} ref={this.setLayout}>
+                <div className="wrapper" style={{
+                    overflowX: 'hidden',
+                    overflowY: infinite ? 'hidden' : 'scroll',
+                }} ref={this.setLayout}>
                     <div>
                         {
                             this.canLoadPrev() && <div className="load-tip">{locale.loadPrevMonth}</div>
