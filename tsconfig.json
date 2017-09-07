@@ -9,9 +9,5 @@
     "noUnusedLocals": true,
     "rootDir": "src",
     "outDir": "lib"
-  },
-  "include": [
-    "src",
-    "typings"
-  ]
+  }
 }
