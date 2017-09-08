@@ -32,8 +32,13 @@ export default class DatePicker extends Component {
 
   computeHeight = (data: Models.MonthData, singleMonth: SingleMonth | null) => {
     if (singleMonth && singleMonth.wrapperDivDOM) {
-      data.height = singleMonth.wrapperDivDOM.clientHeight;
-      data.y = singleMonth.wrapperDivDOM.offsetTop;
+      // preact, ref时dom有可能无height, offsetTop数据。
+      if (!data.height && !singleMonth.wrapperDivDOM.clientHeight) {
+        setTimeout(() => this.computeHeight(data, singleMonth), 500);
+        return;
+      }
+      data.height = singleMonth.wrapperDivDOM.clientHeight || data.height || 0;
+      data.y = singleMonth.wrapperDivDOM.offsetTop || data.y || 0;
     }
   }
 
