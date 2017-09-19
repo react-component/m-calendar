@@ -163,16 +163,16 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
 
   render() {
     const {
-            type, locale = {} as Models.Locale, prefixCls, visible, pickTime, showShortcut, renderHeader,
+      type, locale = {} as Models.Locale, prefixCls, visible, pickTime, showShortcut, renderHeader,
       infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra, rowSize,
       defaultTimeValue, renderShortcut, enterDirection, timePickerPrefixCls, timePickerPickerPrefixCls,
       style,
-        } = this.props;
+    } = this.props;
     const {
-            showTimePicker, timePickerTitle,
+      showTimePicker, timePickerTitle,
       startDate, endDate,
       disConfirmBtn, clientHight
-        } = this.state;
+    } = this.state;
 
     return (
       <div className={`${prefixCls}`} style={style}>
