@@ -1,4 +1,5 @@
 import { Models } from './date/DataTypes';
+import { PropsType as HeaderPropsType } from './calendar/Header';
 
 export default interface PropsType {
   /** 入场方向，default: vertical，vertical: 垂直，horizontal: 水平 */
@@ -16,7 +17,7 @@ export default interface PropsType {
   /** 替换快捷选择栏，需要设置showShortcut: true */
   renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
   /** 替换标题栏 */
-  renderHeader?: () => React.ReactNode;
+  renderHeader?: (prop: HeaderPropsType) => React.ReactNode;
   /** 快捷日期选择， default: false */
   showShortcut?: boolean;
   style?: React.CSSProperties;

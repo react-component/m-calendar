@@ -5,7 +5,7 @@ export namespace Models {
     None,
     /** 单选 */
     Single,
-    /** 起/至 */
+    /** 起/止 */
     All,
     /** 区间仅选择了 起 */
     Only,

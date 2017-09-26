@@ -26,6 +26,9 @@ export class StateType {
   clientHight?: number = 0;
 }
 export default class Calendar extends React.PureComponent<PropsType, StateType> {
+  public static DefaultHeader = Header;
+  public static DefaultShortcut = ShortcutPanel;
+
   static defaultProps = {
     visible: false,
     showHeader: true,
@@ -174,6 +177,13 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
       disConfirmBtn, clientHight
     } = this.state;
 
+    const headerProps = {
+      locale,
+      showClear: !!startDate,
+      onCancel: this.onCancel,
+      onClear: this.onClear,
+    };
+
     return (
       <div className={`${prefixCls}`} style={style}>
         <Animate showProp="visible" transitionName="fade">
@@ -183,13 +193,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
         <Animate showProp="visible" transitionName={enterDirection === 'horizontal' ? 'slideH' : 'slideV'}>
           <AnimateWrapper className="content" visible={!!visible}>
             {
-              renderHeader ? renderHeader() :
-                <Header
-                  locale={locale}
-                  showClear={!!startDate}
-                  onCancel={this.onCancel}
-                  onClear={this.onClear}
-                />
+              renderHeader ? renderHeader(headerProps) : <Header {...headerProps} />
             }
             <DatePicker
               locale={locale}
