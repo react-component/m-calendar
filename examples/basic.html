@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>basic.js - example - rmc-calendar@0.1.7</title>
+  <title>basic.js - example - rmc-calendar@0.1.8</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-calendar@0.1.7</h1>
+      <h1>rmc-calendar@0.1.8</h1>
 
       <p>React Mobile Calendar Component(web and react-native)</p>
     </div>
@@ -284,9 +284,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">const</span> en = location.search.indexOf(<span class="hljs-string">'en'</span>) !== -<span class="hljs-number">1</span>;
 
 <span class="hljs-keyword">const</span> extra: { [key: string]: ExtraData } = {
-    <span class="hljs-number">1501516800000</span>: { info: <span class="hljs-string">'建军节'</span> },
-    <span class="hljs-string">'2017/06/14'</span>: { info: <span class="hljs-string">'禁止选择'</span>, disable: <span class="hljs-literal">true</span> },
-    <span class="hljs-string">'2017/06/15'</span>: { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> },
+  <span class="hljs-number">1501516800000</span>: { info: <span class="hljs-string">'建军节'</span> },
+  <span class="hljs-string">'2017/06/14'</span>: { info: <span class="hljs-string">'禁止选择'</span>, disable: <span class="hljs-literal">true</span> },
+  <span class="hljs-string">'2017/06/15'</span>: { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> },
 };
 
 <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>;
@@ -296,98 +296,98 @@ extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</s
 extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(now.getFullYear(), now.getMonth(), now.getDate() + <span class="hljs-number">8</span>)] = { info: <span class="hljs-string">'Disable'</span>, disable: <span class="hljs-literal">true</span> };
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> extra) {
-    <span class="hljs-keyword">if</span> (extra.hasOwnProperty(key)) {
-        <span class="hljs-keyword">let</span> info = extra[key];
-        <span class="hljs-keyword">const</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(key);
-        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Number</span>.isNaN(+date) &amp;&amp; !extra[+date]) {
-            extra[+date] = info;
-        }
+  <span class="hljs-keyword">if</span> (extra.hasOwnProperty(key)) {
+    <span class="hljs-keyword">let</span> info = extra[key];
+    <span class="hljs-keyword">const</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(key);
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Number</span>.isNaN(+date) &amp;&amp; !extra[+date]) {
+      extra[+date] = info;
     }
+  }
 }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicDemo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;</span>{}, {
-    show: boolean;
-    config?: CalendarPropsType;
-    startTime?: <span class="hljs-built_in">Date</span>;
-    endTime?: <span class="hljs-built_in">Date</span>;
+  show: boolean;
+  config?: CalendarPropsType;
+  startTime?: <span class="hljs-built_in">Date</span>;
+  endTime?: <span class="hljs-built_in">Date</span>;
 }&gt; {
-    originbodyScrollY = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>].style.overflowY;
+  originbodyScrollY = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>].style.overflowY;
 
-    constructor(props: any) {
-        <span class="hljs-keyword">super</span>(props);
-        <span class="hljs-keyword">this</span>.state = {
-            show: <span class="hljs-literal">false</span>,
-            config: {},
-        };
-    }
+  constructor(props: any) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.state = {
+      show: <span class="hljs-literal">false</span>,
+      config: {},
+    };
+  }
 
-    renderBtn(text: string, text2: string, config: CalendarPropsType = {}) {
-        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">background:</span> '#<span class="hljs-attribute">1A7BE6</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">5</span>, <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>' }}
-            <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> {
-                document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
-                this.setState({
-                    show: true,
-                    config,
-                });
-            }}&gt;
-            <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text2}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
-    }
+  renderBtn(text: string, text2: string, config: CalendarPropsType = {}) {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">background:</span> '#<span class="hljs-attribute">1A7BE6</span>', <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">5</span>, <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>' }}
+      <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{()</span> =&gt;</span> {
+        document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+        this.setState({
+          show: true,
+          config,
+        });
+      }}&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">fff</span>', <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">0</span> }}&gt;</span>{text2}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
+  }
 
-    render() {
-        <span class="hljs-keyword">return</span> (
-            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">marginBottom:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
-                {this.renderBtn('选择日期区间', 'Select Date Range')}
-                {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
-                {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
-                {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
-                {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
-                {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
-                {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
-                {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
-                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginLeft:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
-                    {
-                        this.state.startTime &amp;&amp;
-                        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>开始时间：{this.state.startTime.toLocaleString()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-                    }
-                    {
-                        this.state.endTime &amp;&amp;
-                        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>结束时间：{this.state.endTime.toLocaleString()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-                    }
-                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">Calendar</span>
-                    <span class="hljs-attribute">locale</span>=<span class="hljs-value">{en</span> ? <span class="hljs-attribute">enUS</span> <span class="hljs-attribute">:</span> <span class="hljs-attribute">zhCN</span>}
-                    {<span class="hljs-attribute">...this.state.config</span>}
-                    <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.show}</span>
-                    <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{()</span> =&gt;</span> {
-                        document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
-                        this.setState({
-                            show: false,
-                            startTime: undefined,
-                            endTime: undefined,
-                        });
-                    }}
-                    onConfirm={(startTime, endTime) =&gt; {
-                        document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
-                        this.setState({
-                            show: false,
-                            startTime,
-                            endTime,
-                        });
-                    }}
-                    onSelectHasDisableDate={(dates: Date[]) =&gt; {
-                        console.warn('onSelectHasDisableDate', dates);
-                    }}
-                    getDateExtra={(date) =&gt; {
-                        return extra[+date];
-                    }}
-                    minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
-                    maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
-                /&gt;
-            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        )</span>;
-    }
+  render() {
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginTop:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">marginBottom:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
+        {this.renderBtn('选择日期区间', 'Select Date Range')}
+        {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
+        {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
+        {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
+        {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
+        {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
+        {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
+        {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginLeft:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
+          {
+            this.state.startTime &amp;&amp;
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>开始时间：{this.state.startTime.toLocaleString()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+          }
+          {
+            this.state.endTime &amp;&amp;
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>结束时间：{this.state.endTime.toLocaleString()}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+          }
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Calendar</span>
+          <span class="hljs-attribute">locale</span>=<span class="hljs-value">{en</span> ? <span class="hljs-attribute">enUS</span> <span class="hljs-attribute">:</span> <span class="hljs-attribute">zhCN</span>}
+          {<span class="hljs-attribute">...this.state.config</span>}
+          <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.show}</span>
+          <span class="hljs-attribute">onCancel</span>=<span class="hljs-value">{()</span> =&gt;</span> {
+            document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
+            this.setState({
+              show: false,
+              startTime: undefined,
+              endTime: undefined,
+            });
+          }}
+          onConfirm={(startTime, endTime) =&gt; {
+            document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
+            this.setState({
+              show: false,
+              startTime,
+              endTime,
+            });
+          }}
+          onSelectHasDisableDate={(dates: Date[]) =&gt; {
+            console.warn('onSelectHasDisableDate', dates);
+          }}
+          getDateExtra={(date) =&gt; {
+            return extra[+date];
+          }}
+          minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
+          maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
+        /&gt;
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+  }
 }
 
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">BasicDemo</span> /&gt;</span>, document.getElementById('__react-content'));

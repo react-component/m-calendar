@@ -3809,8 +3809,8 @@ var locale = {
     start: '开始',
     end: '结束',
     begin: '起',
-    over: '至',
-    begin_over: '起/至',
+    over: '止',
+    begin_over: '起/止',
     confirm: '确认',
     monthTitle: 'yyyy年MM月',
     loadPrevMonth: '加载上一个月',
@@ -7569,7 +7569,7 @@ var Models;
         SelectType[SelectType["None"] = 0] = "None";
         /** 单选 */
         SelectType[SelectType["Single"] = 1] = "Single";
-        /** 起/至 */
+        /** 起/止 */
         SelectType[SelectType["All"] = 2] = "All";
         /** 区间仅选择了 起 */
         SelectType[SelectType["Only"] = 3] = "Only";
@@ -11810,6 +11810,12 @@ var Calendar = function (_React$PureComponent) {
                 disConfirmBtn = _state.disConfirmBtn,
                 clientHight = _state.clientHight;
 
+            var headerProps = {
+                locale: locale,
+                showClear: !!startDate,
+                onCancel: this.onCancel,
+                onClear: this.onClear
+            };
             return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'div',
                 { className: '' + prefixCls, style: style },
@@ -11824,7 +11830,7 @@ var Calendar = function (_React$PureComponent) {
                     __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                         __WEBPACK_IMPORTED_MODULE_11__calendar_AnimateWrapper__["a" /* default */],
                         { className: 'content', visible: !!visible },
-                        renderHeader ? renderHeader() : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */], { locale: locale, showClear: !!startDate, onCancel: this.onCancel, onClear: this.onClear }),
+                        renderHeader ? renderHeader(headerProps) : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */], headerProps),
                         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__DatePicker__["a" /* default */], { locale: locale, type: type, prefixCls: prefixCls, infinite: infinite, infiniteOpt: infiniteOpt, initalMonths: initalMonths, defaultDate: defaultDate, minDate: minDate, maxDate: maxDate, getDateExtra: getDateExtra, onCellClick: this.onSelectedDate, onSelectHasDisableDate: this.onSelectHasDisableDate, onLayout: this.setClientHight, startDate: startDate, endDate: endDate, rowSize: rowSize }),
                         showTimePicker && __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TimePicker__["a" /* default */], { prefixCls: timePickerPrefixCls, pickerPrefixCls: timePickerPickerPrefixCls, locale: locale, title: timePickerTitle, defaultValue: defaultTimeValue, value: endDate ? endDate : startDate, onValueChange: this.onTimeChange, minDate: minDate, maxDate: maxDate, clientHeight: clientHight }),
                         showShortcut && !showTimePicker && (renderShortcut ? renderShortcut(this.shortcutSelect) : __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__calendar_ShortcutPanel__["a" /* default */], { locale: locale, onSelect: this.shortcutSelect })),
@@ -11840,6 +11846,8 @@ var Calendar = function (_React$PureComponent) {
 
 /* harmony default export */ __webpack_exports__["a"] = (Calendar);
 
+Calendar.DefaultHeader = __WEBPACK_IMPORTED_MODULE_12__calendar_Header__["a" /* default */];
+Calendar.DefaultShortcut = __WEBPACK_IMPORTED_MODULE_10__calendar_ShortcutPanel__["a" /* default */];
 Calendar.defaultProps = {
     visible: false,
     showHeader: true,
@@ -12521,7 +12529,9 @@ var Header = function (_React$PureComponent) {
                 locale = _props$locale === undefined ? {} : _props$locale,
                 onCancel = _props.onCancel,
                 onClear = _props.onClear,
-                showClear = _props.showClear;
+                showClear = _props.showClear,
+                closeIcon = _props.closeIcon,
+                clearIcon = _props.clearIcon;
 
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 "div",
@@ -12531,7 +12541,7 @@ var Header = function (_React$PureComponent) {
                     { className: "left", onClick: function onClick() {
                             return onCancel && onCancel();
                         } },
-                    "X"
+                    closeIcon
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "span",
@@ -12543,7 +12553,7 @@ var Header = function (_React$PureComponent) {
                     { className: "right", onClick: function onClick() {
                             return onClear && onClear();
                         } },
-                    locale.clear
+                    clearIcon || locale.clear
                 )
             );
         }
@@ -12553,6 +12563,10 @@ var Header = function (_React$PureComponent) {
 }(__WEBPACK_IMPORTED_MODULE_4_react__["PureComponent"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Header);
+
+Header.defaultProps = {
+    closeIcon: 'X'
+};
 
 /***/ }),
 /* 154 */
