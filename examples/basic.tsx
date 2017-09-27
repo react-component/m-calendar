@@ -98,6 +98,7 @@ class BasicDemo extends React.Component<{}, {
             });
           }}
           onConfirm={(startTime, endTime) => {
+            console.log('onConfirm', startTime, endTime);
             document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
             this.setState({
               show: false,
