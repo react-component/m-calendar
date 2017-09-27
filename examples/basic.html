@@ -369,6 +369,7 @@ extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</s
             });
           }}
           onConfirm={(startTime, endTime) =&gt; {
+            console.log('onConfirm', startTime, endTime);
             document.getElementsByTagName('body')[0].style.overflowY = this.originbodyScrollY;
             this.setState({
               show: false,
