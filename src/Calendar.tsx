@@ -158,7 +158,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
     });
   }
 
-  setClientHight = (height: number) => {
+  setClientHeight = (height: number) => {
     this.setState({
       clientHight: height,
     });
@@ -208,7 +208,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
               getDateExtra={getDateExtra}
               onCellClick={this.onSelectedDate}
               onSelectHasDisableDate={this.onSelectHasDisableDate}
-              onLayout={this.setClientHight}
+              onLayout={this.setClientHeight}
               startDate={startDate}
               endDate={endDate}
               rowSize={rowSize}
