@@ -8,7 +8,7 @@ import defaultLocale from './locale/zh_CN';
 export interface StateType {
   months: Models.MonthData[];
 }
-export default abstract class DatePicker extends React.PureComponent<PropsType, StateType> {
+export default abstract class DatePicker extends React.Component<PropsType, StateType> {
   static defaultProps = {
     prefixCls: 'rmc-calendar',
     infinite: true,
