@@ -33,8 +33,6 @@ export default interface PropsType {
   defaultDate?: Date;
   /** 日期扩展数据 */
   getDateExtra?: (date: Date) => Models.ExtraData;
-  /** 无限滚动，default: true */
-  infinite?: boolean;
   /** 无限滚动优化（大范围选择），default: false */
   infiniteOpt?: boolean;
   /** 初始化月个数，default: 6 */

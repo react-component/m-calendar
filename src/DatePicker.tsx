@@ -4,12 +4,11 @@ import Component from './DatePicker.base';
 import WeekPanel from './date/WeekPanel';
 import SingleMonth from './date/SingleMonth';
 import { Models } from './date/DataTypes';
-import DOMScroller from 'zscroller/lib/DOMScroller';
 
 export { PropsType };
 export default class DatePicker extends Component {
 
-  scroller: any;
+  panel: HTMLDivElement;
 
   genMonthComponent = (data?: Models.MonthData) => {
     if (!data) return;
@@ -43,58 +42,96 @@ export default class DatePicker extends Component {
   }
 
   setLayout = (dom: HTMLDivElement) => {
-    if (!this.scroller) {
-      const { infinite, initalMonths, onLayout } = this.props;
+    if (dom) {
+      const { onLayout } = this.props;
       onLayout && onLayout(dom.clientHeight);
 
       const scrollHandler = this.createOnScroll();
-      if (infinite) {
-        this.scroller = new DOMScroller(dom.children[0], {
-          scrollingX: false,
-          onScroll: () => scrollHandler({
-            client: dom.clientHeight,
-            full: (dom.children[0] as HTMLDivElement).clientHeight,
-            top: this.scroller.getValues().top,
-          })
-        }).scroller;
+      dom.onscroll = (evt) => {
+        scrollHandler({
+          client: dom.clientHeight,
+          full: (evt.currentTarget as HTMLDivElement).clientHeight,
+          top: (evt.currentTarget as HTMLDivElement).scrollTop,
+        });
+      };
+    }
+  }
 
-        this.scroller.activatePullToRefresh(40, function () {
-        }, function () {
-        }, () => {
-          this.canLoadPrev() && this.genMonthData(this.state.months[0].firstDate, -1);
+  setPanel = (dom: HTMLDivElement) => {
+    this.panel = dom;
+  }
 
-          this.visibleMonth = this.visibleMonth.slice(0, initalMonths);
+  // tslint:disable-next-line:member-ordering
+  touchHandler = (() => {
+    const initDelta = 0;
+    let lastY = 0;
+    let delta = initDelta;
+
+    return {
+      onTouchStart: (evt: React.TouchEvent<HTMLDivElement>) => {
+        lastY = evt.touches[0].screenY;
+        delta = initDelta;
+      },
+      onTouchMove: (evt: React.TouchEvent<HTMLDivElement>) => {
+        const ele = evt.currentTarget;
+        const isReachTop = ele.scrollTop === 0;
+
+        if (isReachTop) {
+          delta = evt.touches[0].screenY - lastY;
+          if (delta < 0) {
+            delta = 0;
+          } else if (delta > 80) {
+            delta = 80;
+          }
+          this.setTransform(this.panel.style, `translate3d(0,${delta}px,0)`);
+        }
+      },
+
+      onTouchEnd: () => {
+        this.touchHandler.onFinish();
+      },
+
+      onTouchCancel: () => {
+        this.touchHandler.onFinish();
+      },
+
+      onFinish: () => {
+        if (delta > 40 && this.canLoadPrev()) {
+          this.genMonthData(this.state.months[0].firstDate, -1);
+
+          this.visibleMonth = this.state.months.slice(0, this.props.initalMonths);
 
           this.state.months.forEach((m) => {
             m.updateLayout && m.updateLayout();
           });
-
-          this.scroller.finishPullToRefresh();
-        });
-      } else {
-        this.scroller = true;
-        dom.onscroll = (evt) => {
-          scrollHandler({
-            client: dom.clientHeight,
-            full: (evt.target as HTMLDivElement).clientHeight,
-            top: (evt.target as HTMLDivElement).scrollTop,
-          });
-        };
+          this.forceUpdate();
+        }
+        this.setTransform(this.panel.style, `translate3d(0,0,0)`);
       }
-    }
+    };
+  })();
+
+  setTransform(nodeStyle: any, value: any) {
+    nodeStyle.transform = value;
+    nodeStyle.webkitTransform = value;
+    nodeStyle.MozTransform = value;
   }
 
   render() {
-    const { infinite, prefixCls = '', locale = {} as Models.Locale } = this.props;
+    const { prefixCls = '', locale = {} as Models.Locale } = this.props;
 
     return (
       <div className={`${prefixCls} date-picker`}>
         <WeekPanel />
         <div className="wrapper" style={{
           overflowX: 'hidden',
-          overflowY: infinite ? 'hidden' : 'scroll',
-        }} ref={this.setLayout}>
-          <div>
+          overflowY: 'scroll',
+        }} ref={this.setLayout}
+          onTouchStart={this.touchHandler.onTouchStart}
+          onTouchMove={this.touchHandler.onTouchMove}
+          onTouchEnd={this.touchHandler.onTouchEnd}
+          onTouchCancel={this.touchHandler.onTouchCancel}>
+          <div style={{ transition: '.3s' }} ref={this.setPanel}>
             {
               this.canLoadPrev() && <div className="load-tip">{locale.loadPrevMonth}</div>
             }

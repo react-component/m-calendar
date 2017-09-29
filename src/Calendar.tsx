@@ -167,7 +167,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
   render() {
     const {
       type, locale = {} as Models.Locale, prefixCls, visible, pickTime, showShortcut, renderHeader,
-      infinite, infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra, rowSize,
+      infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra, rowSize,
       defaultTimeValue, renderShortcut, enterDirection, timePickerPrefixCls, timePickerPickerPrefixCls,
       style,
     } = this.props;
@@ -199,7 +199,6 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
               locale={locale}
               type={type}
               prefixCls={prefixCls}
-              infinite={infinite}
               infiniteOpt={infiniteOpt}
               initalMonths={initalMonths}
               defaultDate={defaultDate}
