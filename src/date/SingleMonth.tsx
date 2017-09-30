@@ -164,12 +164,16 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
     }
   }
 
+  setWarpper = (dom: HTMLDivElement) => {
+    this.wrapperDivDOM = dom;
+  }
+
   render() {
     const { title } = this.props.monthData;
     const { weekComponents } = this.state;
 
     return (
-      <div className="single-month" ref={(dom) => this.wrapperDivDOM = dom}>
+      <div className="single-month" ref={this.setWarpper}>
         <div className="month-title">
           {title}
         </div>

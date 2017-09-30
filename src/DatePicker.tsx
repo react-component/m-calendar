@@ -9,6 +9,7 @@ export { PropsType };
 export default class DatePicker extends Component {
 
   panel: HTMLDivElement;
+  transform: any = {};
 
   genMonthComponent = (data?: Models.MonthData) => {
     if (!data) return;
@@ -78,10 +79,13 @@ export default class DatePicker extends Component {
 
         if (isReachTop) {
           delta = evt.touches[0].screenY - lastY;
-          if (delta < 0) {
+          if (delta > 0) {
+            evt.preventDefault();
+            if (delta > 80) {
+              delta = 80;
+            }
+          } else {
             delta = 0;
-          } else if (delta > 80) {
-            delta = 80;
           }
           this.setTransform(this.panel.style, `translate3d(0,${delta}px,0)`);
         }
@@ -107,31 +111,43 @@ export default class DatePicker extends Component {
           this.forceUpdate();
         }
         this.setTransform(this.panel.style, `translate3d(0,0,0)`);
+        this.setTransition(this.panel.style, '.3s');
+        setTimeout(() => {
+          this.setTransition(this.panel.style, '');
+        }, 300);
       }
     };
   })();
 
-  setTransform(nodeStyle: any, value: any) {
+  setTransform(nodeStyle: CSSStyleDeclaration, value: any) {
+    this.transform = value;
     nodeStyle.transform = value;
     nodeStyle.webkitTransform = value;
-    nodeStyle.MozTransform = value;
+  }
+
+  setTransition(nodeStyle: CSSStyleDeclaration, value: any) {
+    nodeStyle.transition = value;
+    nodeStyle.webkitTransition = value;
   }
 
   render() {
     const { prefixCls = '', locale = {} as Models.Locale } = this.props;
+    const style: any = {
+      transform: this.transform,
+    };
 
     return (
       <div className={`${prefixCls} date-picker`}>
         <WeekPanel />
         <div className="wrapper" style={{
           overflowX: 'hidden',
-          overflowY: 'scroll',
+          overflowY: 'visible',
         }} ref={this.setLayout}
           onTouchStart={this.touchHandler.onTouchStart}
           onTouchMove={this.touchHandler.onTouchMove}
           onTouchEnd={this.touchHandler.onTouchEnd}
           onTouchCancel={this.touchHandler.onTouchCancel}>
-          <div style={{ transition: '.3s' }} ref={this.setPanel}>
+          <div style={style} ref={this.setPanel}>
             {
               this.canLoadPrev() && <div className="load-tip">{locale.loadPrevMonth}</div>
             }

@@ -73,7 +73,6 @@ class BasicDemo extends React.Component<{}, {
         {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
         {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
         {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
-        {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
         {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
         <div style={{ marginLeft: 10, fontSize: 14 }}>
           {
@@ -112,7 +111,7 @@ class BasicDemo extends React.Component<{}, {
           getDateExtra={(date) => {
             return extra[+date];
           }}
-          minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
+          minDate={new Date(+new Date - 62 * 24 * 3600 * 1000)}
           maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
         />
       </div>
