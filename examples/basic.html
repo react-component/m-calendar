@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>basic.js - example - rmc-calendar@0.1.11</title>
+  <title>basic.js - example - rmc-calendar@0.1.12</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-calendar@0.1.11</h1>
+      <h1>rmc-calendar@0.1.12</h1>
 
       <p>React Mobile Calendar Component(web and react-native)</p>
     </div>
@@ -344,7 +344,6 @@ extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</s
         {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
         {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
         {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
-        {this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false })}
         {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">marginLeft:</span> <span class="hljs-attribute">10</span>, <span class="hljs-attribute">fontSize:</span> <span class="hljs-attribute">14</span> }}&gt;</span>
           {
@@ -383,7 +382,7 @@ extra[+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</s
           getDateExtra={(date) =&gt; {
             return extra[+date];
           }}
-          minDate={new Date(+new Date - 60 * 24 * 3600 * 1000)}
+          minDate={new Date(+new Date - 62 * 24 * 3600 * 1000)}
           maxDate={new Date(+new Date + 365 * 24 * 3600 * 1000)}
         /&gt;
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>

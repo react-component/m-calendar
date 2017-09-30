@@ -1437,6 +1437,7 @@ var DatePicker = function (_Component) {
 
         var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (DatePicker.__proto__ || Object.getPrototypeOf(DatePicker)).apply(this, arguments));
 
+        _this.transform = {};
         _this.genMonthComponent = function (data) {
             if (!data) return;
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](__WEBPACK_IMPORTED_MODULE_8__date_SingleMonth__["a" /* default */], { key: data.title, locale: _this.props.locale || {}, monthData: data, rowSize: _this.props.rowSize, onCellClick: _this.onCellClick, getDateExtra: _this.props.getDateExtra, ref: function ref(dom) {
@@ -1493,10 +1494,13 @@ var DatePicker = function (_Component) {
                     var isReachTop = ele.scrollTop === 0;
                     if (isReachTop) {
                         delta = evt.touches[0].screenY - lastY;
-                        if (delta < 0) {
+                        if (delta > 0) {
+                            evt.preventDefault();
+                            if (delta > 80) {
+                                delta = 80;
+                            }
+                        } else {
                             delta = 0;
-                        } else if (delta > 80) {
-                            delta = 80;
                         }
                         _this.setTransform(_this.panel.style, 'translate3d(0,' + delta + 'px,0)');
                     }
@@ -1517,6 +1521,10 @@ var DatePicker = function (_Component) {
                         _this.forceUpdate();
                     }
                     _this.setTransform(_this.panel.style, 'translate3d(0,0,0)');
+                    _this.setTransition(_this.panel.style, '.3s');
+                    setTimeout(function () {
+                        _this.setTransition(_this.panel.style, '');
+                    }, 300);
                 }
             };
         }();
@@ -1526,9 +1534,15 @@ var DatePicker = function (_Component) {
     __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(DatePicker, [{
         key: 'setTransform',
         value: function setTransform(nodeStyle, value) {
+            this.transform = value;
             nodeStyle.transform = value;
             nodeStyle.webkitTransform = value;
-            nodeStyle.MozTransform = value;
+        }
+    }, {
+        key: 'setTransition',
+        value: function setTransition(nodeStyle, value) {
+            nodeStyle.transition = value;
+            nodeStyle.webkitTransition = value;
         }
     }, {
         key: 'render',
@@ -1541,6 +1555,9 @@ var DatePicker = function (_Component) {
                 _props$locale = _props.locale,
                 locale = _props$locale === undefined ? {} : _props$locale;
 
+            var style = {
+                transform: this.transform
+            };
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 'div',
                 { className: prefixCls + ' date-picker' },
@@ -1549,11 +1566,11 @@ var DatePicker = function (_Component) {
                     'div',
                     { className: 'wrapper', style: {
                             overflowX: 'hidden',
-                            overflowY: 'scroll'
+                            overflowY: 'visible'
                         }, ref: this.setLayout, onTouchStart: this.touchHandler.onTouchStart, onTouchMove: this.touchHandler.onTouchMove, onTouchEnd: this.touchHandler.onTouchEnd, onTouchCancel: this.touchHandler.onTouchCancel },
                     __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                         'div',
-                        { style: { transition: '.3s' }, ref: this.setPanel },
+                        { style: style, ref: this.setPanel },
                         this.canLoadPrev() && __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                             'div',
                             { className: 'load-tip' },
@@ -2472,7 +2489,6 @@ var BasicDemo = function (_React$Component) {
                 this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true }),
                 this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true }),
                 this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true }),
-                this.renderBtn('不使用ZScroll(无法向前滚动)', '', { infinite: false }),
                 this.renderBtn('水平进入', '', { enterDirection: 'horizontal' }),
                 __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(
                     'div',
@@ -2509,7 +2525,7 @@ var BasicDemo = function (_React$Component) {
                         console.warn('onSelectHasDisableDate', dates);
                     }, getDateExtra: function getDateExtra(date) {
                         return extra[+date];
-                    }, minDate: new Date(+new Date() - 60 * 24 * 3600 * 1000), maxDate: new Date(+new Date() + 365 * 24 * 3600 * 1000) }))
+                    }, minDate: new Date(+new Date() - 62 * 24 * 3600 * 1000), maxDate: new Date(+new Date() + 365 * 24 * 3600 * 1000) }))
             );
         }
     }]);
@@ -3726,6 +3742,9 @@ var SingleMonth = function (_React$PureComponent) {
                 _this.genWeek(week, index);
             });
         };
+        _this.setWarpper = function (dom) {
+            _this.wrapperDivDOM = dom;
+        };
         _this.state = {
             weekComponents: []
         };
@@ -3751,16 +3770,12 @@ var SingleMonth = function (_React$PureComponent) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             var title = this.props.monthData.title;
             var weekComponents = this.state.weekComponents;
 
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 'div',
-                { className: 'single-month', ref: function ref(dom) {
-                        return _this3.wrapperDivDOM = dom;
-                    } },
+                { className: 'single-month', ref: this.setWarpper },
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     'div',
                     { className: 'month-title' },
