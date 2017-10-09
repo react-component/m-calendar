@@ -1,7 +1,10 @@
 import React from 'react';
-import { render } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import { default as Enzyme, render } from 'enzyme';
 import { renderToJson } from 'enzyme-to-json';
 import { Calendar, Locale } from '../src';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Calendar', () => {
   it('base.', () => {
