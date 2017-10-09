@@ -114,18 +114,18 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
   }
 
   onCancel = () => {
-    this.onClose();
     this.props.onCancel && this.props.onCancel();
+    this.onClose();
   }
 
   onConfirm = () => {
-    this.onClose();
     const { onConfirm } = this.props;
     let { startDate, endDate } = this.state;
     if (startDate && endDate && +startDate > +endDate) {
       return onConfirm && onConfirm(endDate, startDate);
     }
     onConfirm && onConfirm(startDate, endDate);
+    this.onClose();
   }
 
   onTimeChange = (date: Date) => {
