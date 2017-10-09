@@ -9,7 +9,7 @@ export { PropsType };
 export default class DatePicker extends Component {
 
   panel: HTMLDivElement;
-  transform: any = {};
+  transform: string = '';
 
   genMonthComponent = (data?: Models.MonthData) => {
     if (!data) return;
