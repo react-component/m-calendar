@@ -73,7 +73,14 @@ class BasicDemo extends React.Component<{}, {
         {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
         {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
         {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
-        {this.renderBtn('水平进入', '', { enterDirection: 'horizontal' })}
+        {this.renderBtn('水平进入', 'Horizontal Enter Aniamtion', { enterDirection: 'horizontal' })}
+        {this.renderBtn('默认选择范围', 'Selected Date Range', { defaultValue: [new Date(+new Date - 1 * 24 * 3600 * 1000), new Date(+new Date - 4 * 24 * 3600 * 1000)] })}
+        {this.renderBtn('onSelectAPI', 'onSelectAPI', {
+          onSelect: (date) => {
+            console.log('onSelect', date);
+            return [date, new Date(+new Date - 7 * 24 * 3600 * 1000)];
+          }
+        })}
         <div style={{ marginLeft: 10, fontSize: 14 }}>
           {
             this.state.startTime &&

@@ -43,7 +43,20 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
   constructor(props: PropsType) {
     super(props);
 
-    this.state = new StateType;
+    const state = this.state = new StateType;
+    if (props.defaultValue) {
+      state.startDate = props.defaultValue[0];
+      state.endDate = props.defaultValue[1];
+    }
+  }
+
+  componentWillReceiveProps(nextProps: PropsType) {
+    if (!this.props.visible && nextProps.visible && nextProps.defaultValue) {
+      this.setState({
+        startDate: nextProps.defaultValue[0],
+        endDate: nextProps.defaultValue[1],
+      });
+    }
   }
 
   selectDate = (date: Date, useDateTime = false, startDate?: Date, endDate?: Date) => {
@@ -99,6 +112,17 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
 
   onSelectedDate = (date: Date) => {
     const { startDate, endDate } = this.state;
+    const { onSelect } = this.props;
+    if (onSelect) {
+      let value = onSelect(date);
+      if (value) {
+        this.setState({
+          startDate: value[0],
+          endDate: value[1],
+        });
+        return;
+      }
+    }
     this.setState(this.selectDate(date, false, startDate, endDate));
   }
 

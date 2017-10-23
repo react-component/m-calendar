@@ -1,6 +1,8 @@
 import { Models } from './date/DataTypes';
 import { PropsType as HeaderPropsType } from './calendar/Header';
 
+export type SelectDateType = [Date, Date] | [Date];
+
 export default interface PropsType {
   /** 入场方向，default: vertical，vertical: 垂直，horizontal: 水平 */
   enterDirection?: 'horizontal' | 'vertical';
@@ -27,6 +29,8 @@ export default interface PropsType {
   type?: 'one' | 'range';
   /** 是否显示，default: false */
   visible?: boolean;
+  /** 默认选择值，开始时间、结束时间 */
+  defaultValue?: SelectDateType;
 
   // DatePicker
   /** 显示开始日期，default: today */
@@ -43,6 +47,8 @@ export default interface PropsType {
   minDate?: Date;
   /** 选择区间包含不可用日期 */
   onSelectHasDisableDate?: (date: Date[]) => void;
+  /** 选择日期回调，如果有返回值，选择范围将使用返回值 */
+  onSelect?: (date: Date) => SelectDateType | void;
   /** 行大小，default: normal */
   rowSize?: 'normal' | 'xl';
 
