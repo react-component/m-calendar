@@ -7,13 +7,13 @@ exports[`Calendar base. 1`] = `
   <span>
     <div
       class="mask animate"
-      style="display:none"
+      style="display:none;"
     />
   </span>
   <span>
     <div
       class="content animate"
-      style="display:none"
+      style="display:none;"
     />
   </span>
 </div>
@@ -26,13 +26,13 @@ exports[`Calendar english. renders correctly 1`] = `
   <span>
     <div
       class="mask animate"
-      style="display:flex"
+      style="display:flex;"
     />
   </span>
   <span>
     <div
       class="content animate"
-      style="display:flex"
+      style="display:flex;"
     >
       <div
         class="header"
@@ -92,10 +92,10 @@ exports[`Calendar english. renders correctly 1`] = `
         </div>
         <div
           class="wrapper"
-          style="overflow-x:hidden;overflow-y:visible"
+          style="overflow-x:hidden;overflow-y:visible;"
         >
           <div
-            style="transform:"
+            style="transform:;"
           >
             <div
               class="load-tip"
@@ -4691,13 +4691,13 @@ exports[`Calendar show shortcut. 1`] = `
   <span>
     <div
       class="mask animate"
-      style="display:flex"
+      style="display:flex;"
     />
   </span>
   <span>
     <div
       class="content animate"
-      style="display:flex"
+      style="display:flex;"
     >
       <div
         class="header"
@@ -4757,10 +4757,10 @@ exports[`Calendar show shortcut. 1`] = `
         </div>
         <div
           class="wrapper"
-          style="overflow-x:hidden;overflow-y:visible"
+          style="overflow-x:hidden;overflow-y:visible;"
         >
           <div
-            style="transform:"
+            style="transform:;"
           >
             <div
               class="load-tip"
