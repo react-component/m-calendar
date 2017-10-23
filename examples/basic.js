@@ -23668,6 +23668,7 @@ var Calendar = function (_React$PureComponent) {
                 endDate: undefined,
                 showTimePicker: false
             });
+            _this.props.onClear && _this.props.onClear();
         };
         _this.shortcutSelect = function (startDate, endDate) {
             var state = _this.selectDate(startDate, true);
