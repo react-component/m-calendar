@@ -171,6 +171,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
       endDate: undefined,
       showTimePicker: false,
     });
+    this.props.onClear && this.props.onClear();
   }
 
   shortcutSelect = (startDate: Date, endDate: Date) => {

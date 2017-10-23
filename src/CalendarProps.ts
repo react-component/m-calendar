@@ -10,6 +10,8 @@ export default interface PropsType {
   locale?: Models.Locale;
   /** 关闭时回调 */
   onCancel?: () => void;
+  /** 清除时回调 */
+  onClear?: () => void;
   /** 确认时回调 */
   onConfirm?: (startDateTime?: Date, endDateTime?: Date) => void;
   /** 是否选择时间，default: false */
