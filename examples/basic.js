@@ -2496,7 +2496,14 @@ var BasicDemo = function (_React$Component) {
                 this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true }),
                 this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true }),
                 this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true }),
-                this.renderBtn('水平进入', '', { enterDirection: 'horizontal' }),
+                this.renderBtn('水平进入', 'Horizontal Enter Aniamtion', { enterDirection: 'horizontal' }),
+                this.renderBtn('默认选择范围', 'Selected Date Range', { defaultValue: [new Date(+new Date() - 1 * 24 * 3600 * 1000), new Date(+new Date() - 4 * 24 * 3600 * 1000)] }),
+                this.renderBtn('onSelectAPI', 'onSelectAPI', {
+                    onSelect: function onSelect(date) {
+                        console.log('onSelect', date);
+                        return [date, new Date(+new Date() - 7 * 24 * 3600 * 1000)];
+                    }
+                }),
                 __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(
                     'div',
                     { style: { marginLeft: 10, fontSize: 14 } },
@@ -23601,7 +23608,18 @@ var Calendar = function (_React$PureComponent) {
             var _this$state = _this.state,
                 startDate = _this$state.startDate,
                 endDate = _this$state.endDate;
+            var onSelect = _this.props.onSelect;
 
+            if (onSelect) {
+                var value = onSelect(date);
+                if (value) {
+                    _this.setState({
+                        startDate: value[0],
+                        endDate: value[1]
+                    });
+                    return;
+                }
+            }
             _this.setState(_this.selectDate(date, false, startDate, endDate));
         };
         _this.onSelectHasDisableDate = function (date) {
@@ -23660,11 +23678,25 @@ var Calendar = function (_React$PureComponent) {
                 clientHight: height
             });
         };
-        _this.state = new StateType();
+        var state = _this.state = new StateType();
+        if (props.defaultValue) {
+            state.startDate = props.defaultValue[0];
+            state.endDate = props.defaultValue[1];
+        }
         return _this;
     }
 
     __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(Calendar, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (!this.props.visible && nextProps.visible && nextProps.defaultValue) {
+                this.setState({
+                    startDate: nextProps.defaultValue[0],
+                    endDate: nextProps.defaultValue[1]
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _props = this.props,
