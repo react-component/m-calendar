@@ -43,27 +43,28 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
   constructor(props: PropsType) {
     super(props);
 
-    const state = this.state = new StateType;
+    this.state = new StateType;
     if (props.defaultValue) {
-      state.startDate = props.defaultValue[0];
-      state.endDate = props.defaultValue[1];
+      const defaultValue = props.defaultValue;
+      this.state = {
+        ...this.state,
+        ...this.selectDate(defaultValue[1], true, { startDate: defaultValue[0] }, props),
+      };
     }
   }
 
   componentWillReceiveProps(nextProps: PropsType) {
     if (!this.props.visible && nextProps.visible && nextProps.defaultValue) {
-      this.setState({
-        startDate: nextProps.defaultValue[0],
-        endDate: nextProps.defaultValue[1],
-      });
+      this.shortcutSelect(nextProps.defaultValue[0], nextProps.defaultValue[1], nextProps);
     }
   }
 
-  selectDate = (date: Date, useDateTime = false, startDate?: Date, endDate?: Date) => {
+  selectDate = (date: Date, useDateTime = false, oldState: { startDate?: Date, endDate?: Date } = {}, props = this.props) => {
     if (!date) return {} as StateType;
     let newState = {} as StateType;
-    const { type, pickTime, defaultTimeValue, locale = {} as Models.Locale } = this.props;
+    const { type, pickTime, defaultTimeValue, locale = {} as Models.Locale } = props;
     const newDate = pickTime && !useDateTime ? mergeDateTime(date, defaultTimeValue) : date;
+    const { startDate, endDate } = oldState;
 
     switch (type) {
       case 'one':
@@ -116,14 +117,11 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
     if (onSelect) {
       let value = onSelect(date);
       if (value) {
-        this.setState({
-          startDate: value[0],
-          endDate: value[1],
-        });
+        this.shortcutSelect(value[0], value[1]);
         return;
       }
     }
-    this.setState(this.selectDate(date, false, startDate, endDate));
+    this.setState(this.selectDate(date, false, { startDate, endDate }));
   }
 
   onSelectHasDisableDate = (date: Date[]) => {
@@ -174,11 +172,10 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
     this.props.onClear && this.props.onClear();
   }
 
-  shortcutSelect = (startDate: Date, endDate: Date) => {
-    const state = this.selectDate(startDate, true);
+  shortcutSelect = (startDate: Date, endDate: Date, props = this.props) => {
     this.setState({
-      ...state,
-      ...this.selectDate(endDate, true, state.startDate),
+      startDate,
+      ...this.selectDate(endDate, true, { startDate }, props),
       showTimePicker: false,
     });
   }

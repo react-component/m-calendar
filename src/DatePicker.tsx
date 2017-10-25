@@ -21,7 +21,8 @@ export default class DatePicker extends Component {
       onCellClick={this.onCellClick}
       getDateExtra={this.props.getDateExtra}
       ref={(dom) => {
-        data.componentRef = dom || undefined;
+        // FIXME?: sometimes will callback twice, and the second is null, when use preact.
+        data.componentRef = dom || data.componentRef || undefined;
         data.updateLayout = () => {
           this.computeHeight(data, dom);
         };
