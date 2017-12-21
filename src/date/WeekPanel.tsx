@@ -1,8 +1,18 @@
 import * as React from 'react';
+import { Models } from './DataTypes';
 
-export default class WeekPanel extends React.PureComponent<{}, {}> {
+export interface PropsType {
+  locale: Models.Locale;
+}
+
+export default class WeekPanel extends React.PureComponent<PropsType, {}> {
+  constructor(props: PropsType) {
+    super(props);
+  }
+
   render() {
-    const { week } = this.props;
+    const { locale } = this.props;
+    const { week } = locale;
     return (
       <div className="week-panel">
         <div className="cell cell-grey">{week[0]}</div>
