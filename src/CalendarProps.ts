@@ -50,7 +50,7 @@ export default interface PropsType {
   /** 选择区间包含不可用日期 */
   onSelectHasDisableDate?: (date: Date[]) => void;
   /** 选择日期回调，如果有返回值，选择范围将使用返回值 */
-  onSelect?: (date: Date) => SelectDateType | void;
+  onSelect?: (date: Date, state?: [Date | undefined, Date | undefined]) => SelectDateType | void;
   /** 行大小，default: normal */
   rowSize?: 'normal' | 'xl';
 
