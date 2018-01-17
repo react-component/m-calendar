@@ -139,7 +139,7 @@ export default class DatePicker extends Component {
 
     return (
       <div className={`${prefixCls} date-picker`}>
-        <WeekPanel {...this.props.locale}></WeekPanel>
+        <WeekPanel locale={locale} />
         <div className="wrapper" style={{
           overflowX: 'hidden',
           overflowY: 'visible',
