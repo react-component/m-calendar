@@ -11399,7 +11399,7 @@ var DatePicker = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 'div',
                 { className: prefixCls + ' date-picker' },
-                __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7__date_WeekPanel__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7__date_WeekPanel__["a" /* default */], { locale: locale }),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     'div',
                     { className: 'wrapper', style: {
@@ -24527,7 +24527,7 @@ var Calendar = function (_React$PureComponent) {
             var onSelect = _this.props.onSelect;
 
             if (onSelect) {
-                var value = onSelect(date);
+                var value = onSelect(date, [startDate, endDate]);
                 if (value) {
                     _this.shortcutSelect(value[0], value[1]);
                     return;
@@ -27710,52 +27710,55 @@ DatePicker.defaultProps = {
 var WeekPanel = function (_React$PureComponent) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(WeekPanel, _React$PureComponent);
 
-    function WeekPanel() {
+    function WeekPanel(props) {
         __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default()(this, WeekPanel);
 
-        return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (WeekPanel.__proto__ || Object.getPrototypeOf(WeekPanel)).apply(this, arguments));
+        return __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (WeekPanel.__proto__ || Object.getPrototypeOf(WeekPanel)).call(this, props));
     }
 
     __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(WeekPanel, [{
         key: "render",
         value: function render() {
+            var locale = this.props.locale;
+            var week = locale.week;
+
             return __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                 "div",
                 { className: "week-panel" },
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell cell-grey" },
-                    "\u65E5"
+                    week[0]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell" },
-                    "\u4E00"
+                    week[1]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell" },
-                    "\u4E8C"
+                    week[2]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell" },
-                    "\u4E09"
+                    week[3]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell" },
-                    "\u56DB"
+                    week[4]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell" },
-                    "\u4E94"
+                    week[5]
                 ),
                 __WEBPACK_IMPORTED_MODULE_4_react__["createElement"](
                     "div",
                     { className: "cell cell-grey" },
-                    "\u516D"
+                    week[6]
                 )
             );
         }
