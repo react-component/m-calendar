@@ -61,13 +61,13 @@
     }
   },
   "dependencies": {
-    "babel-runtime": "6.x",
     "rc-animate": "^2.4.1",
-    "rmc-date-picker": "~6.0.0-alpha.10"
+    "rmc-date-picker": "~6.0.8"
   },
   "devDependencies": {
     "@types/jest": "^21.1.2",
     "jest": "^21.2.1",
+    "babel-runtime": "6.x",
     "@types/enzyme": "^2.8.11",
     "enzyme": "^3.1.0",
     "@types/enzyme-to-json": "^1.5.0",

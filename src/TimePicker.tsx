@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import DateTimePicker from 'rmc-date-picker';
 import { Models } from './date/DataTypes';
 
