@@ -57,37 +57,37 @@ exports[`Calendar english. renders correctly 1`] = `
           <div
             class="cell cell-grey"
           >
-            日
+            Sun
           </div>
           <div
             class="cell"
           >
-            一
+            Mon
           </div>
           <div
             class="cell"
           >
-            二
+            Tue
           </div>
           <div
             class="cell"
           >
-            三
+            Wed
           </div>
           <div
             class="cell"
           >
-            四
+            Thu
           </div>
           <div
             class="cell"
           >
-            五
+            Fir
           </div>
           <div
             class="cell cell-grey"
           >
-            六
+            Sat
           </div>
         </div>
         <div
