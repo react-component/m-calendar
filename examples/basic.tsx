@@ -4,8 +4,8 @@ import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.css';
 import 'rmc-calendar/assets/index.less';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Calendar, ExtraData, CalendarPropsType } from '../src';
 
 import zhCN from '../src/locale/zh_CN';

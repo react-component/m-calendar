@@ -1,6 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import Adapter from 'enzyme-adapter-react-15';
-import { default as Enzyme, render } from 'enzyme';
+import * as Enzyme from 'enzyme';
+import { render } from 'enzyme';
 import { renderToJson } from 'enzyme-to-json';
 import { Calendar, Locale } from '../src';
 
