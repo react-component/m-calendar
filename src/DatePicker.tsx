@@ -114,7 +114,7 @@ export default class DatePicker extends Component {
         this.setTransform(this.panel.style, `translate3d(0,0,0)`);
         this.setTransition(this.panel.style, '.3s');
         setTimeout(() => {
-          this.setTransition(this.panel.style, '');
+          this.panel && this.setTransition(this.panel.style, '');
         }, 300);
       }
     };
