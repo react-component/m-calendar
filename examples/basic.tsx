@@ -71,6 +71,7 @@ class BasicDemo extends React.Component<{}, {
         {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
         {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
         {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
+        {this.renderBtn('选择日期时间(24小时制)', 'Select DateTime', { type: 'one', pickTime: true, use12Hours: false })}
         {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
         {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
         {this.renderBtn('水平进入', 'Horizontal Enter Aniamtion', { enterDirection: 'horizontal' })}
