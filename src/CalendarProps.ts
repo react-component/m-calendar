@@ -59,4 +59,5 @@ export default interface PropsType {
   defaultTimeValue?: Date;
   timePickerPrefixCls?: string;
   timePickerPickerPrefixCls?: string;
+  use12Hours?: boolean;
 }
