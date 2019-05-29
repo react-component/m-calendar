@@ -81,7 +81,7 @@ export default class DatePicker extends Component {
         if (isReachTop) {
           delta = evt.touches[0].screenY - lastY;
           if (delta > 0) {
-            evt.preventDefault();
+            evt.cancelable !== false && evt.preventDefault();
             if (delta > 80) {
               delta = 80;
             }
