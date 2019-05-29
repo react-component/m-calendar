@@ -126,6 +126,8 @@ interface PropsType {
     // DatePicker Component
     /** default date for show, default: today */
     defaultDate?: Date;
+    /** 默认选择日期，defaultDate用来设置默认展示的月份 */
+    defaultValue?: [Date, Date];
     /** extra info of date */
     getDateExtra?: (date: Date) => DateModels.ExtraData;
     /** infinite scroll, default: true */
