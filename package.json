@@ -1,5 +1,5 @@
 {
-  "name": "rmc-calendar",
+  "name": "rmc-calendar-extended",
   "version": "1.1.4",
   "description": "React Mobile Calendar Component(web and react-native)",
   "keywords": [
@@ -79,8 +79,8 @@
     "pre-commit": "1.x",
     "rc-test": "^6.0.8",
     "rc-tools": "^7.0.0",
-    "react": "^15.x",
-    "react-dom": "^15.x",
+    "react": "^16.x",
+    "react-dom": "^16.x",
     "react-test-renderer": "^15.x",
     "stylelint-config-standard": "^17.0.0"
   },

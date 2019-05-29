@@ -2,7 +2,7 @@
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.css';
-import 'rmc-calendar/assets/index.less';
+import '../assets/index.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -69,7 +69,7 @@ class BasicDemo extends React.Component<{}, {
       <div style={{ marginTop: 10, marginBottom: 10, fontSize: 14 }}>
         {this.renderBtn('选择日期区间', 'Select Date Range')}
         {this.renderBtn('选择日期时间区间', 'Select DateTime Range', { pickTime: true })}
-        {this.renderBtn('选择日期', 'Select Date', { type: 'one' })}
+        {this.renderBtn('选择日期', 'Select Date', { type: 'one', defaultValue: [new Date(), new Date()] })}
         {this.renderBtn('选择日期时间', 'Select DateTime', { type: 'one', pickTime: true })}
         {this.renderBtn('选择日期区间(快捷)', 'Select Date Range (Shortcut)', { showShortcut: true })}
         {this.renderBtn('选择日期时间区间(快捷)', 'Select DateTime Range (Shortcut)', { pickTime: true, showShortcut: true })}
