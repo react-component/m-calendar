@@ -24,15 +24,15 @@ React Mobile Calendar Component (web)
 [download-image]: https://img.shields.io/npm/dm/rmc-calendar.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rmc-calendar
 
-## Screenshots
+## 说明
 
-<!-- <img src="https://os.alipayobjects.com/rmsportal/fOaDvpIJukLYznc.png" width="288"/> -->
-
+rmc-calendar上面解了几个bug
+1. chrome模拟设备无法滚动
 
 ## Development
 
 ```
-npm i 
+npm i
 npm start
 ```
 
