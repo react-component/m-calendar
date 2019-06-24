@@ -68,7 +68,7 @@
   "devDependencies": {
     "@types/jest": "^21.1.2",
     "jest": "^21.2.1",
-    "@types/enzyme": "^2.8.11",
+    "@types/enzyme": "^3.9.4",
     "enzyme": "^3.1.0",
     "@types/enzyme-to-json": "^1.5.0",
     "enzyme-to-json": "^3.1.2",
