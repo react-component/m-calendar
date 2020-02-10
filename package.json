@@ -82,7 +82,7 @@
     "react": "^15.x",
     "react-dom": "^15.x",
     "react-test-renderer": "^15.x",
-    "stylelint-config-standard": "^17.0.0"
+    "stylelint-config-standard": "^20.0.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [
