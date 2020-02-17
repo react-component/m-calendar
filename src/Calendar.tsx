@@ -191,7 +191,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
       type, locale = {} as Models.Locale, prefixCls, visible, pickTime, showShortcut, renderHeader,
       infiniteOpt, initalMonths, defaultDate, minDate, maxDate, getDateExtra, rowSize,
       defaultTimeValue, renderShortcut, enterDirection, timePickerPrefixCls, timePickerPickerPrefixCls,
-      style,
+      style,renderMonthTitle
     } = this.props;
     const {
       showTimePicker, timePickerTitle,
@@ -233,6 +233,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
               startDate={startDate}
               endDate={endDate}
               rowSize={rowSize}
+              renderMonthTitle={renderMonthTitle}
             />
             {
               showTimePicker &&
