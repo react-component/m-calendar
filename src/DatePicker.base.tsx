@@ -213,7 +213,7 @@ export default abstract class DatePicker extends React.Component<PropsType, Stat
         if (needUpdate && m.componentRef) {
           m.componentRef.updateWeeks();
           m.componentRef.forceUpdate();
-        };
+        }
       });
     if (unuseable.length > 0) {
       if (onSelectHasDisableDate) {

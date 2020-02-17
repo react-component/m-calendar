@@ -60,5 +60,5 @@ export default interface PropsType {
   timePickerPrefixCls?: string;
   timePickerPickerPrefixCls?: string;
   /** 自定义月的标题 */
-  renderMonthTitle?:(date:Date) => React.ReactNode
+  renderMonthTitle?: (date: Date) => React.ReactNode;
 }

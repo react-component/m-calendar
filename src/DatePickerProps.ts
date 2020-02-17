@@ -30,5 +30,5 @@ export default interface PropsType {
   rowSize?: 'normal' | 'xl';
   /** 选择类型，default: range，one: 单日，range: 日期区间 */
   type?: 'one' | 'range';
-  renderMonthTitle?:(date:Date) => React.ReactNode
+  renderMonthTitle?: (date: Date) => React.ReactNode;
 }

@@ -14,7 +14,7 @@ export default class DatePicker extends Component {
   genMonthComponent = (data?: Models.MonthData) => {
     if (!data) return;
 
-    const { renderMonthTitle } = this.props
+    const { renderMonthTitle } = this.props;
     return <SingleMonth key={data.title}
       locale={this.props.locale || {} as Models.Locale}
       monthData={data}

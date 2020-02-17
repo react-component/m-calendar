@@ -64,18 +64,18 @@ class BasicDemo extends React.Component<{}, {
     </div>;
   }
 
-  renderMonthTitle = (date:Date) => {
-    const style = {color:'rgba(25,124,217,1)',fontWeight:600,fontSize:14,lineHeight:22}
+  renderMonthTitle = (date: Date) => {
+    const style = { color: 'rgba(25,124,217,1)', fontWeight: 600, fontSize: 14, lineHeight: 22 };
     return <div style={{
-      display:'flex',
-      flexDirection:'row',
-      justifyContent:'center',
-      alignItems:'center',
-      height:40,
-      background:'rgba(255,255,255,1) rgba(29,43,61,0.03)'}}>
-      <span style={{...style}}>{`${date.getFullYear()}年`}</span>
-      <span style={{...style}}>{`${date.getMonth()}月`}</span>
-    </div>
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 40,
+      background: 'rgba(255,255,255,1) rgba(29,43,61,0.03)'}}>
+      <span style={{ ...style }}>{`${date.getFullYear()}年`}</span>
+      <span style={{ ...style }}>{`${date.getMonth()}月`}</span>
+    </div>;
   }
 
 
