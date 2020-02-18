@@ -14,12 +14,14 @@ export default class DatePicker extends Component {
   genMonthComponent = (data?: Models.MonthData) => {
     if (!data) return;
 
+    const { renderMonthTitle } = this.props;
     return <SingleMonth key={data.title}
       locale={this.props.locale || {} as Models.Locale}
       monthData={data}
       rowSize={this.props.rowSize}
       onCellClick={this.onCellClick}
       getDateExtra={this.props.getDateExtra}
+      renderMonthTitle={ renderMonthTitle ? () =>  renderMonthTitle(data.firstDate) : undefined}
       ref={(dom) => {
         // FIXME?: sometimes will callback twice, and the second is null, when use preact.
         data.componentRef = dom || data.componentRef || undefined;

@@ -25,7 +25,7 @@
   "main": "./lib/index",
   "module": "./es/index",
   "config": {
-    "port": 8021
+    "port": 8899
   },
   "scripts": {
     "watch-tsc": "rc-tools run watch-tsc",
@@ -66,19 +66,19 @@
     "rmc-date-picker": "~6.0.0-alpha.10"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.2",
-    "jest": "^21.2.1",
     "@types/enzyme": "^2.8.11",
-    "enzyme": "^3.1.0",
     "@types/enzyme-to-json": "^1.5.0",
-    "enzyme-to-json": "^3.1.2",
-    "enzyme-adapter-react-15": "^1.0.1",
-    "coveralls": "^3.0.0",
+    "@types/jest": "^21.1.2",
     "@types/react": "^16.0.10",
     "@types/react-dom": "^16.0.1",
+    "coveralls": "^3.0.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
+    "enzyme-to-json": "^3.1.2",
+    "jest": "^21.2.1",
     "pre-commit": "1.x",
     "rc-test": "^6.0.8",
-    "rc-tools": "^7.0.0",
+    "rc-tools": "^9.5.3",
     "react": "^15.x",
     "react-dom": "^15.x",
     "react-test-renderer": "^15.x",

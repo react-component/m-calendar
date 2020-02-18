@@ -7,6 +7,7 @@ export interface PropsType {
   rowSize?: 'normal' | 'xl';
   getDateExtra?: (date: Date) => Models.ExtraData;
   onCellClick?: (data: Models.CellData, monthData: Models.MonthData) => void;
+  renderMonthTitle?: (date: Date) => React.ReactNode;
 }
 export default class SingleMonth extends React.PureComponent<PropsType, {
   weekComponents: React.ReactNode[]
@@ -169,13 +170,14 @@ export default class SingleMonth extends React.PureComponent<PropsType, {
   }
 
   render() {
-    const { title } = this.props.monthData;
+    const { title, firstDate } = this.props.monthData;
     const { weekComponents } = this.state;
+    const { renderMonthTitle } = this.props;
 
     return (
       <div className="single-month" ref={this.setWarpper}>
         <div className="month-title">
-          {title}
+          {renderMonthTitle ? renderMonthTitle(firstDate) : title}
         </div>
         <div className="date">
           {weekComponents}
