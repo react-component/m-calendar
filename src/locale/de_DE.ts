@@ -1,0 +1,30 @@
+import { Models } from '../date/DataTypes';
+
+const locale: Models.Locale = {
+  title: 'Kalender',
+  today: 'Heute',
+  month: 'Monat',
+  year: 'Jahr',
+  am: 'AM',
+  pm: 'PM',
+  dateTimeFormat: 'dd.MM.yyyy hh:mm',
+  dateFormat: 'dd.MM.yyyy',
+  noChoose: 'Keine Auswahl',
+  week: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+  clear: 'Löschen',
+  selectTime: 'Zeit auswählen',
+  selectStartTime: 'Start auswählen',
+  selectEndTime: 'Ende auswählen',
+  start: 'Start',
+  end: 'Ende',
+  begin: 'Start',
+  over: 'Ende',
+  begin_over: 'S/E',
+  confirm: 'Bestätigen',
+  monthTitle: 'MM yyyy',
+  loadPrevMonth: 'Lade vorheriger Monat',
+  yesterday: 'Gestern',
+  lastWeek: 'Letzte Woche',
+  lastMonth: 'Letzter Monat',
+};
+export default locale;
