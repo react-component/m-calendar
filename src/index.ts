@@ -5,7 +5,8 @@ export { default as DatePicker, PropsType as DatePickerPropsType } from './DateP
 
 import zhCN from './locale/zh_CN';
 import enUS from './locale/en_US';
-const Locale = { zhCN, enUS };
+import deDE from './locale/de_DE';
+const Locale = { zhCN, enUS, deDE };
 
 type LocaleType = Models.Locale;
 export { Locale, LocaleType };
