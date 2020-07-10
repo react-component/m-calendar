@@ -1,0 +1,30 @@
+import { Models } from '../date/DataTypes';
+
+const locale: Models.Locale = {
+  title: '달력',
+  today: '오늘',
+  month: '월',
+  year: '년',
+  am: '오전',
+  pm: '오후',
+  dateTimeFormat: 'MM/dd/yyyy w hh:mm',
+  dateFormat: 'yyyy/MM/dd w',
+  noChoose: '선택 없음',
+  week: ['일', '월', '화', '수', '목', '금', '토'],
+  clear: '처음부터',
+  selectTime: '시간 선택',
+  selectStartTime: '시작 시간 선택',
+  selectEndTime: '종료 시간 선택',
+  start: '시작',
+  end: '종료',
+  begin: '시작',
+  over: '종료',
+  begin_over: '시작/종료',
+  confirm: '확인',
+  monthTitle: 'yyyy/MM',
+  loadPrevMonth: '이전 달',
+  yesterday: '어제',
+  lastWeek: '지난 주',
+  lastMonth: '지난 달',
+};
+export default locale;
