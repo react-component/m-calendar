@@ -115,7 +115,13 @@ export default abstract class DatePicker extends React.Component<PropsType, Stat
         isLastOfMonth: false,
         outOfDate: tick < minDateTime || tick > maxDateTime,
       });
-      currentDay = new Date(currentDay.getTime() + 3600 * 24 * 1000);
+      let nextDay = new Date(currentDay.getTime() + 3600 * 24 * 1000);
+
+      if (nextDay.getDate() === currentDay.getDate()) {
+        nextDay = new Date(nextDay.getTime() + 3600 * 1 * 1000);
+      }
+
+      currentDay = nextDay;
     }
     currentWeek[currentWeek.length - 1].isLastOfMonth = true;
     return weeks;
