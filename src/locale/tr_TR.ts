@@ -1,0 +1,30 @@
+import { Models } from '../date/DataTypes';
+
+const locale: Models.Locale = {
+  title: 'Takvim',
+  today: 'Bugün',
+  month: 'Ay',
+  year: 'Yıl',
+  am: 'ÖÖ',
+  pm: 'ÖS',
+  dateTimeFormat: 'dd/MM/yyyy w HH:mm',
+  dateFormat: 'dd/MM/yyyy w',
+  noChoose: 'Seçim yok',
+  week: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
+  clear: 'Temizle',
+  selectTime: 'Saati Seçin',
+  selectStartTime: 'Başlangıç Saati'ni seçin',
+  selectEndTime: 'Bitiş Saati'ni seçin',
+  start: 'Başlangıç',
+  end: 'Bitiş',
+  begin: 'Başla',
+  over: 'Bitir',
+  begin_over: 'B/B',
+  confirm: 'Onayla',
+  monthTitle: 'yyyy/MM',
+  loadPrevMonth: 'Önceki Ayı Yükle',
+  yesterday: 'Dün',
+  lastWeek: 'Geçen Hafta',
+  lastMonth: 'Geçen Ay',
+};
+export default locale;
