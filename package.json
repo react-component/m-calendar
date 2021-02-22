@@ -80,7 +80,7 @@
     "rc-test": "^6.0.8",
     "rc-tools": "^7.0.0",
     "react": "^15.x",
-    "react-dom": "^15.x",
+    "react-dom": "^0.x",
     "react-test-renderer": "^15.x",
     "stylelint-config-standard": "^17.0.0"
   },
