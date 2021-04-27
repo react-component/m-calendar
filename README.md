@@ -112,6 +112,8 @@ interface PropsType {
     prefixCls?: string;
     /** shortcut render, need showShortcut: true */
     renderShortcut?: (select: (startDate?: Date, endDate?: Date) => void) => React.ReactNode;
+    /** header render */
+    renderHeader?: (prop: HeaderPropsType) => React.ReactNode;
     /** show header, default: true */
     showHeader?: boolean;
     /** show shortcut, default: false */
