@@ -38,6 +38,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
     prefixCls: 'rmc-calendar',
     type: 'range',
     defaultTimeValue: new Date(2000, 0, 1, 8),
+    timePickerProps: {},
   } as PropsType;
 
   constructor(props: PropsType) {
@@ -247,6 +248,7 @@ export default class Calendar extends React.PureComponent<PropsType, StateType> 
                 minDate={minDate}
                 maxDate={maxDate}
                 clientHeight={clientHight}
+                {...this.props.timePickerProps}
               />
             }
             {
