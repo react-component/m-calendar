@@ -54,7 +54,7 @@ export default class TimePicker extends React.PureComponent<PropsType, StateType
   }
 
   render() {
-    const { locale, title, value, defaultValue, prefixCls, pickerPrefixCls, clientHeight } = this.props;
+    const { locale, title, value, defaultValue, prefixCls, pickerPrefixCls, clientHeight, ...timePickerProps } = this.props;
     const date = value || defaultValue || undefined;
     const height = (clientHeight && clientHeight * 3 / 8 - 52) || Number.POSITIVE_INFINITY;
 
@@ -75,6 +75,7 @@ export default class TimePicker extends React.PureComponent<PropsType, StateType
           maxDate={this.getMaxTime(date)}
           onDateChange={this.onDateChange}
           use12Hours
+          {...timePickerProps}
         />
       </div>
     );
